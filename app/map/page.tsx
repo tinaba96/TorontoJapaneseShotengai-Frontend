@@ -56,6 +56,28 @@ export default function JapaneseMarketMap() {
           ))}
         </div>
         
+        <Card className="w-full lg:w-1/3">
+          <CardHeader className="flex flex-row items-center justify-between bg-red-50 border-b border-red-100">
+            <CardTitle className="text-gray-800">{selectedShop ? selectedShop.name : '店舗情報'}</CardTitle>
+            {selectedShop && (
+              <Button variant="ghost" size="icon" onClick={() => setSelectedShop(null)} className="text-gray-600 hover:text-gray-800">
+                <X className="h-4 w-4" />
+                <span className="sr-only">閉じる</span>
+              </Button>
+            )}
+          </CardHeader>
+          <CardContent className="mt-4">
+            {selectedShop ? (
+              <>
+                <p className="text-4xl mb-4">{selectedShop.icon}</p>
+                <p className="font-semibold mb-2 text-gray-700">業種: {selectedShop.type}</p>
+                <p className="text-gray-600">{selectedShop.description}</p>
+              </>
+            ) : (
+              <p className="text-gray-600">マップ上の店舗アイコンをクリックすると、詳細情報が表示されます。</p>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
