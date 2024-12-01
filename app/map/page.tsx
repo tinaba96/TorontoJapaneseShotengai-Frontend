@@ -36,7 +36,7 @@ export default function JapaneseMarketMap() {
         <div className="flex-1 relative bg-white rounded-xl shadow-lg overflow-hidden">
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-11-08%20at%202.01.47%E2%80%AFPM-A7wSgQRP4vjmEBhbb4VTwhiFimgdqN.png"
-            alt="商店街マップ"
+            alt="Toronto Japanese Shotengai "
             width={800}
             height={800}
             className="w-full h-auto"
