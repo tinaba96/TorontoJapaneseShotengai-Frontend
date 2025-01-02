@@ -27,7 +27,7 @@ const Header = () => {
                   href="/about"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  心斎橋について
+                  TJSについて
                 </Link>
               </li>
               <li>
