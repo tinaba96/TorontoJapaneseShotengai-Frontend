@@ -43,7 +43,7 @@ const Header = () => {
                   href="/shops"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  ショップ
+                  フリマ
                 </Link>
               </li>
               <li>
