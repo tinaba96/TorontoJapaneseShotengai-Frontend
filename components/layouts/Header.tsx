@@ -51,7 +51,7 @@ const Header = () => {
                   href="/access"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  会社
+                  会社情報
                 </Link>
               </li>
             </ul>
