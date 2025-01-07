@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">心斎橋について</h3>
+            <h3 className="text-xl font-bold mb-4">商店街</h3>
             <p className="text-gray-300">
               心斎橋は大阪の中心地にある商業地区です。ショッピング、グルメ、エンターテイメントなど、様々な魅力にあふれています。
             </p>
