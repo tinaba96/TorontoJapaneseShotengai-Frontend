@@ -8,7 +8,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">商店街</h3>
             <p className="text-gray-300">
-              Toronto Japanese Shotengai is the place where o斎橋は大阪の中心地にある商業地区です。ショッピング、グルメ、エンターテイメントなど、様々な魅力にあふれています。
+              Toronto Japanese Shotengai is the place whereョッピング、グルメ、エンターテイメントなど、様々な魅力にあふれています。
             </p>
           </div>
           <div>
