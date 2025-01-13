@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./AllContents.module.css";
 
-interface ContentsItem {
-  id: number;
-  date: string;
-  title: string;
-  link: string;
-}
+// interface ContentsItem {
+//   id: number;
+//   date: string;
+//   title: string;
+//   link: string;
+// }
 
 // const contentItems: ContentsItem[] = [
 //   {
