@@ -10,21 +10,27 @@ interface NewsItem {
 const newsItems: NewsItem[] = [
   {
     id: 1,
-    date: "2023-05-01",
-    title: "心斎橋サマーフェスティバル開催決定",
+    date: "2024-11-01",
+    title: "起業家のためのオンラインイベントのお知らせ",
     link: "/news/1",
   },
   {
     id: 2,
-    date: "2023-04-15",
-    title: "新規ショップオープンのお知らせ",
+    date: "2023-12-01",
+    title: "日本食バトル開催決定",
     link: "/news/2",
   },
   {
     id: 3,
-    date: "2023-04-01",
-    title: "ゴールデンウィークイベント情報",
+    date: "2023-04-15",
+    title: "新規ショップオープンのお知らせ",
     link: "/news/3",
+  },
+  {
+    id: 4,
+    date: "2023-02-01",
+    title: "ゴールデンウィークイベント情報",
+    link: "/news/4",
   },
 ];
 

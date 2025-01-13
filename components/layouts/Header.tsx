@@ -8,7 +8,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white shadow-md mb-10">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link href="/">
@@ -40,7 +40,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href="/shops"
+                  href="/fm"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   フリマ
@@ -48,7 +48,7 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href="/access"
+                  href="/company"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   会社情報
