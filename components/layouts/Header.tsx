@@ -82,7 +82,7 @@ const Header = () => {
                   href="/about"
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  心斎橋について
+                  心斎橋について TJSについて
                 </Link>
               </li>
               <li>
@@ -95,18 +95,18 @@ const Header = () => {
               </li>
               <li>
                 <Link
-                  href="/shops"
+                  href="/fm"
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  ショップ
+                  フリマ
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/access"
+                  href="/company"
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  アクセス
+                  会社情報
                 </Link>
               </li>
             </ul>

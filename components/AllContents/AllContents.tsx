@@ -42,7 +42,7 @@ const AllContents = () => {
               <Image
                 alt="For-inbound_01"
                 src="/images/bg.png"
-                width={300}
+                width={3000}
                 height={200}
               />
             </p>
@@ -50,7 +50,7 @@ const AllContents = () => {
               <Image
                 alt="For-inbound_02"
                 src="/images/bg.png"
-                width={300}
+                width={3000}
                 height={200}
               />
             </p>
