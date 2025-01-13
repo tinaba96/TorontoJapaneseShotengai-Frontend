@@ -9,26 +9,26 @@ interface ContentsItem {
   link: string;
 }
 
-const contentItems: ContentsItem[] = [
-  {
-    id: 1,
-    date: "2023-05-01",
-    title: "JAPANサマーフェスティバル開催決定",
-    link: "/news/1",
-  },
-  {
-    id: 2,
-    date: "2023-04-15",
-    title: "新規ショップオープンのお知らせ",
-    link: "/news/2",
-  },
-  {
-    id: 3,
-    date: "2023-04-01",
-    title: "ゴールデンウィークイベント情報",
-    link: "/news/3",
-  },
-];
+// const contentItems: ContentsItem[] = [
+//   {
+//     id: 1,
+//     date: "2023-05-01",
+//     title: "JAPANサマーフェスティバル開催決定",
+//     link: "/news/1",
+//   },
+//   {
+//     id: 2,
+//     date: "2023-04-15",
+//     title: "新規ショップオープンのお知らせ",
+//     link: "/news/2",
+//   },
+//   {
+//     id: 3,
+//     date: "2023-04-01",
+//     title: "ゴールデンウィークイベント情報",
+//     link: "/news/3",
+//   },
+// ];
 
 const AllContents = () => {
   return (
