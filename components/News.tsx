@@ -32,6 +32,12 @@ const newsItems: NewsItem[] = [
     title: "ゴールデンウィークイベント情報",
     link: "/news/4",
   },
+  {
+    id: 5,
+    date: "2022-12-01",
+    title: "クリスマスイベント情報",
+    link: "/news/5",
+  },
 ];
 
 const NewsSection = () => {
