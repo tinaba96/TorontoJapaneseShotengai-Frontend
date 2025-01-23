@@ -38,6 +38,12 @@ const products = [
     price: 55,
     image: "/images/default2.png?height=200&width=200",
   },
+  {
+    id: 7,
+    name: "スノーボード",
+    price: 155,
+    image: "/images/default.png?height=200&width=200",
+  },
 ];
 
 export default function ProductList() {
