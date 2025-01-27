@@ -34,7 +34,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <h3 className="font-semibold text-lg mb-2 text-gray-800">
           {product.name}
         </h3>
-        <Button className="w-full mt-2">カートに追加</Button>
+        <Button className="w-full mt-2">カートに追加する</Button>
       </CardFooter>
     </Card>
   );
