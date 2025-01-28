@@ -75,16 +75,18 @@ const AllContents = () => {
       <div className={`${styles["block-inner"]}`}>
         <div className={`${styles["top-index"]} ${styles["top-index-Left"]}`}>
           <div className={`${styles["map"]}`}>
-            <Link href="/map/">
+            <Link href="/events">
               <Image
                 src="/images/default2.png"
-                alt="MAP"
                 width={300}
                 height={200}
               />
               <div className={`${styles["fg"]}`}>
-                <h1>MAP</h1>
-                <h2>TJSのお店を探す</h2>
+                <h1>
+                  EVENT, <br className={`${styles["only-sp"]}`} />
+                  CAMPAIGN
+                </h1>
+                <h2>開催中のイベント・キャンペーン</h2>
               </div>
             </Link>
           </div>
@@ -103,19 +105,17 @@ const AllContents = () => {
             </Link>
           </div>
           <div className={`${styles["event"]}`}>
-            <Link href="/events">
+            <Link href="/map/">
               <Image
                 src="/images/default.png"
                 alt="EVENT, CAMPAIGN"
+                alt="MAP"
                 width={300}
                 height={200}
               />
               <div className={`${styles["fg"]}`}>
-                <h1>
-                  EVENT, <br className={`${styles["only-sp"]}`} />
-                  CAMPAIGN
-                </h1>
-                <h2>開催中のイベント・キャンペーン</h2>
+                <h1>MAP</h1>
+                <h2>TJSのお店を探す</h2>
               </div>
             </Link>
           </div>
