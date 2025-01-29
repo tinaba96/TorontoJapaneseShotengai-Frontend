@@ -78,6 +78,7 @@ const AllContents = () => {
             <Link href="/events">
               <Image
                 src="/images/default2.png"
+                alt="EVENT, CAMPAIGN"
                 width={300}
                 height={200}
               />
@@ -108,7 +109,6 @@ const AllContents = () => {
             <Link href="/map/">
               <Image
                 src="/images/default.png"
-                alt="EVENT, CAMPAIGN"
                 alt="MAP"
                 width={300}
                 height={200}
