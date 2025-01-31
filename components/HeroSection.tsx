@@ -8,7 +8,7 @@ export default function HeroSection() {
           フリーマーケット
         </h1>
         <p className="text-xl mb-4">
-          ユニークな商品を見つけよう。あなたの宝物が待っています。
+          ユニークな商品を見つけよう。あなたの宝物が待っています!
         </p>
         <p className="text-lg mb-8">
           全商品カナダドル表示でグローバルなお買い物体験！！
