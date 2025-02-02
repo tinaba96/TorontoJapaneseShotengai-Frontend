@@ -11,7 +11,7 @@ export default function HeroSection() {
           ここにしかないユニークな商品を見つけよう。あなたの宝物が待っています!
         </p>
         <p className="text-lg mb-8">
-          全商品カナダドル表示でグローバルなお買い物体験！！
+          カナダにいながら日本のものをGET！！
         </p>
         {/* <Button size="lg" variant="secondary">
           商品を探す
