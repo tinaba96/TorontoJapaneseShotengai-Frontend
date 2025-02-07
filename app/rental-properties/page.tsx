@@ -26,7 +26,6 @@ const properties: Property[] = [
     price: 2500,
     size: 70,
     rooms: 3,
-    imageUrl: "/placeholder.svg?height=200&width=300",
     imageUrl: "/images/rental2.png?height=200&width=300",
   },
   {
@@ -36,7 +35,6 @@ const properties: Property[] = [
     price: 3200,
     size: 90,
     rooms: 3,
-    imageUrl: "/placeholder.svg?height=200&width=300",
     imageUrl: "/images/rental3.png?height=200&width=300",
   },
   {
@@ -46,7 +44,6 @@ const properties: Property[] = [
     price: 3500,
     size: 120,
     rooms: 4,
-    imageUrl: "/placeholder.svg?height=200&width=300",
     imageUrl: "/images/rental4.png?height=200&width=300",
   },
   {
@@ -56,7 +53,6 @@ const properties: Property[] = [
     price: 1500,
     size: 35,
     rooms: 1,
-    imageUrl: "/placeholder.svg?height=200&width=300",
     imageUrl: "/images/rental5.png?height=200&width=300",
   },
   {
