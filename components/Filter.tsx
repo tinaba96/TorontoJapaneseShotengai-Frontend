@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { FilterOptions } from "../types";
+import type { FilterOptions } from "../lib/types";
 
 interface FilterProps {
   onFilterChange: (filter: FilterOptions) => void;
