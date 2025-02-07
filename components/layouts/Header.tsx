@@ -32,6 +32,22 @@ const Header = () => {
               </li>
               <li>
                 <Link
+                  href="/jobs"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  求人情報
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/rental-properties"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  賃貸情報
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/events"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
@@ -82,7 +98,23 @@ const Header = () => {
                   href="/about"
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
-                  心斎橋について TJSについて
+                  TJSについて
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/jobs"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  求人情報
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/rental-properties"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  賃貸情報
                 </Link>
               </li>
               <li>
