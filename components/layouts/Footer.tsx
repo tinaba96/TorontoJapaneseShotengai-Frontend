@@ -53,7 +53,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">お問い合わせ</h3>
             <p className="text-black">
-              123 Garden ave, Totontom, ONTARIO, M4N5M1
+              123 Garden ave, Totonto, ONTARIO, M4N5M1
               <br />
               TEL: 06-1234-5678
               <br />
