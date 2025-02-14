@@ -23,7 +23,7 @@ export default function JobCard({
         </div>
         <div className="flex items-center text-gray-600 mb-2">
           <Briefcase className="w-5 h-5 mr-2 text-indigo-500" />
-          <span>{type}</span>
+          <span>{type}i2</span>
         </div>
         <div className="flex items-center text-gray-600">
           <DollarSign className="w-5 h-5 mr-2 text-indigo-500" />
