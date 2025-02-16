@@ -21,7 +21,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         <p className="text-gray-600 mb-2">{property.address}</p>
         <div className="flex justify-between items-center">
           <span className="text-purple-600 font-bold">
-            ${property.price.toLocaleString()}/month
+            ${property.price.toLocaleString()}/monthis
           </span>
           <span className="text-gray-500">
             {property.size}m² • {property.rooms}rooms
