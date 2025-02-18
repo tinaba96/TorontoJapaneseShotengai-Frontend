@@ -116,7 +116,7 @@ const properties: Property[] = [
     price: 6500,
     size: 140,
     rooms: 3,
-    imageUrl: "/images/rental12.png?height=200&width=300",
+    imageUrl: "/images/rental2.png?height=200&width=300",
   },
   {
     id: "13",
