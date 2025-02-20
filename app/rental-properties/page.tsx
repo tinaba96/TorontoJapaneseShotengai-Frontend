@@ -71,7 +71,7 @@ const properties: Property[] = [
     price: 7000,
     size: 160,
     rooms: 3,
-    imageUrl: "/images/rental7.png?height=200&width=300",
+    imageUrl: "/images/rental2.png?height=200&width=300",
   },
   {
     id: "8",
@@ -80,7 +80,7 @@ const properties: Property[] = [
     price: 4000,
     size: 120,
     rooms: 2,
-    imageUrl: "/images/rental8.png?height=200&width=300",
+    imageUrl: "/images/rental3.png?height=200&width=300",
   },
   {
     id: "9",
@@ -89,7 +89,7 @@ const properties: Property[] = [
     price: 6000,
     size: 180,
     rooms: 3,
-    imageUrl: "/images/rental9.png?height=200&width=300",
+    imageUrl: "/images/rental3.png?height=200&width=300",
   },
   {
     id: "10",
@@ -98,7 +98,7 @@ const properties: Property[] = [
     price: 8000,
     size: 170,
     rooms: 4,
-    imageUrl: "/images/rental10.png?height=200&width=300",
+    imageUrl: "/images/rental.png?height=200&width=300",
   },
   {
     id: "11",
