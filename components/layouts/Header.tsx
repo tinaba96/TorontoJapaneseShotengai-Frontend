@@ -24,10 +24,26 @@ const Header = () => {
             <ul className="flex space-x-6">
               <li>
                 <Link
+                  href="/"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  ホームページ
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   TJSについて
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/map"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  商店街マップ
                 </Link>
               </li>
               <li>
@@ -95,10 +111,26 @@ const Header = () => {
             <ul className="space-y-2">
               <li>
                 <Link
+                  href="/"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  ホームページ
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   TJSについて
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/map"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  商店街マップ
                 </Link>
               </li>
               <li>
