@@ -82,7 +82,7 @@ const jobs = [
     title: "WEbデザイナー",
     location: "トロント・ダウンタウン",
     salary: "年収900,000 CAD〜",
-    type: "アルバイト",
+    type: "正社員",
   },
 ];
 
