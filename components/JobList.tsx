@@ -70,13 +70,14 @@ const jobs = [
     location: "トロント・ダウンタウン",
     salary: "年収55,000 CAD〜",
     type: "アルバイト",
+  },
   {
-    id: 10,
+    id: 11,
     title: "UIデザイナー",
     location: "トロント・ダウンタウン",
     salary: "年収55,000 CAD〜",
     type: "アルバイト",
-  }
+  },
   {
     id: 11,
     title: "WEbデザイナー",
