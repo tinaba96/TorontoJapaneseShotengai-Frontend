@@ -19,7 +19,7 @@ export default function LoginForm() {
         password,
       });
       router.push("/"); // Redirect to home page after successful login
-    } catch (err) {
+    } catch {
       setError(
         "ログインに失敗しました。メールアドレスとパスワードを確認してください。"
       );
