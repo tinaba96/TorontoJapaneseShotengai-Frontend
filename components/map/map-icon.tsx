@@ -11,13 +11,12 @@ import {
   Book,
   Utensils,
   MapPin,
+  LucideIcon,
 } from "lucide-react";
-import { CSSProperties } from "react";
+import { ComponentProps } from "react";
 
-interface MapIconProps {
+interface MapIconProps extends ComponentProps<LucideIcon> {
   type: string;
-  className?: string;
-  style?: CSSProperties;
 }
 
 const iconMap = {
@@ -36,9 +35,9 @@ const iconMap = {
 export default function MapIcon({
   type,
   className = "h-6 w-6",
-  style,
+  ...props
 }: MapIconProps) {
   const IconComponent = iconMap[type as keyof typeof iconMap] || MapPin;
 
-  return <IconComponent className={className} style={style} />;
+  return <IconComponent className={className} {...props} />;
 }
