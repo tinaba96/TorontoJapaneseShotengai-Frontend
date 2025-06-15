@@ -17,7 +17,10 @@ export default function GenreArea({
 }: GenreAreaProps) {
   const storeCount =
     "subGenres" in genre
-      ? genre.subGenres.reduce((total, sub) => total + sub.stores.length, 0)
+      ? genre.subGenres.reduce(
+          (total: number, sub: SubGenre) => total + sub.stores.length,
+          0
+        )
       : genre.stores.length;
 
   return (
@@ -39,11 +42,9 @@ export default function GenreArea({
       }}
       onClick={onClick}
     >
-      <MapIcon
-        type={genre.id}
-        className="h-6 w-6 mb-1 flex-shrink-0"
-        style={{ zIndex: 31 }}
-      />
+      <div className="h-6 w-6 mb-1 flex-shrink-0" style={{ zIndex: 31 }}>
+        <MapIcon type={genre.id} />
+      </div>
       <div className="overflow-hidden" style={{ zIndex: 31 }}>
         <h3
           className="font-bold text-sm leading-tight mb-1 break-words"

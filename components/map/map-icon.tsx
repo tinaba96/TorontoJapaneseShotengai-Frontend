@@ -12,10 +12,12 @@ import {
   Utensils,
   MapPin,
 } from "lucide-react";
+import { CSSProperties } from "react";
 
 interface MapIconProps {
   type: string;
   className?: string;
+  style?: CSSProperties;
 }
 
 const iconMap = {
@@ -31,8 +33,12 @@ const iconMap = {
   location: MapPin,
 };
 
-export default function MapIcon({ type, className = "h-6 w-6" }: MapIconProps) {
+export default function MapIcon({
+  type,
+  className = "h-6 w-6",
+  style,
+}: MapIconProps) {
   const IconComponent = iconMap[type as keyof typeof iconMap] || MapPin;
 
-  return <IconComponent className={className} />;
+  return <IconComponent className={className} style={style} />;
 }
