@@ -1,34 +1,34 @@
 export interface Position {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }
 
 export interface Size {
-  width: number;
-  height: number;
+  width: number
+  height: number
 }
 
 export interface SubArea {
-  id: string;
-  name: string;
-  description: string;
-  position: Position;
-  size: Size;
-  color: string;
+  id: string
+  name: string
+  description: string
+  position: Position
+  size: Size
+  color: string
 }
 
 export interface MapArea {
-  id: string;
-  name: string;
-  description: string;
-  position: Position;
-  size: Size;
-  color: string;
-  subAreas: SubArea[];
+  id: string
+  name: string
+  description: string
+  position: Position
+  size: Size
+  color: string
+  subAreas: SubArea[]
 }
 
 export interface MapData {
-  areas: MapArea[];
+  areas: MapArea[]
 }
 
 export const mapData: MapData = {
@@ -218,4 +218,4 @@ export const mapData: MapData = {
       ],
     },
   ],
-};
+}
