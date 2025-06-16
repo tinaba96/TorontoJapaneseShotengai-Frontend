@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { MapArea as MapAreaType } from "@/app/lib/map_data";
+import type { MapArea as MapAreaType } from "@/lib/map-data";
 import MapIcon from "./map-icon";
 
 interface MapAreaProps {
