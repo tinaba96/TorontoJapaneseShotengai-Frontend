@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import PropertyCard from "../../components/PropertyCard";
+import PropertyDetailModal from "../../components/PropertyDetailModal";
 import Filter from "../../components/Filter";
 import type { Property, FilterOptions } from "../../lib/types";
 
@@ -195,6 +196,10 @@ const properties: Property[] = [
 export default function Home() {
   const [filteredProperties, setFilteredProperties] =
     useState<Property[]>(properties);
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleFilterChange = (filter: FilterOptions) => {
     const filtered = properties.filter(
@@ -208,6 +213,16 @@ export default function Home() {
     setFilteredProperties(filtered);
   };
 
+  const handlePropertyClick = (property: Property) => {
+    setSelectedProperty(property);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedProperty(null);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -216,11 +231,24 @@ export default function Home() {
         <Filter onFilterChange={handleFilterChange} />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
           {filteredProperties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+            <PropertyCard
+              key={property.id}
+              property={property}
+              onClick={handlePropertyClick}
+            />
           ))}
         </div>
       </main>
       <Footer />
+
+      {/* 物件詳細モーダル */}
+      {selectedProperty && (
+        <PropertyDetailModal
+          property={selectedProperty}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   );
 }

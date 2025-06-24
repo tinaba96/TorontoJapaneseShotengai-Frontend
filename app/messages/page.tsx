@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
-import { Send, MessageCircle, User, Clock, Search } from "lucide-react";
+import { Send, MessageCircle, User, Clock, Search, Home } from "lucide-react";
 
 interface Message {
   id: string;
@@ -15,6 +16,10 @@ interface Message {
 }
 
 export default function Messages() {
+  const searchParams = useSearchParams();
+  const ownerParam = searchParams.get("owner");
+  const propertyParam = searchParams.get("property");
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -56,6 +61,16 @@ export default function Messages() {
   const [newMessage, setNewMessage] = useState("");
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // オーナーからのメッセージがある場合は、そのメッセージを選択状態にする
+  useEffect(() => {
+    if (ownerParam) {
+      const ownerMessage = messages.find((msg) => msg.sender === ownerParam);
+      if (ownerMessage) {
+        setSelectedMessage(ownerMessage);
+      }
+    }
+  }, [ownerParam, messages]);
 
   const filteredMessages = useMemo(() => {
     if (!searchQuery.trim()) return messages;
@@ -103,20 +118,41 @@ export default function Messages() {
           className="h-full"
         >
           <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-            <div className="flex h-full">
-              {/* メッセージ一覧 */}
-              <div className="w-full md:w-1/3 border-r border-gray-200 bg-gray-50">
-                <div className="p-4 border-b border-gray-200">
-                  <div className="flex items-center justify-between mb-3">
-                    <h2 className="font-semibold text-gray-800">
-                      メッセージ一覧
-                    </h2>
-                    {unreadCount > 0 && (
-                      <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        {unreadCount}件の未読
+            {/* ヘッダー */}
+            <div className="bg-indigo-600 text-white p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <MessageCircle className="h-8 w-8" />
+                  <div>
+                    <h1 className="text-2xl font-bold">メッセージ</h1>
+                    <p className="text-indigo-100">
+                      コミュニティメンバーとの交流
+                    </p>
+                    {ownerParam && propertyParam && (
+                      <div className="mt-2 flex items-center space-x-2 text-indigo-100">
+                        <Home className="h-4 w-4" />
+                        <span className="text-sm">
+                          {propertyParam} - {ownerParam}様
+                        </span>
                       </div>
                     )}
                   </div>
+                </div>
+                {unreadCount > 0 && (
+                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    {unreadCount}件の未読
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex h-96">
+              {/* メッセージ一覧 */}
+              <div className="w-full md:w-1/3 border-r border-gray-200 bg-gray-50">
+                <div className="p-4 border-b border-gray-200">
+                  <h2 className="font-semibold text-gray-800 mb-3">
+                    メッセージ一覧
+                  </h2>
                   {/* 検索ボックス */}
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -139,7 +175,11 @@ export default function Messages() {
                           selectedMessage?.id === message.id
                             ? "bg-indigo-50 border-indigo-200"
                             : ""
-                        } ${!message.isRead ? "bg-blue-50" : ""}`}
+                        } ${!message.isRead ? "bg-blue-50" : ""} ${
+                          ownerParam && message.sender === ownerParam
+                            ? "bg-yellow-50"
+                            : ""
+                        }`}
                       >
                         <div className="flex items-start space-x-3">
                           <div className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -149,6 +189,12 @@ export default function Messages() {
                             <div className="flex items-center justify-between">
                               <p className="font-medium text-gray-900 truncate">
                                 {message.sender}
+                                {ownerParam &&
+                                  message.sender === ownerParam && (
+                                    <span className="ml-2 text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">
+                                      オーナー
+                                    </span>
+                                  )}
                               </p>
                               <div className="flex items-center space-x-1 text-xs text-gray-500">
                                 <Clock className="h-3 w-3" />
@@ -187,6 +233,12 @@ export default function Messages() {
                         <div>
                           <h3 className="font-semibold text-gray-900">
                             {selectedMessage.sender}
+                            {ownerParam &&
+                              selectedMessage.sender === ownerParam && (
+                                <span className="ml-2 text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">
+                                  オーナー
+                                </span>
+                              )}
                           </h3>
                           <p className="text-sm text-gray-500">
                             {formatTime(selectedMessage.timestamp)}
