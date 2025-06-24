@@ -1,17 +1,21 @@
 import { MapPin, Briefcase, DollarSign } from "lucide-react";
 
 interface JobCardProps {
+  id: number;
   title: string;
   location: string;
   salary: string;
   type: string;
+  onApply: (job: JobCardProps) => void;
 }
 
 export default function JobCard({
+  id,
   title,
   location,
   salary,
   type,
+  onApply,
 }: JobCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden card-hover animate-fade-in">
@@ -31,7 +35,12 @@ export default function JobCard({
         </div>
       </div>
       <div className="px-6 py-4">
-        <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+        <button
+          onClick={() =>
+            onApply({ id, title, location, salary, type, onApply })
+          }
+          className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+        >
           応募する
         </button>
       </div>

@@ -1,6 +1,18 @@
-import JobCard from "./JobCard";
+"use client";
 
-const jobs = [
+import { useState } from "react";
+import JobCard from "./JobCard";
+import JobDetailModal from "./JobDetailModal";
+
+interface Job {
+  id: number;
+  title: string;
+  location: string;
+  salary: string;
+  type: string;
+}
+
+const jobs: Job[] = [
   {
     id: 1,
     title: "シェフ",
@@ -88,11 +100,55 @@ const jobs = [
 ];
 
 export default function JobList() {
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const handleApply = (job: Job) => {
+    setSelectedJob(job);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedJob(null);
+  };
+
+  const handleApplySuccess = () => {
+    setShowSuccessMessage(true);
+    // 3秒後に成功メッセージを非表示
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {jobs.map((job) => (
-        <JobCard key={job.id} {...job} />
-      ))}
+    <div className="relative">
+      {/* 成功メッセージ */}
+      {showSuccessMessage && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in">
+          <div className="flex items-center">
+            <span className="mr-2">✓</span>
+            応募が完了しました！
+          </div>
+        </div>
+      )}
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {jobs.map((job) => (
+          <JobCard key={job.id} {...job} onApply={handleApply} />
+        ))}
+      </div>
+
+      {/* 求人詳細モーダル */}
+      {selectedJob && (
+        <JobDetailModal
+          job={selectedJob}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          onApply={handleApplySuccess}
+        />
+      )}
     </div>
   );
 }

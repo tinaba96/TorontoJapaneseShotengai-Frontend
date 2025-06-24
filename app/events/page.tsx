@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
 
@@ -11,6 +12,7 @@ interface Event {
   date: string;
   image: string;
   category: string;
+  slug: string;
 }
 
 const events: Event[] = [
@@ -20,6 +22,7 @@ const events: Event[] = [
     date: "2023-07-15",
     image: "/images/default.png?height=200&width=300",
     category: "ミュージック",
+    slug: "summer-jazz-festival",
   },
   {
     id: "2",
@@ -27,6 +30,7 @@ const events: Event[] = [
     date: "2023-08-22",
     image: "/images/default2.png?height=200&width=300",
     category: "テクノロジー",
+    slug: "tech-conference-2023",
   },
   {
     id: "3",
@@ -34,6 +38,7 @@ const events: Event[] = [
     date: "2023-09-10",
     image: "/images/bg2.png?height=200&width=300",
     category: "アート",
+    slug: "modern-art-exhibition",
   },
   {
     id: "4",
@@ -41,6 +46,7 @@ const events: Event[] = [
     date: "2023-10-05",
     image: "/images/tjs_bg.png?height=200&width=300",
     category: "スポーツ",
+    slug: "marathon-2023",
   },
 ];
 
@@ -86,19 +92,22 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredEvents.map((event) => (
-            <div
+            <Link
               key={event.id}
-              className="bg-white overflow-hidden shadow rounded-lg"
+              href={`/events/${event.slug}`}
+              className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
             >
-              <Image
-                src={event.image}
-                alt={event.title}
-                width={300}
-                height={200}
-                className="w-full object-cover h-48"
-              />
+              <div className="relative">
+                <Image
+                  src={event.image}
+                  alt={event.title}
+                  width={300}
+                  height={200}
+                  className="w-full object-cover h-48 group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
               <div className="px-4 py-5 sm:p-6">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                <h3 className="text-lg leading-6 font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
                   {event.title}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">{event.date}</p>
@@ -106,7 +115,7 @@ export default function Home() {
                   {event.category}
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </main>
