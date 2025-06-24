@@ -95,41 +95,28 @@ export default function Messages() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="container mx-auto px-4 py-8">
+      <main className="px-3 pt-0 pb-4 h-[calc(100vh-120px)]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          className="h-full"
         >
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            {/* ヘッダー */}
-            <div className="bg-indigo-600 text-white p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <MessageCircle className="h-8 w-8" />
-                  <div>
-                    <h1 className="text-2xl font-bold">メッセージ</h1>
-                    <p className="text-indigo-100">
-                      コミュニティメンバーとの交流
-                    </p>
-                  </div>
-                </div>
-                {unreadCount > 0 && (
-                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    {unreadCount}件の未読
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex h-96">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
+            <div className="flex h-full">
               {/* メッセージ一覧 */}
-              <div className="w-1/3 border-r border-gray-200 bg-gray-50">
+              <div className="w-full md:w-1/3 border-r border-gray-200 bg-gray-50">
                 <div className="p-4 border-b border-gray-200">
-                  <h2 className="font-semibold text-gray-800 mb-3">
-                    メッセージ一覧
-                  </h2>
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="font-semibold text-gray-800">
+                      メッセージ一覧
+                    </h2>
+                    {unreadCount > 0 && (
+                      <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        {unreadCount}件の未読
+                      </div>
+                    )}
+                  </div>
                   {/* 検索ボックス */}
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -142,7 +129,7 @@ export default function Messages() {
                     />
                   </div>
                 </div>
-                <div className="overflow-y-auto h-full">
+                <div className="overflow-y-auto h-[calc(100%-120px)]">
                   {filteredMessages.length > 0 ? (
                     filteredMessages.map((message) => (
                       <div
@@ -188,7 +175,7 @@ export default function Messages() {
               </div>
 
               {/* メッセージ詳細 */}
-              <div className="flex-1 flex flex-col">
+              <div className="hidden md:flex flex-1 flex-col">
                 {selectedMessage ? (
                   <>
                     {/* メッセージ詳細ヘッダー */}

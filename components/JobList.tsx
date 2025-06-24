@@ -79,10 +79,10 @@ const jobs = [
     type: "アルバイト",
   },
   {
-    id: 11,
-    title: "WEbデザイナー",
+    id: 12,
+    title: "Webデザイナー",
     location: "トロント・ダウンタウン",
-    salary: "年収900,000 CAD〜",
+    salary: "年収90,000 CAD〜",
     type: "正社員",
   },
 ];

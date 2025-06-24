@@ -9,6 +9,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
 
+  // 未読メッセージ数（実際のアプリではAPIから取得）
+  const unreadMessages = 2;
+
   return (
     <header className="bg-white shadow-md mb-10">
       <div className="container mx-auto px-4 py-4">
@@ -78,6 +81,19 @@ const Header = () => {
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   フリマ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/messages"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange relative"
+                >
+                  メッセージ
+                  {unreadMessages > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {unreadMessages}
+                    </span>
+                  )}
                 </Link>
               </li>
               <li>
@@ -185,6 +201,19 @@ const Header = () => {
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   フリマ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/messages"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange relative"
+                >
+                  メッセージ
+                  {unreadMessages > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {unreadMessages}
+                    </span>
+                  )}
                 </Link>
               </li>
               <li>
