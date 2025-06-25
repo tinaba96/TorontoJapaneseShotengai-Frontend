@@ -88,6 +88,14 @@ const Header = () => {
               </li>
               <li>
                 <Link
+                  href="/create"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  投稿作成
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/messages"
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange relative"
                 >
@@ -217,6 +225,14 @@ const Header = () => {
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   フリマ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/create"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
+                >
+                  投稿作成
                 </Link>
               </li>
               <li>

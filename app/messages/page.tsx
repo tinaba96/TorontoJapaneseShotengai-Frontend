@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
@@ -15,7 +14,7 @@ interface Message {
   isRead: boolean;
 }
 
-export default function Messages() {
+function MessagesContent() {
   const searchParams = useSearchParams();
   const ownerParam = searchParams.get("owner");
   const propertyParam = searchParams.get("property");
@@ -111,12 +110,7 @@ export default function Messages() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="px-3 pt-0 pb-4 h-[calc(100vh-120px)]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="h-full"
-        >
+        <div className="h-full">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
             {/* ヘッダー */}
             <div className="bg-indigo-600 text-white p-6">
@@ -292,9 +286,28 @@ export default function Messages() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </main>
       <Footer />
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">メッセージを読み込み中...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function Messages() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <MessagesContent />
+    </Suspense>
   );
 }
