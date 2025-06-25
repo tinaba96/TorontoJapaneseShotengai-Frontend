@@ -13,11 +13,12 @@ import {
   Home,
   Plus,
   CheckCircle,
+  Store,
 } from "lucide-react";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 
-type ContentType = "job" | "product" | "event" | "property";
+type ContentType = "job" | "product" | "event" | "property" | "store";
 
 interface FormData {
   // 共通フィールド
@@ -54,6 +55,13 @@ interface FormData {
   utilities: string;
   parking: string;
   petPolicy: string;
+
+  // 商店街情報
+  businessHours: string;
+  website: string;
+  services: string;
+  storeAddress: string;
+  storeType: string;
 }
 
 export default function CreatePage() {
@@ -86,6 +94,11 @@ export default function CreatePage() {
     utilities: "",
     parking: "",
     petPolicy: "",
+    businessHours: "",
+    website: "",
+    services: "",
+    storeAddress: "",
+    storeType: "",
   });
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -130,6 +143,11 @@ export default function CreatePage() {
           utilities: "",
           parking: "",
           petPolicy: "",
+          businessHours: "",
+          website: "",
+          services: "",
+          storeAddress: "",
+          storeType: "",
         });
       }, 3000);
     }, 2000);
@@ -145,6 +163,8 @@ export default function CreatePage() {
         return "イベント情報";
       case "property":
         return "賃貸情報";
+      case "store":
+        return "商店街情報";
     }
   };
 
@@ -209,6 +229,7 @@ export default function CreatePage() {
                     <option value="product">フリマ商品情報</option>
                     <option value="event">イベント情報</option>
                     <option value="property">賃貸情報</option>
+                    <option value="store">商店街情報</option>
                   </select>
                 </div>
 
@@ -601,6 +622,95 @@ export default function CreatePage() {
                           placeholder="例: ペット可"
                         />
                       </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 商店街情報フィールド */}
+                {contentType === "store" && (
+                  <div className="space-y-6 mb-8">
+                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
+                      <Store className="w-5 h-5 mr-2 text-blue-500" />
+                      商店街情報
+                    </h3>
+
+                    <div>
+                      <Label htmlFor="businessHours">営業時間 *</Label>
+                      <Input
+                        id="businessHours"
+                        value={formData.businessHours}
+                        onChange={(e) =>
+                          handleInputChange("businessHours", e.target.value)
+                        }
+                        placeholder="例: 月-金 9:00-18:00、土日 10:00-17:00"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="website">ウェブサイト</Label>
+                      <Input
+                        id="website"
+                        type="url"
+                        value={formData.website}
+                        onChange={(e) =>
+                          handleInputChange("website", e.target.value)
+                        }
+                        placeholder="例: https://example.com"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="services">サービス・設備</Label>
+                      <Textarea
+                        id="services"
+                        value={formData.services}
+                        onChange={(e) =>
+                          handleInputChange("services", e.target.value)
+                        }
+                        placeholder="提供しているサービスや設備について詳しく入力してください（例: 駐車場あり、Wi-Fi完備、デリバリー対応、24時間営業など）"
+                        rows={3}
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="storeAddress">店舗住所 *</Label>
+                      <Input
+                        id="storeAddress"
+                        value={formData.storeAddress}
+                        onChange={(e) =>
+                          handleInputChange("storeAddress", e.target.value)
+                        }
+                        placeholder="完全な住所を入力"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="storeType">店舗種類 *</Label>
+                      <select
+                        value={formData.storeType}
+                        onChange={(e) =>
+                          handleInputChange("storeType", e.target.value)
+                        }
+                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        required
+                      >
+                        <option value="">店舗種類を選択</option>
+                        <option value="restaurant">レストラン・飲食店</option>
+                        <option value="cafe">カフェ・喫茶店</option>
+                        <option value="grocery">食料品店・スーパー</option>
+                        <option value="bakery">パン屋・ベーカリー</option>
+                        <option value="clothing">衣料品店</option>
+                        <option value="electronics">電化製品店</option>
+                        <option value="pharmacy">薬局・ドラッグストア</option>
+                        <option value="beauty">美容院・サロン</option>
+                        <option value="bank">銀行・金融機関</option>
+                        <option value="convenience">
+                          コンビニエンスストア
+                        </option>
+                        <option value="other">その他</option>
+                      </select>
                     </div>
                   </div>
                 )}
