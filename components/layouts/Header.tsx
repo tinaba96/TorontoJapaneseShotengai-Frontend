@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
+import { useCart } from "@/app/contexts/CartContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
+  const { getItemCount } = useCart();
 
   // 未読メッセージ数（実際のアプリではAPIから取得）
   const unreadMessages = 2;
@@ -102,6 +105,19 @@ const Header = () => {
                   className="text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   会社情報
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/cart"
+                  className="text-shinsaibashi-blue hover:text-shinsaibashi-orange relative"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {getItemCount() > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {getItemCount()}
+                    </span>
+                  )}
                 </Link>
               </li>
               <li>
@@ -222,6 +238,22 @@ const Header = () => {
                   className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange"
                 >
                   会社情報
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/cart"
+                  className="block text-shinsaibashi-blue hover:text-shinsaibashi-orange relative"
+                >
+                  <div className="flex items-center">
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    カート
+                    {getItemCount() > 0 && (
+                      <span className="ml-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {getItemCount()}
+                      </span>
+                    )}
+                  </div>
                 </Link>
               </li>
               <li className="border-t pt-2 mt-2">
