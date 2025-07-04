@@ -1,4 +1,4 @@
-"use client"; // ないとエラー発生
+"use client"; // エラー発生
 
 import React, { useState } from "react";
 import Image from "next/image";
