@@ -1,4 +1,5 @@
-"use client"; // 必要
+"use client"; // 必要<div clas
+//"></div>
 
 import React, { useState } from "react";
 import Image from "next/image";
