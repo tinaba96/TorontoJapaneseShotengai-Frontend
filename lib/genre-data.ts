@@ -16,6 +16,7 @@ export interface StoreInfo {
   description?: string;
   image?: string;
   services?: string[];
+  
 }
 
 export interface Store {
