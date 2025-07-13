@@ -289,15 +289,16 @@ const newsArticles: NewsArticle[] = [
 ];
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const article = newsArticles.find((a) => a.id === parseInt(params.id));
+  const { id } = await params;
+  const article = newsArticles.find((a) => a.id === parseInt(id));
 
   if (!article) {
     return {
@@ -311,8 +312,9 @@ export async function generateMetadata({
   };
 }
 
-export default function NewsArticlePage({ params }: PageProps) {
-  const article = newsArticles.find((a) => a.id === parseInt(params.id));
+export default async function NewsArticlePage({ params }: PageProps) {
+  const { id } = await params;
+  const article = newsArticles.find((a) => a.id === parseInt(id));
 
   if (!article) {
     notFound();

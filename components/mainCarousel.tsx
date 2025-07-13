@@ -45,8 +45,8 @@ const MainCarousel: React.FC = () => {
             <Image
               src={src || "/placeholder.svg"}
               alt={`Slide ${index + 1}`}
-              layout="fill"
-              objectFit="cover"
+              fill
+              className="object-cover"
               priority={index === 0}
             />
           </div>
