@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Header from "@/components/layouts/Header";
+import Footer from "@/components/layouts/Footer";
 
 interface NewsArticle {
   id: number;
@@ -322,6 +324,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-shinsaibashi-blue to-shinsaibashi-orange text-white py-16">
         <div className="container mx-auto px-4">
@@ -439,6 +442,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
