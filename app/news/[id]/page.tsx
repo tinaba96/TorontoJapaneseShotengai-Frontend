@@ -90,8 +90,8 @@ const newsArticles: NewsArticle[] = [
       <p>来場者の皆様による投票で以下の項目を審査します：</p>
       <ul>
         <li>味（40点）</li>
-        <li>見た目（30点）</li>
-        <li>独創性（20点）</li>
+        <li>見た目（25点）</li>
+        <li>独創性（25点）</li>
         <li>サービス（10点）</li>
       </ul>
 
