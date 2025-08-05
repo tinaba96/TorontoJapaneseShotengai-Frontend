@@ -83,7 +83,7 @@ const newsArticles: NewsArticle[] = [
         <li>ラーメン 味噌</li>
         <li>天ぷら 天音</li>
         <li>焼肉 牛角</li>
-        <li>居酒屋 和</li>
+        <li>居酒屋 katu和</li>
       </ul>
 
       <h2>審査方法</h2>
