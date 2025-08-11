@@ -95,7 +95,7 @@ const newsArticles: NewsArticle[] = [
         <li>サービス（5点）</li>
       </ul>
 
-      <h2>イベント詳細</h2>
+      <h2>イベント詳細はこちら</h2>
       <ul>
         <li><strong>日時:</strong> 2023年12月15日（土）11:00-18:00</li>
         <li><strong>場所:</strong> トロント日本人商店街 メインストリート</li>
