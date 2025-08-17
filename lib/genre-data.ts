@@ -16,7 +16,6 @@ export interface StoreInfo {
   description?: string;
   image?: string;
   services?: string[];
-  
 }
 
 export interface Store {
@@ -56,7 +55,7 @@ export const genreData: GenreData = {
   mainGenres: [
     {
       id: "food",
-      name: "飲食・グルメ",
+      name: "飲食・グルメ/お店",
       description: "レストラン、カフェ、食品店",
       position: { x: 20, y: 20 },
       size: { width: 30, height: 25 },
