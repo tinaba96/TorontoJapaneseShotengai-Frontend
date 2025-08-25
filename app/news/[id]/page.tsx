@@ -117,7 +117,7 @@ const newsArticles: NewsArticle[] = [
     content: `
       <p>日本人商店街に新しい和菓子店「和菓子処 桜」がオープンしました。伝統的な和菓子からモダンなアレンジまで、幅広い商品を取り揃えています。</p>
       
-      <h2>店舗情報</h2>
+      <h2>店舗の情報</h2>
       <ul>
         <li><strong>店名:</strong> 和菓子処 桜</li>
         <li><strong>住所:</strong> 123 Japanese Street, Toronto, ON</li>
