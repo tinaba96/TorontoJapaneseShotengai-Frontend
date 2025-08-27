@@ -119,7 +119,7 @@ const newsArticles: NewsArticle[] = [
       
       <h2>店舗の情報</h2>
       <ul>
-        <li><strong>店名:</strong> 和菓子処 桜</li>
+        <li><strong>店名:</strong> 和菓子処 桜まつり</li>
         <li><strong>住所:</strong> 123 Japanese Street, Toronto, ON</li>
         <li><strong>営業時間:</strong> 火曜日-日曜日 10:00-19:00（月曜定休）</li>
         <li><strong>電話番号:</strong> (416) 555-0123</li>
