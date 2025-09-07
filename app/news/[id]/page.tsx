@@ -145,7 +145,7 @@ const newsArticles: NewsArticle[] = [
       <h3>モダンアレンジ</h3>
       <ul>
         <li>抹茶ティラミス</li>
-        <li>あんこチーズケーキ</li>
+        <li>りんごチーズケーキ</li>
         <li>和風パフェ</li>
         <li>和菓子風クッキー</li>
       </ul>
