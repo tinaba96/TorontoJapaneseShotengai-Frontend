@@ -151,7 +151,7 @@ const newsArticles: NewsArticle[] = [
       </ul>
 
       <h2>オープン記念セール</h2>
-      <p>オープン記念としまして、4月15日から30日まで全商品20%OFFのセールを開催します。この機会にぜひお立ち寄りください。</p>
+      <p>オープン記念として、4月15日から30日まで全商品20%OFFのセールを開催します。この機会にぜひお立ち寄りください。</p>
 
       <h2>店主からのメッセージ</h2>
       <blockquote style="background-color: #f8f9fa; padding: 20px; border-left: 4px solid #e67e22; margin: 20px 0;">
