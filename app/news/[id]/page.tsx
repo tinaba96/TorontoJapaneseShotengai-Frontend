@@ -163,7 +163,7 @@ const newsArticles: NewsArticle[] = [
     category: "オープン",
     image: "/images/img3.png",
     author: "商店街事務局",
-    tags: ["和菓子", "オープン", "新店舗", "スイーツ"],
+    tags: ["お和菓子", "オープン", "新店舗", "スイーツ"],
   },
   {
     id: 4,
