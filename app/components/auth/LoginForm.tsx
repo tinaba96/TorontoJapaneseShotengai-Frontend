@@ -19,9 +19,11 @@ export default function LoginForm() {
         password,
       });
       router.push("/"); // Redirect to home page after successful login
-    } catch {
+    } catch (err) {
+      console.error("Login error:", err);
+      const errorMessage = err instanceof Error ? err.message : "不明なエラー";
       setError(
-        "ログインに失敗しました。メールアドレスとパスワードを確認してください。"
+        `ログインに失敗しました: ${errorMessage}`
       );
     }
   };

@@ -32,6 +32,9 @@ export const login = async (
   formData.append("username", credentials.username);
   formData.append("password", credentials.password);
 
+  console.log("Attempting login to:", `${API_URL}/token`);
+  console.log("Credentials:", { username: credentials.username });
+
   const response = await fetch(`${API_URL}/token`, {
     method: "POST",
     headers: {
@@ -40,8 +43,12 @@ export const login = async (
     body: formData,
   });
 
+  console.log("Response status:", response.status);
+
   if (!response.ok) {
-    throw new Error("Login failed");
+    const errorText = await response.text();
+    console.error("Login error:", errorText);
+    throw new Error(`Login failed: ${response.status} - ${errorText}`);
   }
 
   return response.json();

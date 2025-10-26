@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import {
   Briefcase,
   ShoppingBag,
@@ -65,6 +66,7 @@ interface FormData {
 }
 
 export default function CreatePage() {
+  const { toast } = useToast();
   const [contentType, setContentType] = useState<ContentType>("job");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -109,48 +111,137 @@ export default function CreatePage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // デモ用の処理（実際のAPIは呼び出さない）
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
+    try {
+      if (contentType === "event") {
+        // イベント情報の場合、APIを呼び出す
+        const { createEvent } = await import("@/app/lib/api/events");
 
-      // 3秒後にフォームをリセット
-      setTimeout(() => {
-        setIsSuccess(false);
-        setFormData({
-          title: "",
-          description: "",
-          contactEmail: "",
-          contactPhone: "",
-          company: "",
-          salary: "",
-          location: "",
-          jobType: "",
-          requirements: "",
-          price: "",
-          condition: "",
-          category: "",
-          images: "",
-          eventDate: "",
-          eventTime: "",
-          venue: "",
-          organizer: "",
-          maxAttendees: "",
-          address: "",
-          rent: "",
-          size: "",
-          rooms: "",
-          utilities: "",
-          parking: "",
-          petPolicy: "",
-          businessHours: "",
-          website: "",
-          services: "",
-          storeAddress: "",
-          storeType: "",
+        const eventData = {
+          title: formData.title,
+          description: formData.description,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone || undefined,
+          eventDate: formData.eventDate,
+          eventTime: formData.eventTime,
+          venue: formData.venue,
+          organizer: formData.organizer,
+          maxAttendees: formData.maxAttendees
+            ? parseInt(formData.maxAttendees, 10)
+            : undefined,
+        };
+
+        await createEvent(eventData);
+        setIsSubmitting(false);
+        setIsSuccess(true);
+
+        // 成功トーストを表示
+        toast({
+          title: "イベント登録完了",
+          description: "イベントが正常に登録されました。",
+          variant: "default",
         });
-      }, 3000);
-    }, 2000);
+
+        // 3秒後にフォームをリセット
+        setTimeout(() => {
+          setIsSuccess(false);
+          resetForm();
+        }, 3000);
+      } else {
+        // その他のコンテンツタイプはデモ用の処理
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setIsSuccess(true);
+
+          // 成功トーストを表示
+          toast({
+            title: "登録完了",
+            description: `${getContentTypeLabel(contentType)}が正常に登録されました。`,
+            variant: "default",
+          });
+
+          // 3秒後にフォームをリセット
+          setTimeout(() => {
+            setIsSuccess(false);
+            resetForm();
+          }, 3000);
+        }, 2000);
+      }
+    } catch (error) {
+      setIsSubmitting(false);
+      console.error("投稿エラー:", error);
+
+      // エラーメッセージを設定
+      let errorTitle = "登録エラー";
+      let errorMessage = "投稿に失敗しました。もう一度お試しください。";
+
+      if (error instanceof Error) {
+        // ApiErrorの場合
+        const apiError = error as {
+          status?: number;
+          data?: { message?: string };
+          message: string;
+        };
+
+        if (apiError.status === 401) {
+          errorTitle = "認証エラー";
+          errorMessage =
+            "認証が必要です。ログインしてから再度お試しください。";
+        } else if (apiError.status === 422) {
+          errorTitle = "入力エラー";
+          errorMessage = "入力内容に誤りがあります。入力内容を確認してください。";
+        } else if (apiError.status === 0) {
+          errorTitle = "ネットワークエラー";
+          errorMessage =
+            "ネットワークエラーが発生しました。接続を確認してください。";
+        } else if (apiError.data?.message) {
+          errorMessage = apiError.data.message;
+        } else {
+          errorMessage = error.message;
+        }
+      }
+
+      // エラートーストを表示
+      toast({
+        title: errorTitle,
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      title: "",
+      description: "",
+      contactEmail: "",
+      contactPhone: "",
+      company: "",
+      salary: "",
+      location: "",
+      jobType: "",
+      requirements: "",
+      price: "",
+      condition: "",
+      category: "",
+      images: "",
+      eventDate: "",
+      eventTime: "",
+      venue: "",
+      organizer: "",
+      maxAttendees: "",
+      address: "",
+      rent: "",
+      size: "",
+      rooms: "",
+      utilities: "",
+      parking: "",
+      petPolicy: "",
+      businessHours: "",
+      website: "",
+      services: "",
+      storeAddress: "",
+      storeType: "",
+    });
   };
 
   const getContentTypeLabel = (type: ContentType) => {
