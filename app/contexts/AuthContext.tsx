@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check for stored token on mount
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem("access_token");
     if (storedToken) {
       setToken(storedToken);
       // TODO: Fetch user data using the token
@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await loginApi(credentials);
       setToken(response.access_token);
-      localStorage.setItem("token", response.access_token);
+      localStorage.setItem("access_token", response.access_token);
       // TODO: Fetch and set user data
     } catch (error) {
       console.error("Login failed:", error);
@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
   };
 
   return (
