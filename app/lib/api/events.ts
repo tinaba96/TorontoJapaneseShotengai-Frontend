@@ -17,7 +17,7 @@ import type {
 export async function getEvents(
   query?: EventListQuery
 ): Promise<PaginatedEventsResponse> {
-  return get<PaginatedEventsResponse>("/events", {
+  return get<PaginatedEventsResponse>("/events/", {
     params: query as Record<string, string | number | boolean | undefined>,
   });
 }
@@ -26,7 +26,7 @@ export async function getEvents(
  * 特定のイベントを取得
  */
 export async function getEvent(id: number): Promise<Event> {
-  return get<Event>(`/events/${id}`);
+  return get<Event>(`/events/${id}/`);
 }
 
 /**
@@ -34,7 +34,7 @@ export async function getEvent(id: number): Promise<Event> {
  * 認証が必要
  */
 export async function createEvent(data: CreateEventRequest): Promise<Event> {
-  return post<Event>("/events", data, {
+  return post<Event>("/events/", data, {
     requiresAuth: true,
   });
 }
@@ -47,7 +47,7 @@ export async function updateEvent(
   id: number,
   data: UpdateEventRequest
 ): Promise<Event> {
-  return put<Event>(`/events/${id}`, data, {
+  return put<Event>(`/events/${id}/`, data, {
     requiresAuth: true,
   });
 }
@@ -57,7 +57,7 @@ export async function updateEvent(
  * 認証が必要
  */
 export async function deleteEvent(id: number): Promise<void> {
-  return del<void>(`/events/${id}`, {
+  return del<void>(`/events/${id}/`, {
     requiresAuth: true,
   });
 }
@@ -67,7 +67,7 @@ export async function deleteEvent(id: number): Promise<void> {
  * 認証が必要
  */
 export async function registerForEvent(eventId: number): Promise<Event> {
-  return post<Event>(`/events/${eventId}/register`, undefined, {
+  return post<Event>(`/events/${eventId}/register/`, undefined, {
     requiresAuth: true,
   });
 }
@@ -77,7 +77,7 @@ export async function registerForEvent(eventId: number): Promise<Event> {
  * 認証が必要
  */
 export async function unregisterFromEvent(eventId: number): Promise<Event> {
-  return del<Event>(`/events/${eventId}/register`, {
+  return del<Event>(`/events/${eventId}/register/`, {
     requiresAuth: true,
   });
 }
