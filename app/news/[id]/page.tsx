@@ -31,7 +31,7 @@ const newsArticles: NewsArticle[] = [
         <li><strong>定員:</strong> 100名</li>
       </ul>
 
-      <h2>プログラム2</h2>
+      <h2>プログラム</h2>
       <ol>
         <li>19:00-19:10 開会の挨拶</li>
         <li>19:10-19:40 基調講演「カナダでの起業成功の秘訣」</li>
