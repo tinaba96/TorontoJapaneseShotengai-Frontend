@@ -17,7 +17,7 @@ export interface CreateEventRequest {
 
 // イベントレスポンスの型
 export interface Event {
-  id: number;
+  id: string; // UUIDを使用
   title: string;
   description: string;
   contactEmail: string;
@@ -27,10 +27,11 @@ export interface Event {
   venue: string;
   organizer: string;
   maxAttendees?: number;
-  currentAttendees?: number;
-  createdAt: string;
-  updatedAt: string;
-  userId: number; // 作成者のユーザーID
+  creator_id: string; // 作成者のユーザーID (UUID)
+  current_attendees: number;
+  status: string; // upcoming, ongoing, completed など
+  created_at: string;
+  updated_at: string;
 }
 
 // イベント更新リクエストの型
@@ -57,10 +58,5 @@ export interface EventListQuery {
 }
 
 // ページネーション付きイベント一覧レスポンス
-export interface PaginatedEventsResponse {
-  events: Event[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+// バックエンドは現在配列のみを返すため、シンプルな型を使用
+export type EventsResponse = Event[];

@@ -8,7 +8,7 @@ import type {
   CreateEventRequest,
   UpdateEventRequest,
   EventListQuery,
-  PaginatedEventsResponse,
+  EventsResponse,
 } from "@/app/types/event";
 
 /**
@@ -16,8 +16,8 @@ import type {
  */
 export async function getEvents(
   query?: EventListQuery
-): Promise<PaginatedEventsResponse> {
-  return get<PaginatedEventsResponse>("/events/", {
+): Promise<EventsResponse> {
+  return get<EventsResponse>("/events/", {
     params: query as Record<string, string | number | boolean | undefined>,
   });
 }
@@ -25,7 +25,7 @@ export async function getEvents(
 /**
  * 特定のイベントを取得
  */
-export async function getEvent(id: number): Promise<Event> {
+export async function getEvent(id: string): Promise<Event> {
   return get<Event>(`/events/${id}/`);
 }
 
@@ -44,7 +44,7 @@ export async function createEvent(data: CreateEventRequest): Promise<Event> {
  * 認証が必要
  */
 export async function updateEvent(
-  id: number,
+  id: string,
   data: UpdateEventRequest
 ): Promise<Event> {
   return put<Event>(`/events/${id}/`, data, {
@@ -56,7 +56,7 @@ export async function updateEvent(
  * イベントを削除
  * 認証が必要
  */
-export async function deleteEvent(id: number): Promise<void> {
+export async function deleteEvent(id: string): Promise<void> {
   return del<void>(`/events/${id}/`, {
     requiresAuth: true,
   });
@@ -66,7 +66,7 @@ export async function deleteEvent(id: number): Promise<void> {
  * イベントに参加登録
  * 認証が必要
  */
-export async function registerForEvent(eventId: number): Promise<Event> {
+export async function registerForEvent(eventId: string): Promise<Event> {
   return post<Event>(`/events/${eventId}/register/`, undefined, {
     requiresAuth: true,
   });
@@ -76,7 +76,7 @@ export async function registerForEvent(eventId: number): Promise<Event> {
  * イベントの参加登録をキャンセル
  * 認証が必要
  */
-export async function unregisterFromEvent(eventId: number): Promise<Event> {
+export async function unregisterFromEvent(eventId: string): Promise<Event> {
   return del<Event>(`/events/${eventId}/register/`, {
     requiresAuth: true,
   });
