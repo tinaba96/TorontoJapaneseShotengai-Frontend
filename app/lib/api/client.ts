@@ -12,7 +12,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     public statusText: string,
-    public data?: any
+    public data?: Record<string, unknown>
   ) {
     super(`API Error: ${status} ${statusText}`);
     this.name = "ApiError";
@@ -60,9 +60,9 @@ export async function apiClient<T>(
   }
 
   // デフォルトヘッダーの設定
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    ...fetchOptions.headers,
+    ...(fetchOptions.headers as Record<string, string>),
   };
 
   // 認証が必要な場合、トークンを追加
@@ -135,7 +135,7 @@ export function get<T>(
  */
 export function post<T>(
   endpoint: string,
-  data?: any,
+  data?: unknown,
   options?: Omit<RequestOptions, "method" | "body">
 ): Promise<T> {
   return apiClient<T>(endpoint, {
@@ -150,7 +150,7 @@ export function post<T>(
  */
 export function put<T>(
   endpoint: string,
-  data?: any,
+  data?: unknown,
   options?: Omit<RequestOptions, "method" | "body">
 ): Promise<T> {
   return apiClient<T>(endpoint, {
@@ -165,7 +165,7 @@ export function put<T>(
  */
 export function patch<T>(
   endpoint: string,
-  data?: any,
+  data?: unknown,
   options?: Omit<RequestOptions, "method" | "body">
 ): Promise<T> {
   return apiClient<T>(endpoint, {
