@@ -28,7 +28,7 @@ const newsArticles: NewsArticle[] = [
         <li><strong>日時:</strong> 2024年11月15日（金）19:00-21:00 EST</li>
         <li><strong>場所:</strong> オンライン（Zoom）</li>
         <li><strong>参加費:</strong> 無料</li>
-        <li><strong>定員:</strong> 100名</li>
+        <li><strong>定員:</strong> 1000名</li>
       </ul>
 
       <h2>プログラム内容</h2>
