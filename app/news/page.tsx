@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "ニュース一覧 | Toronto Japanese Shotengai",
   description:
-    "トロント日本人商店街の最新ニュース、イベント情報、お知らせなどなどお届けします。",
+    "トロント日本人商店街の最新ニュース、イベント情報、お知らせなどなどお届けします！",
 };
 
 interface NewsItem {
