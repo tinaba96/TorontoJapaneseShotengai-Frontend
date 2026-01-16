@@ -146,6 +146,38 @@ export default function CreatePage() {
           setIsSuccess(false);
           resetForm();
         }, 3000);
+      } else if (contentType === "job") {
+        // 求人情報の場合、APIを呼び出す
+        const { createJob } = await import("@/app/lib/api/jobs");
+
+        const jobData = {
+          title: formData.title,
+          description: formData.description,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone || undefined,
+          company: formData.company,
+          salary: formData.salary,
+          location: formData.location,
+          jobType: formData.jobType,
+          requirements: formData.requirements || undefined,
+        };
+
+        await createJob(jobData);
+        setIsSubmitting(false);
+        setIsSuccess(true);
+
+        // 成功トーストを表示
+        toast({
+          title: "求人情報登録完了",
+          description: "求人情報が正常に登録されました。",
+          variant: "default",
+        });
+
+        // 3秒後にフォームをリセット
+        setTimeout(() => {
+          setIsSuccess(false);
+          resetForm();
+        }, 3000);
       } else {
         // その他のコンテンツタイプはデモ用の処理
         setTimeout(() => {

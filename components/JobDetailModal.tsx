@@ -6,22 +6,40 @@ import {
   MapPin,
   Briefcase,
   DollarSign,
-  Calendar,
+  Building,
+  Mail,
+  Phone,
   CheckCircle,
+  FileText,
 } from "lucide-react";
+import type { Job } from "@/app/types/job";
 
 interface JobDetailModalProps {
-  job: {
-    id: number;
-    title: string;
-    location: string;
-    salary: string;
-    type: string;
-  };
+  job: Job;
   isOpen: boolean;
   onClose: () => void;
   onApply: () => void;
 }
+
+// jobTypeの表示名変換
+const getJobTypeLabel = (jobType: string): string => {
+  const labels: Record<string, string> = {
+    fulltime: "正社員",
+    parttime: "パートタイム",
+    contract: "契約社員",
+    intern: "インターン",
+  };
+  return labels[jobType] || jobType;
+};
+
+// statusの表示名変換
+const getStatusLabel = (status: string): string => {
+  const labels: Record<string, string> = {
+    open: "募集中",
+    closed: "募集終了",
+  };
+  return labels[status] || status;
+};
 
 export default function JobDetailModal({
   job,
@@ -54,7 +72,18 @@ export default function JobDetailModal({
       <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* ヘッダー */}
         <div className="sticky top-0 bg-white border-b p-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-800">{job.title}</h2>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800">{job.title}</h2>
+            <span
+              className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${
+                job.status === "open"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-gray-100 text-gray-800"
+              }`}
+            >
+              {getStatusLabel(job.status)}
+            </span>
+          </div>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -70,6 +99,11 @@ export default function JobDetailModal({
               {/* 基本情報 */}
               <div className="space-y-4 mb-8">
                 <div className="flex items-center text-gray-600">
+                  <Building className="w-5 h-5 mr-3 text-indigo-500" />
+                  <span className="font-medium">会社名:</span>
+                  <span className="ml-2">{job.company}</span>
+                </div>
+                <div className="flex items-center text-gray-600">
                   <MapPin className="w-5 h-5 mr-3 text-indigo-500" />
                   <span className="font-medium">勤務地:</span>
                   <span className="ml-2">{job.location}</span>
@@ -77,7 +111,7 @@ export default function JobDetailModal({
                 <div className="flex items-center text-gray-600">
                   <Briefcase className="w-5 h-5 mr-3 text-indigo-500" />
                   <span className="font-medium">雇用形態:</span>
-                  <span className="ml-2">{job.type}</span>
+                  <span className="ml-2">{getJobTypeLabel(job.jobType)}</span>
                 </div>
                 <div className="flex items-center text-gray-600">
                   <DollarSign className="w-5 h-5 mr-3 text-indigo-500" />
@@ -88,57 +122,56 @@ export default function JobDetailModal({
 
               {/* 詳細情報 */}
               <div className="space-y-6">
+                {/* 職務内容 */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                    <FileText className="w-5 h-5 mr-2 text-indigo-500" />
                     職務内容
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {job.title}
-                    として、チームと協力しながら業務を遂行していただきます。
-                    経験やスキルに応じて、適切なサポートを提供いたします。
+                  <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
+                    {job.description}
                   </p>
                 </div>
 
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                    応募資格
-                  </h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
-                      関連する経験をお持ちの方
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
-                      コミュニケーション能力の高い方
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 mr-2 mt-0.5 text-green-500 flex-shrink-0" />
-                      責任感があり、チームワークを大切にできる方
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                    勤務時間
-                  </h3>
-                  <div className="flex items-center text-gray-600">
-                    <Calendar className="w-5 h-5 mr-3 text-indigo-500" />
-                    <span>月曜日〜金曜日 9:00-18:00（休憩1時間）</span>
+                {/* 応募資格 */}
+                {job.requirements && (
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                      応募資格
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
+                      {job.requirements}
+                    </p>
                   </div>
-                </div>
+                )}
 
+                {/* 連絡先 */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                    福利厚生
+                    連絡先
                   </h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li>• 社会保険完備</li>
-                    <li>• 各種手当</li>
-                    <li>• 有給休暇</li>
-                    <li>• 研修制度</li>
-                  </ul>
+                  <div className="space-y-2">
+                    <div className="flex items-center text-gray-600">
+                      <Mail className="w-5 h-5 mr-3 text-indigo-500" />
+                      <a
+                        href={`mailto:${job.contactEmail}`}
+                        className="text-indigo-600 hover:underline"
+                      >
+                        {job.contactEmail}
+                      </a>
+                    </div>
+                    {job.contactPhone && (
+                      <div className="flex items-center text-gray-600">
+                        <Phone className="w-5 h-5 mr-3 text-indigo-500" />
+                        <a
+                          href={`tel:${job.contactPhone}`}
+                          className="text-indigo-600 hover:underline"
+                        >
+                          {job.contactPhone}
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -146,7 +179,7 @@ export default function JobDetailModal({
               <div className="mt-8 pt-6 border-t">
                 <button
                   onClick={handleApply}
-                  disabled={isApplying}
+                  disabled={isApplying || job.status === "closed"}
                   className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-6 rounded-lg hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isApplying ? (
@@ -154,6 +187,8 @@ export default function JobDetailModal({
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                       応募中...
                     </div>
+                  ) : job.status === "closed" ? (
+                    "募集終了"
                   ) : (
                     "応募する"
                   )}
@@ -174,7 +209,7 @@ export default function JobDetailModal({
               </p>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                 <p className="text-green-800 text-sm">
-                  応募番号: {job.id.toString().padStart(6, "0")}
+                  応募先: {job.company} - {job.title}
                 </p>
               </div>
             </div>
