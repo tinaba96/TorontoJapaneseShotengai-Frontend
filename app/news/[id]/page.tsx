@@ -138,7 +138,7 @@ const newsArticles: NewsArticle[] = [
       <ul>
         <li>桜餅（春）</li>
         <li>水羊羹（夏）</li>
-        <li>栗きんとん（秋）</li>
+        <li>栗きんとんクリームパウンド（秋）</li>
         <li>おはぎ（通年）</li>
       </ul>
 
