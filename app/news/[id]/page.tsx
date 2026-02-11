@@ -142,7 +142,7 @@ const newsArticles: NewsArticle[] = [
         <li>おはぎ（通年）</li>
       </ul>
 
-      <h3>モダンアレンジ</h3>
+      <h3>モダンアレンジ2</h3>
       <ul>
         <li>抹茶ティラミスチーズ</li>
         <li>りんごケーキ</li>
