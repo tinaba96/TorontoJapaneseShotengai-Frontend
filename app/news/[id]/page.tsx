@@ -214,7 +214,7 @@ const newsArticles: NewsArticle[] = [
       <ul>
         <li>食品店：全商品15%OFF</li>
         <li>雑貨店：全商品20%OFF</li>
-        <li>レストラン：ランチタイム特別メニュー</li>
+        <li>レストラン：ランチタイムメニュー</li>
         <li>美容院：和風ヘアスタイル20%OFF</li>
       </ul>
 
