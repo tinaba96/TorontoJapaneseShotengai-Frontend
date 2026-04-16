@@ -233,7 +233,12 @@ const newsArticles: NewsArticle[] = [
     category: "イベント",
     image: "/images/img4.png",
     author: "イベント委員会",
-    tags: ["ゴールデンウィーク", "イベント", "日本文化", "セール"],
+    tags: [
+      "ゴールデンウィーク",
+      "イベント",
+      "日本文化",
+      "ブラックフライデーいでーセール",
+    ],
   },
   {
     id: 5,
