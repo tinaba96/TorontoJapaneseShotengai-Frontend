@@ -16,7 +16,7 @@ const newsItems: NewsItem[] = [
   },
   {
     id: 2,
-    date: "2023-12-01",
+    date: "2023-12-11",
     title: "日本食バトル開催決定",
     link: "/news/2",
   },
