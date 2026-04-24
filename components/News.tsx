@@ -29,7 +29,7 @@ const newsItems: NewsItem[] = [
   {
     id: 4,
     date: "2023-02-01",
-    title: "ゴールデンウィークイベント情報!!",
+    title: "ゴールデンウィークイベント情報",
     link: "/news/4",
   },
   {
