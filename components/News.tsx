@@ -35,7 +35,7 @@ const newsItems: NewsItem[] = [
   {
     id: 5,
     date: "2022-12-01",
-    title: "クリスマスイベント開催",
+    title: "おおごとクリスマスイベント開催",
     link: "/news/5",
   },
 ];
