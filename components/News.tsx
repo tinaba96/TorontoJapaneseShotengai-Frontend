@@ -11,7 +11,7 @@ const newsItems: NewsItem[] = [
   {
     id: 1,
     date: "2024-11-01",
-    title: "起業家たちのためのオンラインイベントのお知らせ",
+    title: "起業家たちのためのオンラインイベントのお知らせ!",
     link: "/news/1",
   },
   {
