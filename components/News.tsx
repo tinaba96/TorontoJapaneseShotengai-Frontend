@@ -11,19 +11,19 @@ const newsItems: NewsItem[] = [
   {
     id: 1,
     date: "2024-11-01",
-    title: "起業家のためのオンラインイベントのお知らせ",
+    title: "起業家たちのためのオンラインイベントのお知らせ!",
     link: "/news/1",
   },
   {
     id: 2,
-    date: "2023-12-01",
-    title: "日本食バトル開催決定",
+    date: "2023-12-11",
+    title: "日本食大食いバトル開催",
     link: "/news/2",
   },
   {
     id: 3,
     date: "2023-04-15",
-    title: "新規ショップオープンのお知らせ!",
+    title: "新規ショップオープンのお知らせ",
     link: "/news/3",
   },
   {
@@ -35,7 +35,7 @@ const newsItems: NewsItem[] = [
   {
     id: 5,
     date: "2022-12-01",
-    title: "クリスマスイベント開催！",
+    title: "おおごとクリスマスイベント開催",
     link: "/news/5",
   },
 ];
