@@ -24,7 +24,7 @@ function adaptProperty(p: PropertyApi): Property {
     price: Number.isFinite(parsedRent) ? parsedRent : 0,
     size: Number.isFinite(parsedSize) ? parsedSize : 0,
     rooms: Number.isFinite(parsedRooms) ? parsedRooms : 0,
-    imageUrl: "/images/rental.png?height=200&width=300",
+    imageUrl: "/images/default.png?height=200&width=300",
   };
 }
 
