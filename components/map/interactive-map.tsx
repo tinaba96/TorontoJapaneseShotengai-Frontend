@@ -1,12 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, X } from "lucide-react";
-import { genreData, type Store } from "@/lib/genre-data";
+import { genreData, type Store, type GenreData } from "@/lib/genre-data";
 import GenreArea from "@/components/map/genre_area";
 import MapPlot from "@/components/map/map-plot";
 import StoreDetailPanel from "@/components/map/store-detail-panel";
+import { getStores } from "@/app/lib/api/stores";
+import type { Store as ApiStore } from "@/app/types/store";
+
+function mergeDbStores(dbStores: ApiStore[]): GenreData {
+  const clone: GenreData = {
+    mainGenres: genreData.mainGenres.map((mg) => ({
+      ...mg,
+      subGenres: mg.subGenres.map((sg) => ({
+        ...sg,
+        stores: [...sg.stores],
+      })),
+    })),
+  };
+  dbStores.forEach((s) => {
+    const main = clone.mainGenres.find((m) => m.id === s.mainGenre);
+    if (!main) return;
+    const sub = main.subGenres.find((g) => g.id === s.subGenre);
+    if (!sub) return;
+    sub.stores.push({
+      id: s.id,
+      name: s.title,
+      description: s.description,
+      position: { x: s.position_x, y: s.position_y },
+      storeInfo: {
+        phone: s.contactPhone,
+        hours: s.businessHours,
+        website: s.website,
+        description: s.description,
+        services: s.services
+          ? s.services
+              .split(/[、,\n]/)
+              .map((x) => x.trim())
+              .filter(Boolean)
+          : undefined,
+      },
+    });
+  });
+  return clone;
+}
 
 function RoadSystemBackground() {
   return (
@@ -65,12 +104,34 @@ function RoadSystemBackground() {
 }
 
 export default function InteractiveMap() {
+  const [data, setData] = useState<GenreData>(genreData);
   const [selectedMainGenre, setSelectedMainGenre] = useState<string | null>(
     null
   );
   const [selectedSubGenre, setSelectedSubGenre] = useState<string | null>(null);
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
   const [showPlots, setShowPlots] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const dbStores = await getStores();
+        setData(mergeDbStores(dbStores));
+      } catch (err) {
+        // 404 (no stores yet) is normal — fall back to static genreData
+        if (
+          err &&
+          typeof err === "object" &&
+          "status" in err &&
+          (err as { status?: number }).status === 404
+        ) {
+          return;
+        }
+        console.error("Failed to fetch stores:", err);
+      }
+    };
+    load();
+  }, []);
 
   const handleMainGenreClick = (genreId: string) => {
     setSelectedMainGenre(genreId);
@@ -113,7 +174,7 @@ export default function InteractiveMap() {
   };
 
   const currentMainGenre = selectedMainGenre
-    ? genreData.mainGenres.find((genre) => genre.id === selectedMainGenre)
+    ? data.mainGenres.find((genre) => genre.id === selectedMainGenre)
     : null;
 
   const currentSubGenre =
@@ -216,7 +277,7 @@ export default function InteractiveMap() {
             className="absolute inset-0"
           >
             <RoadSystemBackground />
-            {genreData.mainGenres.map((genre) => (
+            {data.mainGenres.map((genre) => (
               <GenreArea
                 key={genre.id}
                 genre={genre}

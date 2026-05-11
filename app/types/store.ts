@@ -25,6 +25,10 @@ export interface Store {
   services?: string;
   storeAddress: string;
   storeType: string;
+  mainGenre: string;
+  subGenre: string;
+  position_x: number;
+  position_y: number;
   creator_id: string;
   status: string;
   created_at: string;

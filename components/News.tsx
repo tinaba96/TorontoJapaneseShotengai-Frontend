@@ -1,64 +1,77 @@
-import Link from "next/link";
+"use client";
 
-interface NewsItem {
-  id: number;
-  date: string;
-  title: string;
-  link: string;
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { getNews } from "@/app/lib/api/news";
+import type { News } from "@/app/types/news";
+
+function formatDate(news: News): string {
+  return (news.publishDate || news.created_at || "").slice(0, 10);
 }
 
-const newsItems: NewsItem[] = [
-  {
-    id: 1,
-    date: "2024-11-01",
-    title: "起業家たちのためのオンラインイベントのお知らせ!",
-    link: "/news/1",
-  },
-  {
-    id: 2,
-    date: "2023-12-11",
-    title: "日本食大食いバトル開催",
-    link: "/news/2",
-  },
-  {
-    id: 3,
-    date: "2023-04-15",
-    title: "新規ショップオープンのお知らせ",
-    link: "/news/3",
-  },
-  {
-    id: 4,
-    date: "2023-02-01",
-    title: "ゴールデンウィークイベント情報",
-    link: "/news/4",
-  },
-  {
-    id: 5,
-    date: "2022-12-01",
-    title: "おおごとクリスマスイベント開催",
-    link: "/news/5",
-  },
-];
-
 const NewsSection = () => {
+  const [items, setItems] = useState<News[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await getNews();
+        setItems(data.slice(0, 5));
+      } catch (err) {
+        // 404 (no news) is normal; ignore
+        if (
+          !(
+            err &&
+            typeof err === "object" &&
+            "status" in err &&
+            (err as { status?: number }).status === 404
+          )
+        ) {
+          console.error("Failed to fetch news:", err);
+        }
+        setItems([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    load();
+  }, []);
+
   return (
     <section className="bg-gray-100 py-12">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-6 text-center text-shinsaibashi-blue">
           最新ニュース
         </h2>
-        <ul className="space-y-4">
-          {newsItems.map((item) => (
-            <li key={item.id} className="bg-white p-4 rounded shadow">
-              <Link href={item.link} className="flex items-center">
-                <span className="text-gray-600 mr-4">{item.date}</span>
-                <span className="text-shinsaibashi-blue hover:text-shinsaibashi-orange">
-                  {item.title}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+
+        {isLoading && (
+          <div className="flex justify-center py-6">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-shinsaibashi-orange"></div>
+          </div>
+        )}
+
+        {!isLoading && items.length === 0 && (
+          <p className="text-center text-gray-500">
+            現在表示できるニュースがありません
+          </p>
+        )}
+
+        {!isLoading && items.length > 0 && (
+          <ul className="space-y-4">
+            {items.map((item) => (
+              <li key={item.id} className="bg-white p-4 rounded shadow">
+                <Link href={`/news/${item.id}`} className="flex items-center">
+                  <span className="text-gray-600 mr-4">{formatDate(item)}</span>
+                  <span className="text-shinsaibashi-blue hover:text-shinsaibashi-orange">
+                    {item.title}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
         <div className="text-center mt-8">
           <Link
             href="/news"
