@@ -178,25 +178,94 @@ export default function CreatePage() {
           setIsSuccess(false);
           resetForm();
         }, 3000);
-      } else {
-        // その他のコンテンツタイプはデモ用の処理
+      } else if (contentType === "product") {
+        const { createProduct } = await import("@/app/lib/api/products");
+
+        const productData = {
+          title: formData.title,
+          description: formData.description,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone || undefined,
+          price: formData.price,
+          condition: formData.condition,
+          category: formData.category,
+          images: formData.images || undefined,
+        };
+
+        await createProduct(productData);
+        setIsSubmitting(false);
+        setIsSuccess(true);
+
+        toast({
+          title: "商品登録完了",
+          description: "フリマ商品が正常に登録されました。",
+          variant: "default",
+        });
+
         setTimeout(() => {
-          setIsSubmitting(false);
-          setIsSuccess(true);
+          setIsSuccess(false);
+          resetForm();
+        }, 3000);
+      } else if (contentType === "property") {
+        const { createProperty } = await import("@/app/lib/api/properties");
 
-          // 成功トーストを表示
-          toast({
-            title: "登録完了",
-            description: `${getContentTypeLabel(contentType)}が正常に登録されました。`,
-            variant: "default",
-          });
+        const propertyData = {
+          title: formData.title,
+          description: formData.description,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone || undefined,
+          address: formData.address,
+          rent: formData.rent,
+          size: formData.size,
+          rooms: formData.rooms,
+          utilities: formData.utilities || undefined,
+          parking: formData.parking || undefined,
+          petPolicy: formData.petPolicy || undefined,
+        };
 
-          // 3秒後にフォームをリセット
-          setTimeout(() => {
-            setIsSuccess(false);
-            resetForm();
-          }, 3000);
-        }, 2000);
+        await createProperty(propertyData);
+        setIsSubmitting(false);
+        setIsSuccess(true);
+
+        toast({
+          title: "賃貸物件登録完了",
+          description: "賃貸物件が正常に登録されました。",
+          variant: "default",
+        });
+
+        setTimeout(() => {
+          setIsSuccess(false);
+          resetForm();
+        }, 3000);
+      } else if (contentType === "store") {
+        const { createStore } = await import("@/app/lib/api/stores");
+
+        const storeData = {
+          title: formData.title,
+          description: formData.description,
+          contactEmail: formData.contactEmail,
+          contactPhone: formData.contactPhone || undefined,
+          businessHours: formData.businessHours,
+          website: formData.website || undefined,
+          services: formData.services || undefined,
+          storeAddress: formData.storeAddress,
+          storeType: formData.storeType,
+        };
+
+        await createStore(storeData);
+        setIsSubmitting(false);
+        setIsSuccess(true);
+
+        toast({
+          title: "店舗登録完了",
+          description: "商店街店舗が正常に登録されました。",
+          variant: "default",
+        });
+
+        setTimeout(() => {
+          setIsSuccess(false);
+          resetForm();
+        }, 3000);
       }
     } catch (error) {
       setIsSubmitting(false);
