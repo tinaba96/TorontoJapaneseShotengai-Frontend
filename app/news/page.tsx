@@ -97,7 +97,7 @@ export default function NewsPage() {
               </h3>
               <p className="text-gray-600">
                 {selectedCategory === "すべて"
-                  ? "現在表示できるニュースがありません"
+                  ? "現在表示できるニュースがありません。"
                   : `「${selectedCategory}」カテゴリのニュースはありません`}
               </p>
             </div>

@@ -1,0 +1,336 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1778535873766,
+  "projectRoot": "/Users/takahiroinaba/src/github/tinaba96/TorontoJapaneseShotengai-Frontend",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "15.1.0",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.0.0",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.0.0",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npx tsc --noEmit 2>&1 | tail -20 && echo \"--- LINT ---\" && npm run lint 2>&1 | tail -15",
+    "testCommand": "ls /Users/takahiroinaba/src/github/tinaba96/TorontoJapaneseShotengai-Backend/tests/ && echo \"--- pytest available? ---\" && /Users/takahiroinaba/src/github/tinaba96/TorontoJapaneseShotengai-Backend/.venv/bin/python -m pytest --version 2>&1 | tail -5",
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint"
+    }
+  },
+  "conventions": {
+    "namingStyle": "camelCase",
+    "importStyle": "ES modules",
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app",
+      "components",
+      "lib",
+      "public"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 6,
+      "lastAccessed": 1778535873757,
+      "keyFiles": [
+        "favicon.ico",
+        "globals.css",
+        "layout.tsx",
+        "not-found.tsx",
+        "page.tsx"
+      ]
+    },
+    "components": {
+      "path": "components",
+      "purpose": "UI components",
+      "fileCount": 12,
+      "lastAccessed": 1778535873758,
+      "keyFiles": [
+        "Filter.tsx",
+        "HeroSection.tsx",
+        "JobCard.tsx",
+        "JobDetailModal.tsx",
+        "JobList.tsx"
+      ]
+    },
+    "hooks": {
+      "path": "hooks",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1778535873761,
+      "keyFiles": [
+        "use-toast.ts"
+      ]
+    },
+    "lib": {
+      "path": "lib",
+      "purpose": "Library code",
+      "fileCount": 5,
+      "lastAccessed": 1778535873761,
+      "keyFiles": [
+        "genre-data.ts",
+        "map-data-pre.ts",
+        "map-data.ts",
+        "types.ts",
+        "utils.ts"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 5,
+      "lastAccessed": 1778535873762,
+      "keyFiles": [
+        "file.svg",
+        "globe.svg",
+        "next.svg",
+        "vercel.svg",
+        "window.svg"
+      ]
+    },
+    "app/components": {
+      "path": "app/components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1778535873762,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "app/create/page.tsx",
+      "accessCount": 6,
+      "lastAccessed": 1778536759404,
+      "type": "file"
+    },
+    {
+      "path": "lib/genre-data.ts",
+      "accessCount": 6,
+      "lastAccessed": 1778539063324,
+      "type": "file"
+    },
+    {
+      "path": "components/map/interactive-map.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1778538587676,
+      "type": "file"
+    },
+    {
+      "path": "app/news/[id]/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1778539436373,
+      "type": "file"
+    },
+    {
+      "path": "app/fm/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778536770873,
+      "type": "file"
+    },
+    {
+      "path": "app/rental-properties/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778536783644,
+      "type": "file"
+    },
+    {
+      "path": "app/types/store.ts",
+      "accessCount": 2,
+      "lastAccessed": 1778538507350,
+      "type": "file"
+    },
+    {
+      "path": "components/ProductList.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778539227835,
+      "type": "file"
+    },
+    {
+      "path": "app/news/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778539419213,
+      "type": "file"
+    },
+    {
+      "path": "app/blogs/page.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778539445068,
+      "type": "file"
+    },
+    {
+      "path": "components/News.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1778539451612,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/jobs.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778535894299,
+      "type": "file"
+    },
+    {
+      "path": "app/jobs/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778535896465,
+      "type": "file"
+    },
+    {
+      "path": "app/types/event.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778535993544,
+      "type": "file"
+    },
+    {
+      "path": "app/types/job.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778535993895,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/events.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778535994725,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/client.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536005433,
+      "type": "file"
+    },
+    {
+      "path": "app/company/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778536221053,
+      "type": "file"
+    },
+    {
+      "path": "components/PropertyCard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778536221372,
+      "type": "file"
+    },
+    {
+      "path": "lib/types.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536227409,
+      "type": "file"
+    },
+    {
+      "path": "components/ProductCard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778536228282,
+      "type": "file"
+    },
+    {
+      "path": "app/types/product.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536732804,
+      "type": "file"
+    },
+    {
+      "path": "app/types/property.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536735982,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/products.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536741680,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/properties.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536743576,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/stores.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778536745538,
+      "type": "file"
+    },
+    {
+      "path": "components/AllContents/AllContents.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778539197486,
+      "type": "file"
+    },
+    {
+      "path": "app/types/news.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778539371705,
+      "type": "file"
+    },
+    {
+      "path": "app/types/blog.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778539373600,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/news.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778539375492,
+      "type": "file"
+    },
+    {
+      "path": "app/lib/api/blogs.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778539377536,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
