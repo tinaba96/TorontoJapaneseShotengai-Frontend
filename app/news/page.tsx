@@ -34,7 +34,7 @@ export default function NewsPage() {
           setItems([]);
           return;
         }
-        setError("ニュースの読み込みに失敗しました");
+        setError("ニュースの読み込みに失敗しました。");
       } finally {
         setIsLoading(false);
       }
