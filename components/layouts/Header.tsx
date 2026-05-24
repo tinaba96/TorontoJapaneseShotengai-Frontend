@@ -40,7 +40,7 @@ const Header = () => {
       className={`sticky top-0 z-50 transition-all duration-500 ${
         isScrolled
           ? "glass shadow-glow-soft border-b border-sumi-100/40"
-          : "bg-white/40 backdrop-blur-sm border-b border-transparent"
+          : "bg-white/85 backdrop-blur-md border-b border-sumi-100/30"
       }`}
     >
       {/* gold hairline */}
