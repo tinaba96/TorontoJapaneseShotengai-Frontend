@@ -2,6 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight, Newspaper, Filter, Sparkles } from "lucide-react";
+import Header from "../../components/layouts/Header";
+import Footer from "../../components/layouts/Footer";
 import { getNews } from "@/app/lib/api/news";
 import type { News } from "@/app/types/news";
 
@@ -48,119 +51,147 @@ export default function NewsPage() {
   }, [items, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-r from-shinsaibashi-blue to-shinsaibashi-orange text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">ニュース</h1>
-          <p className="text-xl opacity-90">
-            トロント日本人商店街の最新情報をお届けします。
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen flex flex-col bg-washi-50">
+      <Header />
+      <main className="flex-grow">
+        {/* HERO */}
+        <section className="relative isolate overflow-hidden bg-gradient-sumi text-washi-50">
+          <div className="pointer-events-none absolute -top-32 -right-20 h-[28rem] w-[28rem] rounded-full bg-gold-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -left-20 h-[32rem] w-[32rem] rounded-full bg-sakura-500/20 blur-3xl" />
+          <div className="divider-gold" />
+          <div className="relative container mx-auto px-4 lg:px-8 py-16 md:py-24">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.4em] text-washi-100/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse" />
+              News · 最新情報
+            </div>
+            <h1 className="mt-6 font-display font-black leading-[0.95] tracking-tight text-balance text-5xl md:text-7xl lg:text-8xl">
+              <span className="text-gradient-aurora">Today&apos;s</span>{" "}
+              <span className="italic text-gradient-gold">Headlines.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-washi-100/80">
+              トロント日本人商店街の、いまをお届け。
+              ローカルニュース、オープン情報、コミュニティの動き。
+            </p>
+          </div>
+          <div className="divider-gold" />
+        </section>
 
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="mb-8">
+        {/* FILTER */}
+        <section className="py-10">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="flex items-center justify-center gap-2 text-[10px] font-mono uppercase tracking-[0.3em] text-sumi-400 mb-4">
+              <Filter className="h-3 w-3" />
+              Filter by category
+            </div>
             <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full border transition-colors duration-300 ${
-                    selectedCategory === category
-                      ? "bg-shinsaibashi-orange text-white border-shinsaibashi-orange"
-                      : "bg-white border-gray-300 hover:bg-shinsaibashi-orange hover:text-white"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+              {categories.map((category) => {
+                const active = selectedCategory === category;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      active
+                        ? "bg-gradient-sakura text-white shadow-glow border-transparent"
+                        : "bg-white text-sumi-600 border border-sumi-200 hover:border-sakura-300 hover:text-sakura-600"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
             </div>
           </div>
+        </section>
 
-          {isLoading && (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-shinsaibashi-orange"></div>
-            </div>
-          )}
+        {/* LIST */}
+        <section className="pb-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            {isLoading && (
+              <div className="flex justify-center py-12">
+                <div className="relative">
+                  <div className="h-12 w-12 rounded-full border-2 border-sakura-100" />
+                  <div className="absolute inset-0 h-12 w-12 rounded-full border-2 border-transparent border-t-sakura-500 animate-spin" />
+                </div>
+              </div>
+            )}
 
-          {error && !isLoading && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-              <p className="text-red-600">{error}</p>
-            </div>
-          )}
+            {error && !isLoading && (
+              <div className="mx-auto max-w-xl rounded-3xl border border-red-200 bg-red-50/70 backdrop-blur p-8 text-center">
+                <p className="text-red-600 text-sm">{error}</p>
+              </div>
+            )}
 
-          {!isLoading && !error && filtered.length === 0 && (
-            <div className="bg-white rounded-lg shadow p-12 text-center">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                ニュースがありません
-              </h3>
-              <p className="text-gray-600">
-                {selectedCategory === "すべて"
-                  ? "現在表示できるニュースがありません。"
-                  : `「${selectedCategory}」カテゴリのニュースはありません。`}
-              </p>
-            </div>
-          )}
+            {!isLoading && !error && filtered.length === 0 && (
+              <div className="mx-auto max-w-xl text-center py-12">
+                <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-sakura-50 to-gold-50 ring-1 ring-gold-200/50 shadow-glow-soft">
+                  <Newspaper className="h-9 w-9 text-gold-500" />
+                </div>
+                <h3 className="mt-6 font-display text-2xl font-bold text-sumi-800">
+                  ニュースがありません
+                </h3>
+                <p className="mt-2 text-sm text-sumi-500">
+                  {selectedCategory === "すべて"
+                    ? "現在表示できるニュースがありません。"
+                    : `「${selectedCategory}」カテゴリのニュースはありません。`}
+                </p>
+              </div>
+            )}
 
-          {!isLoading && !error && filtered.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((item) => (
-                <article
-                  key={item.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-                >
-                  {item.image && (
-                    <div className="h-48 overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-gray-500">
-                        {formatDate(item)}
-                      </span>
-                      <span className="px-3 py-1 bg-shinsaibashi-orange text-white text-xs rounded-full">
-                        {item.category}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3 text-shinsaibashi-blue hover:text-shinsaibashi-orange transition-colors duration-300">
-                      <Link href={`/news/${item.id}`}>{item.title}</Link>
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {item.excerpt || ""}
-                    </p>
-                    <Link
-                      href={`/news/${item.id}`}
-                      className="inline-flex items-center text-shinsaibashi-orange hover:text-shinsaibashi-blue transition-colors duration-300"
-                    >
-                      続きを読む
-                      <svg
-                        className="w-4 h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+            {!isLoading && !error && filtered.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((item, idx) => (
+                  <article
+                    key={item.id}
+                    style={{ animationDelay: `${idx * 60}ms` }}
+                    className="group relative overflow-hidden rounded-3xl bg-white border border-sumi-100 shadow-glow-soft transition-all duration-500 hover:shadow-elegant hover:-translate-y-1 hover:border-sakura-200 animate-fade-in-up"
+                  >
+                    <Link href={`/news/${item.id}`} className="block">
+                      {item.image && (
+                        <div className="relative h-52 overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-sumi-900/55 via-transparent to-transparent" />
+                          <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-gradient-sakura px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-glow">
+                            <Sparkles className="h-3 w-3" />
+                            {item.category}
+                          </div>
+                        </div>
+                      )}
+                      <div className="p-6">
+                        {!item.image && (
+                          <div className="mb-3 inline-flex items-center gap-1 rounded-full bg-gradient-sakura px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-glow">
+                            <Sparkles className="h-3 w-3" />
+                            {item.category}
+                          </div>
+                        )}
+                        <div className="font-mono text-[10px] uppercase tracking-widest text-sumi-400">
+                          {formatDate(item)}
+                        </div>
+                        <h3 className="mt-2 font-display text-xl font-bold text-sumi-800 group-hover:text-sakura-600 transition-colors line-clamp-2">
+                          {item.title}
+                        </h3>
+                        <p className="mt-3 text-sm text-sumi-500 leading-relaxed line-clamp-3">
+                          {item.excerpt || ""}
+                        </p>
+                        <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sakura-600">
+                          続きを読む
+                          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </div>
+                      </div>
                     </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
+      <Footer />
     </div>
   );
 }
