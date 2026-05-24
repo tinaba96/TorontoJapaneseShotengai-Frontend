@@ -3,39 +3,66 @@
 import type React from "react";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
+import Link from "next/link";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
+  ArrowUpRight,
+  Sparkles,
+} from "lucide-react";
 
 type Slide = {
   src: string;
   kicker: string;
+  number: string;
   title: string;
+  excerpt: string;
   tag: string;
+  cta: { label: string; href: string };
 };
 
 const slides: Slide[] = [
   {
     src: "/images/ad.png",
-    kicker: "Featured · 01",
+    kicker: "Editor's pick",
+    number: "01",
     title: "今日の一杯、\n日本の温度で。",
+    excerpt:
+      "朝の珈琲、昼の抹茶。トロントで見つける、まっすぐな味と、ていねいな時間。",
     tag: "Cafe & Sweets",
+    cta: { label: "お店を探す", href: "/map" },
   },
   {
     src: "/images/ad2.png",
-    kicker: "Featured · 02",
+    kicker: "Curated for you",
+    number: "02",
     title: "暮らしを彩る、\nローカルの逸品。",
+    excerpt:
+      "ふだん使いの和雑貨から、こだわりの調味料まで。あなたの今日に、ちょうどいいモノを。",
     tag: "Shop & Goods",
+    cta: { label: "ショップへ", href: "/fm" },
   },
   {
     src: "/images/ad3.png",
-    kicker: "Featured · 03",
+    kicker: "Voices",
+    number: "03",
     title: "誰かの物語が、\nここから始まる。",
-    tag: "Community",
+    excerpt:
+      "店主の言葉、お客さんの一言。ローカルの空気を、文章でお届け。",
+    tag: "Community Stories",
+    cta: { label: "ブログを読む", href: "/blogs" },
   },
   {
     src: "/images/ad4.png",
-    kicker: "Featured · 04",
+    kicker: "This week",
+    number: "04",
     title: "週末を、\n少しだけ特別に。",
+    excerpt:
+      "ポップアップ、ワークショップ、季節のフェスティバル。あなたの予定に、彩りを。",
     tag: "Events",
+    cta: { label: "イベント一覧", href: "/events" },
   },
 ];
 
@@ -53,7 +80,7 @@ const MainCarousel: React.FC = () => {
 
   useEffect(() => {
     if (!isPlaying) return;
-    const interval = setInterval(nextSlide, 6000);
+    const interval = setInterval(nextSlide, 6500);
     return () => clearInterval(interval);
   }, [nextSlide, isPlaying]);
 
@@ -61,9 +88,13 @@ const MainCarousel: React.FC = () => {
 
   return (
     <section className="relative w-full py-20 overflow-hidden">
+      {/* Soft ambient glow */}
+      <div className="pointer-events-none absolute top-32 -left-20 h-80 w-80 rounded-full bg-sakura-200/40 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-gold-200/40 blur-3xl -z-10" />
+
       <div className="container mx-auto px-4 lg:px-8">
         {/* Eyebrow header */}
-        <div className="mb-8 flex items-end justify-between gap-6">
+        <div className="mb-10 flex items-end justify-between gap-6">
           <div>
             <div className="section-eyebrow">
               <span className="h-px w-8 bg-gold-400" />
@@ -77,8 +108,24 @@ const MainCarousel: React.FC = () => {
           <div className="hidden md:flex items-center gap-3">
             <button
               type="button"
+              onClick={prevSlide}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-sumi-200 bg-white/80 text-sumi-700 backdrop-blur transition-all hover:border-sakura-300 hover:text-sakura-600 hover:-translate-y-0.5"
+              aria-label="前のスライド"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={nextSlide}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-sumi-200 bg-white/80 text-sumi-700 backdrop-blur transition-all hover:border-sakura-300 hover:text-sakura-600 hover:-translate-y-0.5"
+              aria-label="次のスライド"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
               onClick={() => setIsPlaying((p) => !p)}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-sumi-200 bg-white/70 text-sumi-700 backdrop-blur hover:border-sakura-300 hover:text-sakura-600 transition-colors"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-sumi-200 bg-white/80 text-sumi-700 backdrop-blur transition-all hover:border-sakura-300 hover:text-sakura-600 hover:-translate-y-0.5"
               aria-label={isPlaying ? "一時停止" : "再生"}
             >
               {isPlaying ? (
@@ -87,17 +134,13 @@ const MainCarousel: React.FC = () => {
                 <Play className="h-4 w-4" />
               )}
             </button>
-            <span className="font-mono text-xs text-sumi-400 tracking-widest min-w-[64px] text-right">
-              {String(currentSlide + 1).padStart(2, "0")} /{" "}
-              {String(slides.length).padStart(2, "0")}
-            </span>
           </div>
         </div>
 
-        <div className="group grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Big visual */}
-          <div className="relative lg:col-span-9 h-[440px] md:h-[640px] overflow-hidden rounded-[2rem] shadow-elegant ring-1 ring-sumi-100/60">
-            <div className="pointer-events-none absolute -inset-10 z-0 bg-gradient-aurora opacity-20 blur-3xl" />
+        {/* MAGAZINE SPREAD */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-[2rem] overflow-hidden shadow-elegant ring-1 ring-sumi-100/60 bg-white">
+          {/* LEFT: Image panel */}
+          <div className="relative lg:col-span-7 aspect-[4/3] lg:aspect-auto lg:min-h-[560px] overflow-hidden bg-sumi-900">
             {slides.map((s, index) => (
               <div
                 key={s.src}
@@ -108,112 +151,158 @@ const MainCarousel: React.FC = () => {
                 }`}
               >
                 <Image
-                  src={s.src || "/placeholder.svg"}
-                  alt={s.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 75vw"
-                  className="object-cover"
-                  priority={index === 0}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-sumi-900/85 via-sumi-900/20 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-sumi-900/55 via-transparent to-transparent" />
-              </div>
-            ))}
-
-            {/* Caption overlay */}
-            <div className="absolute bottom-0 left-0 right-0 z-20 p-8 md:p-12">
-              <div className="max-w-2xl">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-washi-50">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse-soft" />
-                  {slide.kicker}
-                </span>
-                <h3 className="mt-4 font-display text-3xl md:text-6xl font-extrabold text-washi-50 text-shadow-elegant whitespace-pre-line leading-[1.05] text-balance">
-                  {slide.title}
-                </h3>
-                <p className="mt-3 font-jp text-sm md:text-base text-gold-300 tracking-widest">
-                  {slide.tag}
-                </p>
-              </div>
-            </div>
-
-            {/* Indicators bottom right */}
-            <div className="absolute z-30 bottom-6 right-6 flex items-center gap-2">
-              {slides.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setCurrentSlide(index)}
-                  aria-current={currentSlide === index}
-                  aria-label={`Slide ${index + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    currentSlide === index
-                      ? "w-10 bg-gradient-gold shadow-glow-gold"
-                      : "w-4 bg-white/40 hover:bg-white/70"
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Controls */}
-            <button
-              type="button"
-              onClick={prevSlide}
-              aria-label="前のスライド"
-              className="absolute left-4 top-1/2 z-30 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white backdrop-blur-md ring-1 ring-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/25 hover:scale-110"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={nextSlide}
-              aria-label="次のスライド"
-              className="absolute right-4 top-1/2 z-30 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white backdrop-blur-md ring-1 ring-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/25 hover:scale-110"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-
-          {/* Right-rail thumbnails (magazine style) */}
-          <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-3">
-            {slides.map((s, index) => (
-              <button
-                key={s.src + index}
-                type="button"
-                onClick={() => setCurrentSlide(index)}
-                className={`group/thumb relative overflow-hidden rounded-2xl ring-1 transition-all duration-500 ${
-                  index === currentSlide
-                    ? "ring-gold-400 shadow-glow-gold scale-100"
-                    : "ring-sumi-100/70 opacity-70 hover:opacity-100 hover:ring-sakura-200"
-                }`}
-                style={{ aspectRatio: "16 / 11" }}
-                aria-label={`Show ${s.title}`}
-              >
-                <Image
                   src={s.src}
                   alt={s.title}
                   fill
-                  sizes="(max-width: 1024px) 50vw, 20vw"
-                  className="object-cover transition-transform duration-700 group-hover/thumb:scale-110"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="object-cover"
+                  priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-sumi-900/85 to-transparent" />
-                <div className="absolute bottom-2 left-3 right-3 text-left">
-                  <div className="text-[9px] font-mono uppercase tracking-[0.25em] text-gold-300/90">
-                    {s.kicker}
-                  </div>
-                  <div className="mt-0.5 font-display text-sm font-bold text-white text-shadow-elegant line-clamp-1">
-                    {s.tag}
-                  </div>
-                </div>
-                {index === currentSlide && (
-                  <span className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-gradient-gold px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-sumi-900">
-                    Now
-                  </span>
-                )}
-              </button>
+                {/* Gradient overlay — subtle, just for type contrast at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-sumi-900/45 via-transparent to-sumi-900/10" />
+              </div>
             ))}
+
+            {/* Floating number badge top-left */}
+            <div className="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1.5 text-[10px] uppercase tracking-[0.3em] text-washi-50">
+              <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse-soft" />
+              {slide.kicker}
+            </div>
+
+            {/* Giant magazine number bottom-right */}
+            <div className="absolute bottom-6 right-6 font-display font-black text-[5rem] md:text-[7rem] leading-none text-white/15 select-none pointer-events-none">
+              {slide.number}
+            </div>
+
+            {/* Tag chip bottom-left */}
+            <div className="absolute bottom-6 left-6">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-gold px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-sumi-900 shadow-glow-gold">
+                <Sparkles className="h-3 w-3" />
+                {slide.tag}
+              </span>
+            </div>
+          </div>
+
+          {/* RIGHT: Editorial caption */}
+          <div className="relative lg:col-span-5 flex flex-col bg-gradient-to-br from-washi-50 to-white p-8 md:p-12">
+            {/* Decorative number */}
+            <div className="absolute top-8 right-8 font-mono text-[10px] uppercase tracking-[0.4em] text-sumi-400">
+              {String(currentSlide + 1).padStart(2, "0")} /{" "}
+              {String(slides.length).padStart(2, "0")}
+            </div>
+
+            {/* Top accent */}
+            <div className="divider-gold mb-8 mt-2 lg:mt-0" />
+
+            {/* Sliding content */}
+            <div className="flex-1 flex flex-col justify-center min-h-[280px]">
+              <div className="font-jp text-sm font-semibold tracking-[0.3em] text-gold-500">
+                {slide.tag}
+              </div>
+              <h3 className="mt-4 font-display font-extrabold text-4xl md:text-5xl xl:text-6xl leading-[1.05] tracking-tight text-sumi-800 whitespace-pre-line text-balance">
+                {slide.title.split("\n").map((line, i) => (
+                  <span key={i} className="block">
+                    {i === 1 ? (
+                      <span className="text-gradient-sakura italic">
+                        {line}
+                      </span>
+                    ) : (
+                      line
+                    )}
+                  </span>
+                ))}
+              </h3>
+              <p className="mt-6 text-sumi-600 text-base leading-relaxed max-w-md">
+                {slide.excerpt}
+              </p>
+
+              <Link
+                href={slide.cta.href}
+                className="group mt-8 inline-flex items-center gap-2 self-start rounded-full bg-sumi-800 px-6 py-3 text-sm font-bold text-washi-50 shadow-glow-soft btn-glow transition-all hover:bg-gradient-sakura hover:-translate-y-0.5"
+              >
+                {slide.cta.label}
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-12" />
+              </Link>
+            </div>
+
+            {/* Bottom indicator track */}
+            <div className="mt-10 pt-6 border-t border-sumi-100">
+              <div className="flex items-center gap-2">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setCurrentSlide(index)}
+                    aria-current={currentSlide === index}
+                    aria-label={`Slide ${index + 1}`}
+                    className={`group relative h-1.5 flex-1 overflow-hidden rounded-full transition-all duration-500 ${
+                      currentSlide === index
+                        ? "bg-sumi-100"
+                        : "bg-sumi-100/60 hover:bg-sumi-200/80"
+                    }`}
+                  >
+                    {currentSlide === index && (
+                      <span
+                        key={`bar-${currentSlide}-${isPlaying}`}
+                        className="absolute inset-y-0 left-0 bg-gradient-sakura"
+                        style={{
+                          width: "100%",
+                          animation: isPlaying
+                            ? "carousel-progress 6.5s linear forwards"
+                            : "none",
+                        }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Mobile controls */}
+              <div className="mt-4 flex md:hidden items-center justify-between">
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-sumi-200 bg-white text-sumi-700"
+                  aria-label="前のスライド"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsPlaying((p) => !p)}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-sumi-200 bg-white text-sumi-700"
+                  aria-label={isPlaying ? "一時停止" : "再生"}
+                >
+                  {isPlaying ? (
+                    <Pause className="h-3.5 w-3.5" />
+                  ) : (
+                    <Play className="h-3.5 w-3.5" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-sumi-200 bg-white text-sumi-700"
+                  aria-label="次のスライド"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes carousel-progress {
+          from {
+            transform: translateX(-100%);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };
