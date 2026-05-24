@@ -112,12 +112,12 @@ const AllContents = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[240px] gap-5">
-          {tiles.map((tile) => {
-            const LinkComp = (
+          {tiles.map((tile) => (
               <Link
+                key={tile.href + tile.title}
                 href={tile.href}
                 target={tile.external ? "_blank" : undefined}
-                className={`group relative block overflow-hidden rounded-3xl bg-sumi-900 ring-1 ring-sumi-100/60 shadow-elegant transition-all duration-500 hover:-translate-y-1 hover:shadow-glow ${tile.span}`}
+                className={`group relative block min-h-[280px] md:min-h-0 overflow-hidden rounded-3xl bg-sumi-900 ring-1 ring-sumi-100/60 shadow-elegant transition-all duration-500 hover:-translate-y-1 hover:shadow-glow ${tile.span}`}
               >
                 <Image
                   src={tile.image}
@@ -159,9 +159,7 @@ const AllContents = () => {
                   </div>
                 </div>
               </Link>
-            );
-            return <div key={tile.href + tile.title}>{LinkComp}</div>;
-          })}
+            ))}
         </div>
       </div>
     </section>
