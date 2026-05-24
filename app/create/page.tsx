@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,8 +12,10 @@ import {
   Calendar,
   Home,
   Plus,
-  CheckCircle,
+  CheckCircle2,
   Store,
+  Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
@@ -22,33 +23,29 @@ import Footer from "@/components/layouts/Footer";
 type ContentType = "job" | "product" | "event" | "property" | "store";
 
 interface FormData {
-  // 共通フィールド
+  // 共通
   title: string;
   description: string;
   contactEmail: string;
   contactPhone: string;
-
-  // 求人情報
+  // 求人
   company: string;
   salary: string;
   location: string;
   jobType: string;
   requirements: string;
-
-  // フリマ商品情報
+  // フリマ
   price: string;
   condition: string;
   category: string;
   images: string;
-
-  // イベント情報
+  // イベント
   eventDate: string;
   eventTime: string;
   venue: string;
   organizer: string;
   maxAttendees: string;
-
-  // 賃貸情報
+  // 賃貸
   address: string;
   rent: string;
   size: string;
@@ -56,14 +53,35 @@ interface FormData {
   utilities: string;
   parking: string;
   petPolicy: string;
-
-  // 商店街情報
+  // 商店街
   businessHours: string;
   website: string;
   services: string;
   storeAddress: string;
   storeType: string;
 }
+
+const contentTypeMeta: Record<
+  ContentType,
+  { label: string; icon: React.ReactNode; tone: "sakura" | "gold" | "indigo" }
+> = {
+  job: { label: "求人情報", icon: <Briefcase className="h-5 w-5" />, tone: "sakura" },
+  product: { label: "フリマ商品", icon: <ShoppingBag className="h-5 w-5" />, tone: "gold" },
+  event: { label: "イベント", icon: <Calendar className="h-5 w-5" />, tone: "sakura" },
+  property: { label: "賃貸物件", icon: <Home className="h-5 w-5" />, tone: "indigo" },
+  store: { label: "商店街店舗", icon: <Store className="h-5 w-5" />, tone: "gold" },
+};
+
+const toneClasses: Record<string, string> = {
+  sakura:
+    "data-[active=true]:bg-gradient-sakura data-[active=true]:text-white data-[active=true]:shadow-glow data-[active=true]:border-transparent",
+  gold: "data-[active=true]:bg-gradient-gold data-[active=true]:text-sumi-900 data-[active=true]:shadow-glow-gold data-[active=true]:border-transparent",
+  indigo:
+    "data-[active=true]:bg-sumi-800 data-[active=true]:text-washi-50 data-[active=true]:shadow-elegant data-[active=true]:border-transparent",
+};
+
+const selectClass =
+  "flex h-10 w-full items-center justify-between rounded-md border border-sumi-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:border-sakura-300 focus:ring-2 focus:ring-sakura-200/40 disabled:cursor-not-allowed disabled:opacity-50";
 
 export default function CreatePage() {
   const { toast } = useToast();
@@ -107,15 +125,15 @@ export default function CreatePage() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const getContentTypeLabel = (type: ContentType) => contentTypeMeta[type].label;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
       if (contentType === "event") {
-        // イベント情報の場合、APIを呼び出す
         const { createEvent } = await import("@/app/lib/api/events");
-
         const eventData = {
           title: formData.title,
           description: formData.description,
@@ -129,27 +147,20 @@ export default function CreatePage() {
             ? parseInt(formData.maxAttendees, 10)
             : undefined,
         };
-
         await createEvent(eventData);
         setIsSubmitting(false);
         setIsSuccess(true);
-
-        // 成功トーストを表示
         toast({
           title: "イベント登録完了",
           description: "イベントが正常に登録されました。",
           variant: "default",
         });
-
-        // 3秒後にフォームをリセット
         setTimeout(() => {
           setIsSuccess(false);
           resetForm();
         }, 3000);
       } else if (contentType === "job") {
-        // 求人情報の場合、APIを呼び出す
         const { createJob } = await import("@/app/lib/api/jobs");
-
         const jobData = {
           title: formData.title,
           description: formData.description,
@@ -161,26 +172,20 @@ export default function CreatePage() {
           jobType: formData.jobType,
           requirements: formData.requirements || undefined,
         };
-
         await createJob(jobData);
         setIsSubmitting(false);
         setIsSuccess(true);
-
-        // 成功トーストを表示
         toast({
           title: "求人情報登録完了",
           description: "求人情報が正常に登録されました。",
           variant: "default",
         });
-
-        // 3秒後にフォームをリセット
         setTimeout(() => {
           setIsSuccess(false);
           resetForm();
         }, 3000);
       } else if (contentType === "product") {
         const { createProduct } = await import("@/app/lib/api/products");
-
         const productData = {
           title: formData.title,
           description: formData.description,
@@ -191,24 +196,20 @@ export default function CreatePage() {
           category: formData.category,
           images: formData.images || undefined,
         };
-
         await createProduct(productData);
         setIsSubmitting(false);
         setIsSuccess(true);
-
         toast({
           title: "商品登録完了",
           description: "フリマ商品が正常に登録されました。",
           variant: "default",
         });
-
         setTimeout(() => {
           setIsSuccess(false);
           resetForm();
         }, 3000);
       } else if (contentType === "property") {
         const { createProperty } = await import("@/app/lib/api/properties");
-
         const propertyData = {
           title: formData.title,
           description: formData.description,
@@ -222,24 +223,20 @@ export default function CreatePage() {
           parking: formData.parking || undefined,
           petPolicy: formData.petPolicy || undefined,
         };
-
         await createProperty(propertyData);
         setIsSubmitting(false);
         setIsSuccess(true);
-
         toast({
           title: "賃貸物件登録完了",
           description: "賃貸物件が正常に登録されました。",
           variant: "default",
         });
-
         setTimeout(() => {
           setIsSuccess(false);
           resetForm();
         }, 3000);
       } else if (contentType === "store") {
         const { createStore } = await import("@/app/lib/api/stores");
-
         const storeData = {
           title: formData.title,
           description: formData.description,
@@ -251,17 +248,14 @@ export default function CreatePage() {
           storeAddress: formData.storeAddress,
           storeType: formData.storeType,
         };
-
         await createStore(storeData);
         setIsSubmitting(false);
         setIsSuccess(true);
-
         toast({
           title: "店舗登録完了",
           description: "商店街店舗が正常に登録されました。",
           variant: "default",
         });
-
         setTimeout(() => {
           setIsSuccess(false);
           resetForm();
@@ -271,12 +265,10 @@ export default function CreatePage() {
       setIsSubmitting(false);
       console.error("投稿エラー:", error);
 
-      // エラーメッセージを設定
       let errorTitle = "登録エラー";
       let errorMessage = "投稿に失敗しました。もう一度お試しください。";
 
       if (error instanceof Error) {
-        // ApiErrorの場合
         const apiError = error as {
           status?: number;
           data?: { message?: string };
@@ -301,7 +293,6 @@ export default function CreatePage() {
         }
       }
 
-      // エラートーストを表示
       toast({
         title: errorTitle,
         description: errorMessage,
@@ -345,40 +336,32 @@ export default function CreatePage() {
     });
   };
 
-  const getContentTypeLabel = (type: ContentType) => {
-    switch (type) {
-      case "job":
-        return "求人情報";
-      case "product":
-        return "フリマ商品情報";
-      case "event":
-        return "イベント情報";
-      case "property":
-        return "賃貸情報";
-      case "store":
-        return "商店街情報";
-    }
-  };
-
   if (isSuccess) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-washi-50">
         <Header />
-        <main className="flex-grow container mx-auto px-4 py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-12 h-12 text-green-600" />
+        <main className="flex-grow container mx-auto px-4 lg:px-8 py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="relative mx-auto w-fit">
+              <div className="absolute inset-0 -m-4 rounded-full bg-gradient-sakura blur-2xl opacity-50 animate-pulse-soft" />
+              <div className="relative grid h-24 w-24 mx-auto place-items-center rounded-full bg-gradient-sakura text-white shadow-glow ring-4 ring-white">
+                <CheckCircle2 className="h-12 w-12" strokeWidth={2.5} />
+              </div>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              登録完了！
+            <h1 className="mt-8 font-display text-4xl md:text-5xl font-extrabold text-sumi-800">
+              <span className="text-gradient-sakura">登録完了</span>
+              <span className="text-gold-500">!</span>
             </h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="mt-4 text-sumi-600">
               {getContentTypeLabel(contentType)}の登録が完了しました。
             </p>
             <Button
               onClick={() => setIsSuccess(false)}
-              className="bg-blue-600 hover:bg-blue-700"
+              variant="sakura"
+              size="lg"
+              className="mt-8"
             >
+              <Plus className="h-4 w-4" />
               新しい投稿を作成
             </Button>
           </div>
@@ -389,110 +372,154 @@ export default function CreatePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-washi-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              新規投稿作成
+      <main className="flex-grow">
+        {/* HERO */}
+        <section className="relative isolate overflow-hidden bg-gradient-sumi text-washi-50">
+          <div className="pointer-events-none absolute -top-32 -right-20 h-[28rem] w-[28rem] rounded-full bg-sakura-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -left-20 h-[32rem] w-[32rem] rounded-full bg-gold-500/20 blur-3xl" />
+          <div className="divider-gold" />
+          <div className="relative container mx-auto px-4 lg:px-8 py-14 md:py-20">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.4em] text-washi-100/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse" />
+              Create · 新規投稿
+            </div>
+            <h1 className="mt-6 font-display font-black leading-[0.95] tracking-tight text-balance text-5xl md:text-7xl">
+              <span className="text-gradient-aurora">Post</span>{" "}
+              <span className="italic text-gradient-gold">something new.</span>
             </h1>
-            <p className="text-gray-600">
-              投稿したい情報の種類を選択して、詳細を入力してください
+            <p className="mt-5 max-w-2xl text-base text-washi-100/80">
+              投稿したい情報を選んで、詳細を入力してください。
             </p>
           </div>
+          <div className="divider-gold" />
+        </section>
 
-          <form onSubmit={handleSubmit}>
-            <Card>
-              <CardContent className="p-6">
-                {/* 投稿タイプ選択 */}
-                <div className="mb-8">
-                  <Label className="text-lg font-semibold mb-4 block">
-                    投稿タイプを選択
-                  </Label>
-                  <select
-                    value={contentType}
+        <section className="container mx-auto px-4 lg:px-8 py-12 max-w-5xl">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* 投稿タイプ選択 */}
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-sumi-400 mb-4">
+                Step 01 · 投稿タイプを選択
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {(Object.keys(contentTypeMeta) as ContentType[]).map((type) => {
+                  const meta = contentTypeMeta[type];
+                  const active = contentType === type;
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      data-active={active}
+                      onClick={() => setContentType(type)}
+                      className={`group relative rounded-2xl border border-sumi-200 bg-white p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-sakura-200 hover:shadow-glow-soft ${toneClasses[meta.tone]}`}
+                    >
+                      <span className="block">{meta.icon}</span>
+                      <span className="mt-3 block font-display text-sm font-bold">
+                        {meta.label}
+                      </span>
+                      {active && (
+                        <Sparkles className="absolute top-3 right-3 h-3.5 w-3.5" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 共通フィールド */}
+            <div className="overflow-hidden rounded-3xl bg-white border border-sumi-100 shadow-glow-soft">
+              <div className="flex items-center gap-3 px-7 py-5 border-b border-sumi-100 bg-gradient-to-r from-sakura-50/40 to-transparent">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-sakura text-white shadow-glow">
+                  <Sparkles className="w-4 h-4" />
+                </span>
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-500">
+                    Step 02
+                  </div>
+                  <h2 className="font-display text-lg font-bold text-sumi-800">
+                    基本情報
+                  </h2>
+                </div>
+              </div>
+
+              <div className="p-7 space-y-5">
+                <div>
+                  <Label htmlFor="title">タイトル *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) => handleInputChange("title", e.target.value)}
+                    placeholder={`${getContentTypeLabel(contentType)}のタイトルを入力`}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="description">詳細説明 *</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
                     onChange={(e) =>
-                      setContentType(e.target.value as ContentType)
+                      handleInputChange("description", e.target.value)
                     }
-                    className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <option value="job">求人情報</option>
-                    <option value="product">フリマ商品情報</option>
-                    <option value="event">イベント情報</option>
-                    <option value="property">賃貸情報</option>
-                    <option value="store">商店街情報</option>
-                  </select>
+                    placeholder="詳細な説明を入力してください"
+                    rows={4}
+                    required
+                  />
                 </div>
 
-                {/* 共通フィールド */}
-                <div className="space-y-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="title">タイトル *</Label>
+                    <Label htmlFor="contactEmail">連絡先メール *</Label>
                     <Input
-                      id="title"
-                      value={formData.title}
+                      id="contactEmail"
+                      type="email"
+                      value={formData.contactEmail}
                       onChange={(e) =>
-                        handleInputChange("title", e.target.value)
+                        handleInputChange("contactEmail", e.target.value)
                       }
-                      placeholder={`${getContentTypeLabel(
-                        contentType
-                      )}のタイトルを入力`}
+                      placeholder="example@email.com"
                       required
                     />
                   </div>
-
                   <div>
-                    <Label htmlFor="description">詳細説明 *</Label>
-                    <Textarea
-                      id="description"
-                      value={formData.description}
+                    <Label htmlFor="contactPhone">連絡先電話番号</Label>
+                    <Input
+                      id="contactPhone"
+                      type="tel"
+                      value={formData.contactPhone}
                       onChange={(e) =>
-                        handleInputChange("description", e.target.value)
+                        handleInputChange("contactPhone", e.target.value)
                       }
-                      placeholder="詳細な説明を入力してください"
-                      rows={4}
-                      required
+                      placeholder="+1-416-555-0123"
                     />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="contactEmail">連絡先メール *</Label>
-                      <Input
-                        id="contactEmail"
-                        type="email"
-                        value={formData.contactEmail}
-                        onChange={(e) =>
-                          handleInputChange("contactEmail", e.target.value)
-                        }
-                        placeholder="example@email.com"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="contactPhone">連絡先電話番号</Label>
-                      <Input
-                        id="contactPhone"
-                        type="tel"
-                        value={formData.contactPhone}
-                        onChange={(e) =>
-                          handleInputChange("contactPhone", e.target.value)
-                        }
-                        placeholder="+1-416-555-0123"
-                      />
-                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* 求人情報フィールド */}
+            {/* タイプ別フィールド */}
+            <div className="overflow-hidden rounded-3xl bg-white border border-sumi-100 shadow-glow-soft">
+              <div className="flex items-center gap-3 px-7 py-5 border-b border-sumi-100 bg-gradient-to-r from-gold-50/50 to-transparent">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-gold text-sumi-900 shadow-glow-gold">
+                  {contentTypeMeta[contentType].icon}
+                </span>
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-sakura-500">
+                    Step 03
+                  </div>
+                  <h2 className="font-display text-lg font-bold text-sumi-800">
+                    {getContentTypeLabel(contentType)}の詳細
+                  </h2>
+                </div>
+              </div>
+
+              <div className="p-7 space-y-5">
+                {/* 求人 */}
                 {contentType === "job" && (
-                  <div className="space-y-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-                      <Briefcase className="w-5 h-5 mr-2 text-blue-500" />
-                      求人詳細情報
-                    </h3>
-
+                  <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="company">会社名 *</Label>
@@ -519,7 +546,6 @@ export default function CreatePage() {
                         />
                       </div>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="location">勤務地 *</Label>
@@ -540,7 +566,7 @@ export default function CreatePage() {
                           onChange={(e) =>
                             handleInputChange("jobType", e.target.value)
                           }
-                          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          className={selectClass}
                           required
                         >
                           <option value="">雇用形態を選択</option>
@@ -551,7 +577,6 @@ export default function CreatePage() {
                         </select>
                       </div>
                     </div>
-
                     <div>
                       <Label htmlFor="requirements">応募要件</Label>
                       <Textarea
@@ -564,17 +589,12 @@ export default function CreatePage() {
                         rows={3}
                       />
                     </div>
-                  </div>
+                  </>
                 )}
 
-                {/* フリマ商品情報フィールド */}
+                {/* フリマ */}
                 {contentType === "product" && (
-                  <div className="space-y-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-                      <ShoppingBag className="w-5 h-5 mr-2 text-blue-500" />
-                      商品詳細情報
-                    </h3>
-
+                  <>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
                         <Label htmlFor="price">価格 *</Label>
@@ -595,7 +615,7 @@ export default function CreatePage() {
                           onChange={(e) =>
                             handleInputChange("condition", e.target.value)
                           }
-                          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          className={selectClass}
                           required
                         >
                           <option value="">商品状態を選択</option>
@@ -613,7 +633,7 @@ export default function CreatePage() {
                           onChange={(e) =>
                             handleInputChange("category", e.target.value)
                           }
-                          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          className={selectClass}
                           required
                         >
                           <option value="">カテゴリを選択</option>
@@ -626,7 +646,6 @@ export default function CreatePage() {
                         </select>
                       </div>
                     </div>
-
                     <div>
                       <Label htmlFor="images">商品画像URL</Label>
                       <Input
@@ -635,20 +654,15 @@ export default function CreatePage() {
                         onChange={(e) =>
                           handleInputChange("images", e.target.value)
                         }
-                        placeholder="商品画像のURLを入力（複数の場合は改行で区切る）"
+                        placeholder="商品画像のURL（複数の場合は改行で区切る）"
                       />
                     </div>
-                  </div>
+                  </>
                 )}
 
-                {/* イベント情報フィールド */}
+                {/* イベント */}
                 {contentType === "event" && (
-                  <div className="space-y-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-                      <Calendar className="w-5 h-5 mr-2 text-blue-500" />
-                      イベント詳細情報
-                    </h3>
-
+                  <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="eventDate">開催日 *</Label>
@@ -675,7 +689,6 @@ export default function CreatePage() {
                         />
                       </div>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="venue">会場 *</Label>
@@ -702,7 +715,6 @@ export default function CreatePage() {
                         />
                       </div>
                     </div>
-
                     <div>
                       <Label htmlFor="maxAttendees">最大参加人数</Label>
                       <Input
@@ -715,17 +727,12 @@ export default function CreatePage() {
                         placeholder="例: 50"
                       />
                     </div>
-                  </div>
+                  </>
                 )}
 
-                {/* 賃貸情報フィールド */}
+                {/* 賃貸 */}
                 {contentType === "property" && (
-                  <div className="space-y-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-                      <Home className="w-5 h-5 mr-2 text-blue-500" />
-                      物件詳細情報
-                    </h3>
-
+                  <>
                     <div>
                       <Label htmlFor="address">住所 *</Label>
                       <Input
@@ -738,7 +745,6 @@ export default function CreatePage() {
                         required
                       />
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
                         <Label htmlFor="rent">家賃 *</Label>
@@ -779,7 +785,6 @@ export default function CreatePage() {
                         />
                       </div>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
                         <Label htmlFor="utilities">光熱費</Label>
@@ -815,17 +820,12 @@ export default function CreatePage() {
                         />
                       </div>
                     </div>
-                  </div>
+                  </>
                 )}
 
-                {/* 商店街情報フィールド */}
+                {/* 商店街 */}
                 {contentType === "store" && (
-                  <div className="space-y-6 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-800 flex items-center">
-                      <Store className="w-5 h-5 mr-2 text-blue-500" />
-                      商店街情報
-                    </h3>
-
+                  <>
                     <div>
                       <Label htmlFor="businessHours">営業時間 *</Label>
                       <Input
@@ -838,7 +838,6 @@ export default function CreatePage() {
                         required
                       />
                     </div>
-
                     <div>
                       <Label htmlFor="website">ウェブサイト</Label>
                       <Input
@@ -848,10 +847,9 @@ export default function CreatePage() {
                         onChange={(e) =>
                           handleInputChange("website", e.target.value)
                         }
-                        placeholder="例: https://example.com"
+                        placeholder="https://example.com"
                       />
                     </div>
-
                     <div>
                       <Label htmlFor="services">サービス・設備</Label>
                       <Textarea
@@ -860,11 +858,10 @@ export default function CreatePage() {
                         onChange={(e) =>
                           handleInputChange("services", e.target.value)
                         }
-                        placeholder="提供しているサービスや設備について詳しく入力してください（例: 駐車場あり、Wi-Fi完備、デリバリー対応、24時間営業など）"
+                        placeholder="提供しているサービスや設備について詳しく入力してください"
                         rows={3}
                       />
                     </div>
-
                     <div>
                       <Label htmlFor="storeAddress">店舗住所 *</Label>
                       <Input
@@ -877,7 +874,6 @@ export default function CreatePage() {
                         required
                       />
                     </div>
-
                     <div>
                       <Label htmlFor="storeType">店舗種類 *</Label>
                       <select
@@ -885,7 +881,7 @@ export default function CreatePage() {
                         onChange={(e) =>
                           handleInputChange("storeType", e.target.value)
                         }
-                        className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className={selectClass}
                         required
                       >
                         <option value="">店舗種類を選択</option>
@@ -904,33 +900,34 @@ export default function CreatePage() {
                         <option value="other">その他</option>
                       </select>
                     </div>
-                  </div>
+                  </>
                 )}
+              </div>
+            </div>
 
-                {/* 送信ボタン */}
-                <div className="flex justify-center">
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="bg-blue-600 hover:bg-blue-700 px-8 py-3"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        登録中...
-                      </div>
-                    ) : (
-                      <>
-                        <Plus className="w-4 h-4 mr-2" />
-                        登録する
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            {/* 送信ボタン */}
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-sakura text-white px-10 py-4 text-base font-bold shadow-glow btn-glow transition-all hover:-translate-y-0.5 disabled:opacity-60 disabled:pointer-events-none"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                    登録中...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4" />
+                    登録する
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                  </>
+                )}
+              </button>
+            </div>
           </form>
-        </div>
+        </section>
       </main>
       <Footer />
     </div>

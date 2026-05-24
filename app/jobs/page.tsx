@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Briefcase, Plus, ArrowUpRight } from "lucide-react";
 import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
 import JobList from "../../components/JobList";
@@ -23,7 +24,6 @@ export default function JobsPage() {
       } catch (err) {
         console.error("Failed to fetch jobs:", err);
 
-        // 404エラー（求人なし）の場合は空の配列として扱う
         if (
           err &&
           typeof err === "object" &&
@@ -35,7 +35,6 @@ export default function JobsPage() {
           return;
         }
 
-        // その他のエラーメッセージの詳細を表示
         let errorMessage = "求人情報の読み込みに失敗しました";
         if (err && typeof err === "object") {
           const error = err as {
@@ -62,63 +61,81 @@ export default function JobsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-washi-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center animate-fade-in">
-          求人情報
-        </h1>
-
-        {/* ローディング状態 */}
-        {isLoading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
-          </div>
-        )}
-
-        {/* エラー状態 */}
-        {error && !isLoading && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-            <p className="text-red-800 font-semibold mb-2">エラー</p>
-            <p className="text-red-600">{error}</p>
-          </div>
-        )}
-
-        {/* データなし状態 */}
-        {!isLoading && !error && jobs.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <div className="mb-4">
-              <svg
-                className="mx-auto h-16 w-16 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
+      <main className="flex-grow">
+        {/* HERO */}
+        <section className="relative isolate overflow-hidden bg-gradient-sumi text-washi-50">
+          <div className="pointer-events-none absolute -top-32 -left-20 h-[28rem] w-[28rem] rounded-full bg-gold-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -right-20 h-[32rem] w-[32rem] rounded-full bg-sakura-500/20 blur-3xl" />
+          <div className="divider-gold" />
+          <div className="relative container mx-auto px-4 lg:px-8 py-16 md:py-24">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.4em] text-washi-100/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-400 animate-pulse" />
+              Careers · 求人情報
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              求人情報がありません
-            </h3>
-            <p className="text-gray-600 mb-6">
-              現在表示できる求人がありません
+            <div className="mt-6 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+              <h1 className="font-display font-black leading-[0.95] tracking-tight text-balance text-5xl md:text-7xl lg:text-8xl">
+                <span className="text-gradient-aurora">Find</span>{" "}
+                <span className="italic text-gradient-gold">your role.</span>
+              </h1>
+              <Link
+                href="/create"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-sakura px-6 py-3 text-sm font-bold text-white shadow-glow btn-glow transition-all hover:-translate-y-0.5 self-start md:self-end"
+              >
+                <Plus className="h-4 w-4" />
+                求人を投稿
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-12" />
+              </Link>
+            </div>
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-washi-100/80">
+              トロントの日本人コミュニティで、次のキャリアを。
+              ローカル企業から、新しい挑戦まで。
             </p>
-            <Link
-              href="/create"
-              className="inline-block bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
-            >
-              求人を作成
-            </Link>
           </div>
-        )}
+          <div className="divider-gold" />
+        </section>
 
-        {/* 求人一覧 */}
-        {!isLoading && !error && jobs.length > 0 && <JobList jobs={jobs} />}
+        <section className="container mx-auto px-4 lg:px-8 py-16">
+          {isLoading && (
+            <div className="flex justify-center py-20">
+              <div className="relative">
+                <div className="h-12 w-12 rounded-full border-2 border-sakura-100" />
+                <div className="absolute inset-0 h-12 w-12 rounded-full border-2 border-transparent border-t-sakura-500 animate-spin" />
+              </div>
+            </div>
+          )}
+
+          {error && !isLoading && (
+            <div className="mx-auto max-w-xl rounded-3xl border border-red-200 bg-red-50/70 backdrop-blur p-8 text-center">
+              <p className="text-red-700 font-semibold mb-2">エラー</p>
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          )}
+
+          {!isLoading && !error && jobs.length === 0 && (
+            <div className="mx-auto max-w-xl text-center py-12">
+              <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-sakura-50 to-gold-50 ring-1 ring-gold-200/50 shadow-glow-soft">
+                <Briefcase className="h-9 w-9 text-gold-500" />
+              </div>
+              <h3 className="mt-6 font-display text-2xl font-bold text-sumi-800">
+                まだ求人がありません
+              </h3>
+              <p className="mt-2 text-sm text-sumi-500">
+                最初の求人投稿を、あなたの企業から。
+              </p>
+              <Link
+                href="/create"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-sakura px-6 py-3 text-sm font-bold text-white shadow-glow"
+              >
+                <Plus className="h-4 w-4" />
+                求人を投稿
+              </Link>
+            </div>
+          )}
+
+          {!isLoading && !error && jobs.length > 0 && <JobList jobs={jobs} />}
+        </section>
       </main>
       <Footer />
     </div>

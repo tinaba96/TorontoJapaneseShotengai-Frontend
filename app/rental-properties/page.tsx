@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Home as HomeIcon, Plus, ArrowUpRight } from "lucide-react";
 import PropertyCard from "../../components/PropertyCard";
 import PropertyDetailModal from "../../components/PropertyDetailModal";
 import Filter from "../../components/Filter";
@@ -101,55 +102,99 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-washi-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-center mb-8">賃貸物件</h1>
-
-        {isLoading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
-          </div>
-        )}
-
-        {error && !isLoading && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-            <p className="text-red-800 font-semibold mb-2">エラー</p>
-            <p className="text-red-600">{error}</p>
-          </div>
-        )}
-
-        {!isLoading && !error && properties.length === 0 && (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              賃貸物件がありません
-            </h3>
-            <p className="text-gray-600 mb-6">
-              現在表示できる賃貸物件がありません
-            </p>
-            <Link
-              href="/create"
-              className="inline-block bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
-            >
-              物件を登録
-            </Link>
-          </div>
-        )}
-
-        {!isLoading && !error && properties.length > 0 && (
-          <>
-            <Filter onFilterChange={handleFilterChange} />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-              {filteredProperties.map((property) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                  onClick={handlePropertyClick}
-                />
-              ))}
+      <main className="flex-grow">
+        {/* HERO */}
+        <section className="relative isolate overflow-hidden bg-gradient-sumi text-washi-50">
+          <div className="pointer-events-none absolute -top-32 -right-20 h-[28rem] w-[28rem] rounded-full bg-sakura-500/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -left-20 h-[32rem] w-[32rem] rounded-full bg-gold-500/20 blur-3xl" />
+          <div className="divider-gold" />
+          <div className="relative container mx-auto px-4 lg:px-8 py-16 md:py-24">
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.4em] text-washi-100/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse" />
+              Rentals · 賃貸物件
             </div>
-          </>
-        )}
+            <div className="mt-6 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+              <h1 className="font-display font-black leading-[0.95] tracking-tight text-balance text-5xl md:text-7xl lg:text-8xl">
+                <span className="text-gradient-aurora">Your next</span>{" "}
+                <span className="italic text-gradient-gold">home.</span>
+              </h1>
+              <Link
+                href="/create"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-sakura px-6 py-3 text-sm font-bold text-white shadow-glow btn-glow transition-all hover:-translate-y-0.5 self-start md:self-end"
+              >
+                <Plus className="h-4 w-4" />
+                物件を登録
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-12" />
+              </Link>
+            </div>
+            <p className="mt-6 max-w-2xl text-base md:text-lg text-washi-100/80">
+              ここでの暮らしを、もっと心地よく。
+              トロントのローカル物件をキュレーション。
+            </p>
+          </div>
+          <div className="divider-gold" />
+        </section>
+
+        <section className="container mx-auto px-4 lg:px-8 py-16">
+          {isLoading && (
+            <div className="flex justify-center py-20">
+              <div className="relative">
+                <div className="h-12 w-12 rounded-full border-2 border-sakura-100" />
+                <div className="absolute inset-0 h-12 w-12 rounded-full border-2 border-transparent border-t-sakura-500 animate-spin" />
+              </div>
+            </div>
+          )}
+
+          {error && !isLoading && (
+            <div className="mx-auto max-w-xl rounded-3xl border border-red-200 bg-red-50/70 backdrop-blur p-8 text-center">
+              <p className="text-red-700 font-semibold mb-2">エラー</p>
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          )}
+
+          {!isLoading && !error && properties.length === 0 && (
+            <div className="mx-auto max-w-xl text-center py-12">
+              <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-sakura-50 to-gold-50 ring-1 ring-gold-200/50 shadow-glow-soft">
+                <HomeIcon className="h-9 w-9 text-gold-500" />
+              </div>
+              <h3 className="mt-6 font-display text-2xl font-bold text-sumi-800">
+                まだ物件がありません
+              </h3>
+              <p className="mt-2 text-sm text-sumi-500">
+                最初の物件を、あなたから。
+              </p>
+              <Link
+                href="/create"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-sakura px-6 py-3 text-sm font-bold text-white shadow-glow"
+              >
+                <Plus className="h-4 w-4" />
+                物件を登録
+              </Link>
+            </div>
+          )}
+
+          {!isLoading && !error && properties.length > 0 && (
+            <>
+              <Filter onFilterChange={handleFilterChange} />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                {filteredProperties.map((property) => (
+                  <PropertyCard
+                    key={property.id}
+                    property={property}
+                    onClick={handlePropertyClick}
+                  />
+                ))}
+              </div>
+              {filteredProperties.length === 0 && (
+                <div className="mt-12 mx-auto max-w-md text-center text-sumi-500">
+                  該当する物件が見つかりませんでした。
+                </div>
+              )}
+            </>
+          )}
+        </section>
       </main>
       <Footer />
 

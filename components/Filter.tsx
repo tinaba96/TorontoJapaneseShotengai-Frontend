@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Search, SlidersHorizontal } from "lucide-react";
 import type { FilterOptions } from "../lib/types";
 
 interface FilterProps {
@@ -26,16 +27,24 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
     onFilterChange(filter);
   };
 
+  const inputClass =
+    "mt-1 block w-full rounded-xl border border-sumi-200 bg-white/80 backdrop-blur px-3 py-2 text-sm shadow-sm transition-all focus:outline-none focus:border-sakura-300 focus:ring-2 focus:ring-sakura-200/50";
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gray-100 p-4 rounded-lg shadow-md"
+      className="relative overflow-hidden rounded-3xl border border-sumi-100 bg-white/70 backdrop-blur p-6 shadow-glow-soft"
     >
+      <div className="flex items-center gap-2 mb-4 text-[10px] font-mono uppercase tracking-[0.3em] text-sumi-400">
+        <SlidersHorizontal className="h-3 w-3" />
+        Filters · 絞り込み
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <label
             htmlFor="minPrice"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-xs font-semibold text-sumi-700"
           >
             Min Price
           </label>
@@ -45,13 +54,13 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             name="minPrice"
             value={filter.minPrice}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label
             htmlFor="maxPrice"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-xs font-semibold text-sumi-700"
           >
             Max Price
           </label>
@@ -61,15 +70,15 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             name="maxPrice"
             value={filter.maxPrice}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label
             htmlFor="minSize"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-xs font-semibold text-sumi-700"
           >
-            Min Size
+            Min Size (m²)
           </label>
           <input
             type="number"
@@ -77,15 +86,15 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             name="minSize"
             value={filter.minSize}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label
             htmlFor="maxSize"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-xs font-semibold text-sumi-700"
           >
-            Max Size
+            Max Size (m²)
           </label>
           <input
             type="number"
@@ -93,13 +102,13 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             name="maxSize"
             value={filter.maxSize}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+            className={inputClass}
           />
         </div>
         <div>
           <label
             htmlFor="rooms"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-xs font-semibold text-sumi-700"
           >
             Rooms
           </label>
@@ -108,19 +117,20 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             name="rooms"
             value={filter.rooms}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+            className={inputClass}
           >
-            <option value={1}>1room</option>
-            <option value={2}>2rooms</option>
-            <option value={3}>3rooms+</option>
+            <option value={1}>1 room</option>
+            <option value={2}>2 rooms</option>
+            <option value={3}>3 rooms+</option>
           </select>
         </div>
       </div>
       <button
         type="submit"
-        className="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors"
+        className="group mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-sakura text-white py-2.5 text-sm font-bold shadow-glow btn-glow transition-all hover:-translate-y-0.5"
       >
-        検索
+        <Search className="h-4 w-4" />
+        検索する
       </button>
     </form>
   );

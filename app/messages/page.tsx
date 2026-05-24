@@ -4,7 +4,15 @@ import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../../components/layouts/Header";
 import Footer from "../../components/layouts/Footer";
-import { Send, MessageCircle, User, Clock, Search, Home } from "lucide-react";
+import {
+  Send,
+  MessageCircle,
+  User,
+  Clock,
+  Search,
+  Home,
+  Sparkles,
+} from "lucide-react";
 
 interface Message {
   id: string;
@@ -61,7 +69,6 @@ function MessagesContent() {
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // オーナーからのメッセージがある場合は、そのメッセージを選択状態にする
   useEffect(() => {
     if (ownerParam) {
       const ownerMessage = messages.find((msg) => msg.sender === ownerParam);
@@ -107,184 +114,199 @@ function MessagesContent() {
   const unreadCount = messages.filter((msg) => !msg.isRead).length;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-washi-50">
       <Header />
-      <main className="px-3 pt-0 pb-4 h-[calc(100vh-120px)]">
-        <div className="h-full">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-            {/* ヘッダー */}
-            <div className="bg-indigo-600 text-white p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <MessageCircle className="h-8 w-8" />
-                  <div>
-                    <h1 className="text-2xl font-bold">メッセージ</h1>
-                    <p className="text-indigo-100">
-                      コミュニティメンバーとの交流
-                    </p>
-                    {ownerParam && propertyParam && (
-                      <div className="mt-2 flex items-center space-x-2 text-indigo-100">
-                        <Home className="h-4 w-4" />
-                        <span className="text-sm">
-                          {propertyParam} - {ownerParam}様
-                        </span>
-                      </div>
-                    )}
-                  </div>
+      <main className="flex-grow container mx-auto px-4 lg:px-8 py-10">
+        <div className="overflow-hidden rounded-[2rem] border border-sumi-100 bg-white shadow-elegant">
+          {/* Header bar */}
+          <div className="relative overflow-hidden bg-gradient-sumi text-washi-50 p-6 md:p-8">
+            <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-sakura-500/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 left-1/3 h-60 w-60 rounded-full bg-gold-500/20 blur-3xl" />
+            <div className="relative flex items-start justify-between gap-4">
+              <div className="flex items-start gap-4">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-sakura text-white shadow-glow">
+                  <MessageCircle className="h-6 w-6" />
                 </div>
-                {unreadCount > 0 && (
-                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    {unreadCount}件の未読
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-gold-300">
+                    <Sparkles className="h-3 w-3 inline -mt-0.5 mr-1" />
+                    Inbox · メッセージ
                   </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex h-96">
-              {/* メッセージ一覧 */}
-              <div className="w-full md:w-1/3 border-r border-gray-200 bg-gray-50">
-                <div className="p-4 border-b border-gray-200">
-                  <h2 className="font-semibold text-gray-800 mb-3">
-                    メッセージ一覧
-                  </h2>
-                  {/* 検索ボックス */}
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="メッセージを検索..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
-                    />
-                  </div>
-                </div>
-                <div className="overflow-y-auto h-[calc(100%-120px)]">
-                  {filteredMessages.length > 0 ? (
-                    filteredMessages.map((message) => (
-                      <div
-                        key={message.id}
-                        onClick={() => setSelectedMessage(message)}
-                        className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors ${
-                          selectedMessage?.id === message.id
-                            ? "bg-indigo-50 border-indigo-200"
-                            : ""
-                        } ${!message.isRead ? "bg-blue-50" : ""} ${
-                          ownerParam && message.sender === ownerParam
-                            ? "bg-yellow-50"
-                            : ""
-                        }`}
-                      >
-                        <div className="flex items-start space-x-3">
-                          <div className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
-                            <User className="h-4 w-4 text-white" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between">
-                              <p className="font-medium text-gray-900 truncate">
-                                {message.sender}
-                                {ownerParam &&
-                                  message.sender === ownerParam && (
-                                    <span className="ml-2 text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">
-                                      オーナー
-                                    </span>
-                                  )}
-                              </p>
-                              <div className="flex items-center space-x-1 text-xs text-gray-500">
-                                <Clock className="h-3 w-3" />
-                                <span>{formatTime(message.timestamp)}</span>
-                              </div>
-                            </div>
-                            <p className="text-sm text-gray-600 truncate mt-1">
-                              {message.content}
-                            </p>
-                            {!message.isRead && (
-                              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="p-4 text-center text-gray-500">
-                      <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                      <p>検索結果が見つかりません</p>
+                  <h1 className="mt-1 font-display text-3xl md:text-4xl font-extrabold text-washi-50">
+                    Messages
+                  </h1>
+                  <p className="mt-1 text-sm text-washi-100/75">
+                    コミュニティメンバーとの交流
+                  </p>
+                  {ownerParam && propertyParam && (
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1 text-xs text-washi-100/85 backdrop-blur">
+                      <Home className="h-3.5 w-3.5 text-gold-300" />
+                      {propertyParam} · {ownerParam}様
                     </div>
                   )}
                 </div>
               </div>
+              {unreadCount > 0 && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-gradient-gold text-sumi-900 px-3 py-1.5 text-xs font-bold shadow-glow-gold">
+                  {unreadCount}件 未読
+                </span>
+              )}
+            </div>
+          </div>
 
-              {/* メッセージ詳細 */}
-              <div className="hidden md:flex flex-1 flex-col">
-                {selectedMessage ? (
-                  <>
-                    {/* メッセージ詳細ヘッダー */}
-                    <div className="p-4 border-b border-gray-200 bg-white">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center">
-                          <User className="h-5 w-5 text-white" />
+          {/* Two-column chat */}
+          <div className="grid grid-cols-1 md:grid-cols-[340px_1fr] h-[600px]">
+            {/* Left: list */}
+            <aside className="border-r border-sumi-100 bg-washi-50/60 flex flex-col">
+              <div className="p-4 border-b border-sumi-100">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-sumi-400" />
+                  <input
+                    type="text"
+                    placeholder="メッセージを検索..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2.5 rounded-full border border-sumi-200 bg-white text-sm focus:outline-none focus:border-sakura-300 focus:ring-2 focus:ring-sakura-200/40 transition-all"
+                  />
+                </div>
+              </div>
+              <div className="overflow-y-auto flex-1">
+                {filteredMessages.length > 0 ? (
+                  filteredMessages.map((message) => {
+                    const isActive = selectedMessage?.id === message.id;
+                    const isOwner = ownerParam && message.sender === ownerParam;
+                    return (
+                      <button
+                        key={message.id}
+                        onClick={() => setSelectedMessage(message)}
+                        className={`group w-full text-left p-4 border-b border-sumi-100/60 transition-all ${
+                          isActive
+                            ? "bg-gradient-to-r from-sakura-50 to-transparent"
+                            : "hover:bg-sumi-50/60"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div
+                            className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-white shadow-glow-soft ${
+                              isOwner
+                                ? "bg-gradient-gold text-sumi-900"
+                                : "bg-gradient-sakura"
+                            }`}
+                          >
+                            <User className="h-4 w-4" />
+                            {!message.isRead && (
+                              <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-sakura-500 ring-2 ring-white animate-pulse" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <p className="font-semibold text-sm text-sumi-800 truncate">
+                                {message.sender}
+                                {isOwner && (
+                                  <span className="ml-2 text-[9px] uppercase tracking-wider bg-gold-100 text-gold-700 px-1.5 py-0.5 rounded-full font-bold">
+                                    Owner
+                                  </span>
+                                )}
+                              </p>
+                              <span className="inline-flex items-center gap-1 text-[10px] font-mono text-sumi-400 shrink-0">
+                                <Clock className="h-2.5 w-2.5" />
+                                {formatTime(message.timestamp)}
+                              </span>
+                            </div>
+                            <p className="mt-1 text-xs text-sumi-500 truncate">
+                              {message.content}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">
-                            {selectedMessage.sender}
-                            {ownerParam &&
-                              selectedMessage.sender === ownerParam && (
-                                <span className="ml-2 text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">
-                                  オーナー
-                                </span>
-                              )}
-                          </h3>
-                          <p className="text-sm text-gray-500">
-                            {formatTime(selectedMessage.timestamp)}
-                          </p>
-                        </div>
+                      </button>
+                    );
+                  })
+                ) : (
+                  <div className="p-6 text-center text-sumi-400">
+                    <Search className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">検索結果が見つかりません</p>
+                  </div>
+                )}
+              </div>
+            </aside>
+
+            {/* Right: detail */}
+            <section className="hidden md:flex flex-col bg-white">
+              {selectedMessage ? (
+                <>
+                  <div className="p-5 border-b border-sumi-100 bg-gradient-to-r from-washi-50 to-transparent">
+                    <div className="flex items-center gap-3">
+                      <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-sakura text-white shadow-glow">
+                        <User className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-display text-lg font-bold text-sumi-800">
+                          {selectedMessage.sender}
+                          {ownerParam &&
+                            selectedMessage.sender === ownerParam && (
+                              <span className="ml-2 text-[10px] uppercase tracking-wider bg-gold-100 text-gold-700 px-1.5 py-0.5 rounded-full font-bold">
+                                Owner
+                              </span>
+                            )}
+                        </h3>
+                        <p className="text-xs text-sumi-400 font-mono">
+                          {formatTime(selectedMessage.timestamp)}
+                        </p>
                       </div>
                     </div>
+                  </div>
 
-                    {/* メッセージ内容 */}
-                    <div className="flex-1 p-4 overflow-y-auto bg-white">
-                      <div className="bg-gray-100 rounded-lg p-4">
-                        <p className="text-gray-800">
+                  <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-washi-50/40 to-white">
+                    <div className="max-w-2xl">
+                      <div className="rounded-3xl bg-white border border-sumi-100 p-5 shadow-glow-soft">
+                        <p className="text-sumi-700 leading-relaxed">
                           {selectedMessage.content}
                         </p>
                       </div>
                     </div>
+                  </div>
 
-                    {/* 返信フォーム */}
-                    <div className="p-4 border-t border-gray-200 bg-white">
-                      <div className="flex space-x-2">
-                        <input
-                          type="text"
-                          value={newMessage}
-                          onChange={(e) => setNewMessage(e.target.value)}
-                          onKeyPress={(e) => {
-                            if (e.key === "Enter") {
-                              handleSendMessage();
-                            }
-                          }}
-                          placeholder="メッセージを入力..."
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        />
-                        <button
-                          onClick={handleSendMessage}
-                          disabled={!newMessage.trim()}
-                          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        >
-                          <Send className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex-1 flex items-center justify-center bg-gray-50">
-                    <div className="text-center text-gray-500">
-                      <MessageCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>メッセージを選択してください</p>
+                  <div className="p-4 border-t border-sumi-100 bg-white">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === "Enter") {
+                            handleSendMessage();
+                          }
+                        }}
+                        placeholder="メッセージを入力..."
+                        className="flex-1 px-4 py-3 rounded-full border border-sumi-200 bg-white text-sm focus:outline-none focus:border-sakura-300 focus:ring-2 focus:ring-sakura-200/40 transition-all"
+                      />
+                      <button
+                        onClick={handleSendMessage}
+                        disabled={!newMessage.trim()}
+                        className="grid h-11 w-11 place-items-center rounded-full bg-gradient-sakura text-white shadow-glow transition-all hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none"
+                        aria-label="送信"
+                      >
+                        <Send className="h-4 w-4" />
+                      </button>
                     </div>
                   </div>
-                )}
-              </div>
-            </div>
+                </>
+              ) : (
+                <div className="flex-1 flex items-center justify-center text-center px-8">
+                  <div>
+                    <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-sakura-50 to-gold-50 ring-1 ring-gold-200/40">
+                      <MessageCircle className="h-7 w-7 text-gold-500" />
+                    </div>
+                    <p className="mt-4 font-display text-lg font-semibold text-sumi-700">
+                      メッセージを選択してください
+                    </p>
+                    <p className="mt-1 text-sm text-sumi-400">
+                      左側のリストから会話を選んで開始
+                    </p>
+                  </div>
+                </div>
+              )}
+            </section>
           </div>
         </div>
       </main>
@@ -295,10 +317,13 @@ function MessagesContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-washi-50 flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">メッセージを読み込み中...</p>
+        <div className="relative mx-auto w-fit">
+          <div className="h-12 w-12 rounded-full border-2 border-sakura-100" />
+          <div className="absolute inset-0 h-12 w-12 rounded-full border-2 border-transparent border-t-sakura-500 animate-spin" />
+        </div>
+        <p className="mt-4 text-sm text-sumi-500">メッセージを読み込み中...</p>
       </div>
     </div>
   );
