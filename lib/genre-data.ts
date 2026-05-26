@@ -188,7 +188,7 @@ export const genreData: GenreData = {
             },
             {
               name: "Kissaten Shōwa",
-              description: "ノスタルジック昭和喫茶",
+              description: "ノスタルジック昭和喫茶店",
               services: ["モーニング", "テイクアウト"],
             },
             {

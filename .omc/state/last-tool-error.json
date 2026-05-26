@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /Users/takahiroinaba/src/github/tinaba96/TorontoJapaneseShotengai-Backend && docker ps --format \\\"table {{.Names}}\\\\t{{.Status}}\\\\t{{.Ports}}\\\"\",\"description\":\"Check running Docker cont...",
+  "error": "Exit code 1\nCannot connect to the Docker daemon at unix:///Users/takahiroinaba/.docker/run/docker.sock. Is the docker daemon running?",
+  "timestamp": "2026-05-24T05:31:16.774Z",
+  "retry_count": 1
+}
