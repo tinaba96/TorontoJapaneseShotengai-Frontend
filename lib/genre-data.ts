@@ -193,7 +193,7 @@ export const genreData: GenreData = {
             },
             {
               name: "Anko Sweets",
-              description: "あんこ専門スイーツ店",
+              description: "あん専門スイーツ店",
               services: ["持ち帰り", "ギフト"],
             },
           ]),
