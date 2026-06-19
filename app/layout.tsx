@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "@/components/ui/toaster";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -48,6 +51,7 @@ export default function RootLayout({
           </CartProvider>
         </AuthProvider>
       </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
