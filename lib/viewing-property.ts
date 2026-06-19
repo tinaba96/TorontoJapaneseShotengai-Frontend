@@ -31,7 +31,7 @@ export interface ViewingProperty {
 }
 
 export const viewingProperty: ViewingProperty = {
-  name: "ダウンタウン・シェアハウス（仮）",
+  name: "Toronto Japanese Shotengai Rentals",
   tagline: "トロント到着後すぐ住める、安心の日本人向けシェアハウス",
   address: "Toronto, ON（最寄り駅まで徒歩◯分 / 詳細は内見時に）",
   rent: "$ ---- / 月",
@@ -41,7 +41,7 @@ export const viewingProperty: ViewingProperty = {
     "家具・家電付き、スーツケース1つで入居OK",
     "光熱費・Wi-Fi 込みで予算が読みやすい",
     "日本語で相談できる安心のオーナー対応",
-    "ダウンタウンへアクセス良好",
+    "交通アクセス良好で生活に便利",
   ],
   description:
     "日本からトロントに来る方が、到着後すぐに生活を始められるよう整えたシェアハウスです。" +
