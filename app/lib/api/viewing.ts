@@ -4,14 +4,15 @@
 
 import { get, post, del } from "./client";
 import type {
-  ViewingSlot,
+  AvailabilitySlot,
+  AvailabilityWindow,
   ViewingBooking,
   CreateBookingRequest,
 } from "@/app/types/viewing";
 
-/** 公開: 今後の内見枠一覧（予約数つき）を取得 */
-export async function getSlots(): Promise<ViewingSlot[]> {
-  return get<ViewingSlot[]>("/viewing/slots");
+/** 公開: 期間から生成された30分スロット一覧（予約数つき） */
+export async function getSlots(): Promise<AvailabilitySlot[]> {
+  return get<AvailabilitySlot[]>("/viewing/slots");
 }
 
 /** 予約作成（ログイン必須） */
@@ -26,18 +27,26 @@ export async function cancelBooking(token: string): Promise<ViewingBooking> {
   return post<ViewingBooking>("/viewing/cancel", { token });
 }
 
-/** admin: 内見枠を作成 */
-export async function createSlot(startsAtIso: string): Promise<ViewingSlot> {
-  return post<ViewingSlot>(
-    "/viewing/slots",
-    { starts_at: startsAtIso },
+/** admin: 内見可能な期間を登録 */
+export async function createWindow(
+  startsAtIso: string,
+  endsAtIso: string
+): Promise<AvailabilityWindow> {
+  return post<AvailabilityWindow>(
+    "/viewing/windows",
+    { starts_at: startsAtIso, ends_at: endsAtIso },
     { requiresAuth: true }
   );
 }
 
-/** admin: 内見枠を削除（予約があると 409） */
-export async function deleteSlot(id: string): Promise<void> {
-  return del<void>(`/viewing/slots/${id}`, { requiresAuth: true });
+/** admin: 期間一覧 */
+export async function getWindows(): Promise<AvailabilityWindow[]> {
+  return get<AvailabilityWindow[]>("/viewing/windows", { requiresAuth: true });
+}
+
+/** admin: 期間を削除（範囲内に予約があると 409） */
+export async function deleteWindow(id: string): Promise<void> {
+  return del<void>(`/viewing/windows/${id}`, { requiresAuth: true });
 }
 
 /** admin: 予約一覧（誰がいつ来るか） */

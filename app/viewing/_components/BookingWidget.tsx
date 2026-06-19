@@ -5,7 +5,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { CalendarCheck, Check, Loader2, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { getSlots, createBooking } from "@/app/lib/api/viewing";
-import type { ViewingSlot } from "@/app/types/viewing";
+import type { AvailabilitySlot } from "@/app/types/viewing";
 import { ApiError } from "@/app/lib/api/client";
 
 function formatDay(iso: string): string {
@@ -28,10 +28,11 @@ function formatTime(iso: string): string {
 export default function BookingWidget() {
   const { isAuthenticated, user, loginWithGoogle } = useAuth();
 
-  const [slots, setSlots] = useState<ViewingSlot[]>([]);
+  const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(true);
   const [slotsError, setSlotsError] = useState<string | null>(null);
 
+  // 選択中の枠は starts_at(ISO) で識別する
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -66,7 +67,7 @@ export default function BookingWidget() {
   }, []);
 
   const slotsByDay = useMemo(() => {
-    const map = new Map<string, ViewingSlot[]>();
+    const map = new Map<string, AvailabilitySlot[]>();
     for (const s of slots) {
       const day = formatDay(s.starts_at);
       if (!map.has(day)) map.set(day, []);
@@ -81,7 +82,7 @@ export default function BookingWidget() {
       setSubmitting(true);
       setSubmitError(null);
       await createBooking({
-        slot_id: selectedSlot,
+        starts_at: selectedSlot,
         name: name.trim() || user.name,
         email: user.email,
         phone: phone.trim() || undefined,
@@ -198,12 +199,12 @@ export default function BookingWidget() {
               <p className="text-xs font-semibold text-sumi-500 mb-1.5">{day}</p>
               <div className="flex flex-wrap gap-2">
                 {daySlots.map((s) => {
-                  const active = selectedSlot === s.id;
+                  const active = selectedSlot === s.starts_at;
                   return (
                     <button
-                      key={s.id}
+                      key={s.starts_at}
                       type="button"
-                      onClick={() => setSelectedSlot(s.id)}
+                      onClick={() => setSelectedSlot(s.starts_at)}
                       className={`rounded-full border px-4 py-2 text-sm transition-all ${
                         active
                           ? "border-sakura-500 bg-sakura-50 text-sakura-700 font-semibold shadow-sm"

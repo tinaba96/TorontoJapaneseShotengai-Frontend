@@ -2,15 +2,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { CalendarPlus, Loader2, Trash2, Users, Lock } from "lucide-react";
+import { CalendarPlus, Loader2, Trash2, Users, Lock, Clock } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import {
-  getSlots,
-  createSlot,
-  deleteSlot,
+  getWindows,
+  createWindow,
+  deleteWindow,
   getBookings,
 } from "@/app/lib/api/viewing";
-import type { ViewingSlot, ViewingBooking } from "@/app/types/viewing";
+import type { AvailabilityWindow, ViewingBooking } from "@/app/types/viewing";
 import { ApiError } from "@/app/lib/api/client";
 
 function formatDateTime(iso?: string): string {
@@ -24,14 +24,21 @@ function formatDateTime(iso?: string): string {
   });
 }
 
+// 期間内に生成される30分枠の数
+function slotCount(startIso: string, endIso: string): number {
+  const diffMin = (new Date(endIso).getTime() - new Date(startIso).getTime()) / 60000;
+  return Math.max(0, Math.floor(diffMin / 30));
+}
+
 export default function AdminPage() {
   const { isAuthenticated, isAdmin, user, loginWithGoogle } = useAuth();
 
-  const [slots, setSlots] = useState<ViewingSlot[]>([]);
+  const [windows, setWindows] = useState<AvailabilityWindow[]>([]);
   const [bookings, setBookings] = useState<ViewingBooking[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [newSlot, setNewSlot] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [creating, setCreating] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -39,12 +46,12 @@ export default function AdminPage() {
     try {
       setLoading(true);
       setError(null);
-      const [s, b] = await Promise.all([getSlots(), getBookings()]);
-      setSlots(s);
+      const [w, b] = await Promise.all([getWindows(), getBookings()]);
+      setWindows(w);
       setBookings(b);
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
-        setSlots([]);
+        setWindows([]);
         setBookings([]);
       } else {
         setError("データの読み込みに失敗しました。");
@@ -59,31 +66,40 @@ export default function AdminPage() {
   }, [isAuthenticated, isAdmin, loadAll]);
 
   const handleCreate = async () => {
-    if (!newSlot) return;
+    if (!start || !end) return;
+    const startIso = new Date(start).toISOString();
+    const endIso = new Date(end).toISOString();
+    if (new Date(endIso) <= new Date(startIso)) {
+      setError("終了時刻は開始時刻より後にしてください。");
+      return;
+    }
     try {
       setCreating(true);
       setError(null);
-      const iso = new Date(newSlot).toISOString();
-      await createSlot(iso);
-      setNewSlot("");
+      await createWindow(startIso, endIso);
+      setStart("");
+      setEnd("");
       await loadAll();
-    } catch {
-      setError("枠の作成に失敗しました。");
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 400) {
+        setError("期間が不正です（30分以上・終了が開始より後）。");
+      } else {
+        setError("期間の作成に失敗しました。");
+      }
     } finally {
       setCreating(false);
     }
   };
 
-  const handleDelete = async (slot: ViewingSlot) => {
-    if (slot.booking_count > 0) return;
+  const handleDelete = async (w: AvailabilityWindow) => {
     try {
-      await deleteSlot(slot.id);
+      await deleteWindow(w.id);
       await loadAll();
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
-        setError("予約が入っている枠は削除できません。");
+        setError("予約が入っている期間は削除できません。");
       } else {
-        setError("枠の削除に失敗しました。");
+        setError("期間の削除に失敗しました。");
       }
     }
   };
@@ -116,9 +132,7 @@ export default function AdminPage() {
               onError={() => setAuthError("Googleログインに失敗しました。")}
             />
           </div>
-          {authError && (
-            <p className="mt-3 text-sm text-red-600">{authError}</p>
-          )}
+          {authError && <p className="mt-3 text-sm text-red-600">{authError}</p>}
         </div>
       </div>
     );
@@ -141,9 +155,7 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto px-4 lg:px-8 py-12">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-3xl font-bold text-sumi-800">
-          内見管理
-        </h1>
+        <h1 className="font-display text-3xl font-bold text-sumi-800">内見管理</h1>
         <span className="text-xs text-sumi-400">{user?.email}</span>
       </div>
 
@@ -154,29 +166,54 @@ export default function AdminPage() {
       )}
 
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* 枠管理 */}
+        {/* 期間管理 */}
         <section>
           <h2 className="flex items-center gap-2 font-display text-xl font-bold text-sumi-800">
             <CalendarPlus className="h-5 w-5 text-sakura-500" />
-            内見枠（30分）
+            内見可能な期間
           </h2>
+          <p className="mt-1 text-xs text-sumi-400">
+            期間を登録すると、その範囲内の30分枠を予約者が自由に選べます。
+          </p>
 
-          <div className="mt-4 flex flex-wrap items-end gap-3 rounded-2xl border border-sumi-100 bg-white p-4">
-            <div>
-              <label className="block text-xs font-medium text-sumi-500 mb-1">
-                開始日時を追加
-              </label>
-              <input
-                type="datetime-local"
-                value={newSlot}
-                onChange={(e) => setNewSlot(e.target.value)}
-                className="rounded-xl border border-sumi-200 px-3 py-2 text-sm focus:border-sakura-400 focus:outline-none"
-              />
+          <div className="mt-4 space-y-3 rounded-2xl border border-sumi-100 bg-white p-4">
+            <div className="flex flex-wrap gap-3">
+              <div>
+                <label className="block text-xs font-medium text-sumi-500 mb-1">
+                  開始
+                </label>
+                <input
+                  type="datetime-local"
+                  value={start}
+                  onChange={(e) => setStart(e.target.value)}
+                  className="rounded-xl border border-sumi-200 px-3 py-2 text-sm focus:border-sakura-400 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-sumi-500 mb-1">
+                  終了
+                </label>
+                <input
+                  type="datetime-local"
+                  value={end}
+                  onChange={(e) => setEnd(e.target.value)}
+                  className="rounded-xl border border-sumi-200 px-3 py-2 text-sm focus:border-sakura-400 focus:outline-none"
+                />
+              </div>
             </div>
+            {start && end && slotCount(new Date(start).toISOString(), new Date(end).toISOString()) > 0 && (
+              <p className="text-xs text-sumi-400">
+                → この期間で{" "}
+                <span className="font-semibold text-sumi-600">
+                  {slotCount(new Date(start).toISOString(), new Date(end).toISOString())}
+                </span>{" "}
+                個の30分枠
+              </p>
+            )}
             <button
               type="button"
               onClick={handleCreate}
-              disabled={!newSlot || creating}
+              disabled={!start || !end || creating}
               className="inline-flex items-center gap-1.5 rounded-full bg-gradient-sakura px-4 py-2 text-sm font-bold text-white shadow-glow disabled:opacity-40"
             >
               {creating ? (
@@ -184,7 +221,7 @@ export default function AdminPage() {
               ) : (
                 <CalendarPlus className="h-4 w-4" />
               )}
-              追加
+              期間を追加
             </button>
           </div>
 
@@ -194,32 +231,28 @@ export default function AdminPage() {
                 <Loader2 className="h-4 w-4 animate-spin" /> 読み込み中…
               </div>
             )}
-            {!loading && slots.length === 0 && (
-              <p className="py-4 text-sm text-sumi-500">枠がありません。</p>
+            {!loading && windows.length === 0 && (
+              <p className="py-4 text-sm text-sumi-500">期間がありません。</p>
             )}
-            {slots.map((s) => (
+            {windows.map((w) => (
               <div
-                key={s.id}
+                key={w.id}
                 className="flex items-center justify-between rounded-xl border border-sumi-100 bg-white px-4 py-3"
               >
                 <div>
                   <p className="text-sm font-medium text-sumi-800">
-                    {formatDateTime(s.starts_at)}
+                    {formatDateTime(w.starts_at)} 〜 {formatDateTime(w.ends_at)}
                   </p>
-                  <p className="text-xs text-sumi-400">
-                    予約 {s.booking_count} 件
+                  <p className="flex items-center gap-1 text-xs text-sumi-400">
+                    <Clock className="h-3 w-3" />
+                    {slotCount(w.starts_at, w.ends_at)} 個の30分枠
                   </p>
                 </div>
                 <button
                   type="button"
-                  onClick={() => handleDelete(s)}
-                  disabled={s.booking_count > 0}
-                  title={
-                    s.booking_count > 0
-                      ? "予約が入っている枠は削除できません"
-                      : "削除"
-                  }
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sumi-400 transition-colors enabled:hover:bg-red-50 enabled:hover:text-red-500 disabled:opacity-30 disabled:cursor-not-allowed"
+                  onClick={() => handleDelete(w)}
+                  title="削除（予約がある期間は不可）"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-sumi-400 transition-colors hover:bg-red-50 hover:text-red-500"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
@@ -253,10 +286,7 @@ export default function AdminPage() {
                 </thead>
                 <tbody>
                   {bookings.map((b) => (
-                    <tr
-                      key={b.id}
-                      className="border-b border-sumi-50 last:border-0"
-                    >
+                    <tr key={b.id} className="border-b border-sumi-50 last:border-0">
                       <td className="px-4 py-3 text-sumi-700">
                         {formatDateTime(b.starts_at)}
                       </td>
