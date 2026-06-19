@@ -3,7 +3,7 @@
  *
  * ★ ここを編集するだけで物件ページの内容を差し替えられます。
  *   写真は public/images/ 配下に置いて、そのパスを photos に書いてください。
- *   （例: public/images/rental/room1.jpg → "/images/rental/room1.jpg"）
+ *   （例: public/images/rental/room-1.jpg → "/images/rental/room-1.jpg"）
  */
 
 export interface PropertyPhoto {
@@ -31,38 +31,48 @@ export interface ViewingProperty {
 }
 
 export const viewingProperty: ViewingProperty = {
-  name: "Toronto Japanese Shotengai Rentals",
-  tagline: "トロント到着後すぐ住める、安心の日本人向けシェアハウス",
-  address: "Toronto, ON（最寄り駅まで徒歩◯分 / 詳細は内見時に）",
-  rent: "$ ---- / 月",
-  deposit: "デポジット: 1ヶ月分",
-  available: "入居可能: 即日〜",
+  name: "Yonge & Finch｜家具付きの半地下個室",
+  tagline:
+    "North York の閑静な住宅街。日本人社会人が暮らす一軒家の、家具付き個室。スーツケースひとつで、トロント生活を始められます。",
+  address: "North York, Toronto（Yonge & Finch エリア / 一軒家の半地下フロア）",
+  rent: "$695 / 月",
+  deposit: "デポジット: 応相談（内見時にご案内）",
+  available: "入居可能: 2026年7月1日〜",
   highlights: [
-    "家具・家電付き、スーツケース1つで入居OK",
-    "光熱費・Wi-Fi 込みで予算が読みやすい",
-    "日本語で相談できる安心のオーナー対応",
-    "交通アクセス良好で生活に便利",
+    "月 $695・家具付きで、スーツケースひとつですぐ入居",
+    "ベッド・デスク・椅子・TV完備＋クローゼット2つで収納たっぷり",
+    "Wi-Fi利用可・洗濯乾燥無料・エアコン＆暖房完備",
+    "リノベーション済みのキッチン＆バスルームで清潔",
+    "閑静で治安の良い住宅街。日本人の社会人が同居中で安心",
+    "オーナーと日本語で相談OK・門限なしの自由な暮らし",
   ],
   description:
-    "日本からトロントに来る方が、到着後すぐに生活を始められるよう整えたシェアハウスです。" +
-    "家具・家電・Wi-Fi 完備で、初期費用と手間を抑えてスタートできます。" +
-    "オーナーが日本語で対応するので、初めての海外生活でも安心です。",
+    "North York・Yonge & Finch エリアにある一軒家の半地下フロア、約8畳の家具付き個室です。" +
+    "ベッド・デスク・椅子・TV がそろい、クローゼットも2つあるので、衣類や荷物が多い方でも収納はたっぷり。" +
+    "スーツケースひとつで到着したその日から、新生活を始められます。" +
+    "キッチン・バスルームはリノベーション済みで清潔感があり、Wi-Fi 利用可・洗濯乾燥は無料・エアコン・暖房も完備。" +
+    "キッチン・バス・トイレは3名でシェアし、現在は日本人の社会人が暮らしています。" +
+    "閑静で治安の良い住宅街にあり、門限もありません。初めてのトロント生活でも、日本語で相談できるので安心です。",
   details: [
-    { label: "間取り", value: "個室 / 共用キッチン・バス" },
-    { label: "家賃", value: "$ ---- / 月（光熱費・Wi-Fi込み）" },
-    { label: "デポジット", value: "1ヶ月分" },
-    { label: "入居可能日", value: "即日〜" },
-    { label: "契約期間", value: "応相談（短期・長期どちらも）" },
-    { label: "最寄り", value: "（内見時にご案内）" },
+    { label: "間取り", value: "約8畳の個室（小窓あり・半地下）" },
+    { label: "物件タイプ", value: "一軒家の地下フロア" },
+    { label: "家賃", value: "$695 / 月" },
+    { label: "デポジット", value: "応相談（内見時にご案内）" },
+    { label: "入居可能日", value: "2026年7月1日〜" },
+    { label: "契約期間", value: "応相談（短期・長期）" },
+    { label: "家具・家電", value: "ベッド / デスク / 椅子 / TV / クローゼット×2" },
+    { label: "設備", value: "Wi-Fi利用可・洗濯乾燥無料・エアコン・暖房" },
+    { label: "共用部", value: "キッチン・バス・トイレ（3名でシェア）" },
+    { label: "同居者", value: "日本人の社会人" },
+    { label: "周辺", value: "スーパーまで自転車で約10分" },
+    { label: "エリア", value: "North York / Yonge & Finch" },
   ],
-  // ↓ まずはプレースホルダー。実際の写真に差し替えてください。
   photos: [
-    { src: "/images/default.png", alt: "リビング" },
-    { src: "/images/default.png", alt: "個室" },
-    { src: "/images/default.png", alt: "キッチン" },
-    { src: "/images/default.png", alt: "バスルーム" },
-    { src: "/images/default.png", alt: "建物外観" },
-    { src: "/images/default.png", alt: "周辺環境" },
+    { src: "/images/rental/room-1.jpg", alt: "約8畳の家具付き個室" },
+    { src: "/images/rental/room-2.jpg", alt: "ベッド・デスク・ソファのある居室" },
+    { src: "/images/rental/kitchen.jpg", alt: "リノベーション済みのキッチン" },
+    { src: "/images/rental/bathroom.jpg", alt: "リノベーション済みのバスルーム" },
+    { src: "/images/rental/hallway.jpg", alt: "共用スペース・廊下" },
   ],
   faq: [
     {
@@ -74,8 +84,16 @@ export const viewingProperty: ViewingProperty = {
       a: "可能です。日本にいる間にビデオ内見 → 仮押さえ → 到着日入居、という流れに対応しています。",
     },
     {
-      q: "光熱費やWi-Fiは別途かかりますか？",
-      a: "家賃に光熱費・Wi-Fi が含まれています。追加の固定費は基本的にありません。",
+      q: "キッチンやお風呂は共用ですか？",
+      a: "キッチン・バス・トイレは3名でシェアいただきます。現在は日本人の社会人が暮らしており、落ち着いた環境です。",
+    },
+    {
+      q: "Wi-Fiや光熱費はどうなっていますか？",
+      a: "Wi-Fi はご利用いただけます。洗濯・乾燥は無料、エアコン・暖房も完備しています。光熱費の詳しい扱いは内見時にご案内します。",
+    },
+    {
+      q: "門限や生活のルールはありますか？",
+      a: "門限はありません。社会人の方が快適に暮らせる環境です。細かな生活ルールは内見時にご説明します。",
     },
     {
       q: "短期だけの滞在でも大丈夫ですか？",
