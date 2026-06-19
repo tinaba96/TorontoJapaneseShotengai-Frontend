@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { CalendarCheck, Check, Loader2, ShieldCheck } from "lucide-react";
+import { CalendarCheck, Check, Loader2, LogOut, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { getSlots, createBooking } from "@/app/lib/api/viewing";
 import type { AvailabilitySlot } from "@/app/types/viewing";
@@ -26,7 +26,7 @@ function formatTime(iso: string): string {
 }
 
 export default function BookingWidget() {
-  const { isAuthenticated, user, loginWithGoogle } = useAuth();
+  const { isAuthenticated, user, loginWithGoogle, logout } = useAuth();
 
   const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(true);
@@ -168,8 +168,16 @@ export default function BookingWidget() {
         内見を予約する
       </div>
 
-      <div className="mt-2 text-xs text-sumi-400">
-        ログイン中: {user?.email}
+      <div className="mt-2 flex items-center justify-between gap-2 text-xs text-sumi-400">
+        <span className="truncate">ログイン中: {user?.email}</span>
+        <button
+          type="button"
+          onClick={logout}
+          className="inline-flex flex-shrink-0 items-center gap-1 text-sumi-400 hover:text-sakura-600"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+          ログアウト
+        </button>
       </div>
 
       {/* 枠選択 */}

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { CalendarPlus, Loader2, Trash2, Users, Lock, Clock } from "lucide-react";
+import { CalendarPlus, Loader2, Trash2, Users, Lock, Clock, LogOut } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import {
   getWindows,
@@ -31,7 +31,7 @@ function slotCount(startIso: string, endIso: string): number {
 }
 
 export default function AdminPage() {
-  const { isAuthenticated, isAdmin, user, loginWithGoogle } = useAuth();
+  const { isAuthenticated, isAdmin, user, loginWithGoogle, logout } = useAuth();
 
   const [windows, setWindows] = useState<AvailabilityWindow[]>([]);
   const [bookings, setBookings] = useState<ViewingBooking[]>([]);
@@ -146,6 +146,14 @@ export default function AdminPage() {
           <p className="text-sm text-red-700">
             このアカウント（{user?.email}）には管理者権限がありません。
           </p>
+          <button
+            type="button"
+            onClick={logout}
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-red-200 px-4 py-2 text-xs font-medium text-red-700 hover:bg-red-100"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            ログアウト
+          </button>
         </div>
       </div>
     );
@@ -156,7 +164,17 @@ export default function AdminPage() {
     <div className="container mx-auto px-4 lg:px-8 py-12">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-3xl font-bold text-sumi-800">内見管理</h1>
-        <span className="text-xs text-sumi-400">{user?.email}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-sumi-400">{user?.email}</span>
+          <button
+            type="button"
+            onClick={logout}
+            className="inline-flex items-center gap-1.5 rounded-full border border-sumi-200 px-3 py-1.5 text-xs font-medium text-sumi-600 hover:border-sakura-300 hover:text-sakura-600"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            ログアウト
+          </button>
+        </div>
       </div>
 
       {error && (
