@@ -7,6 +7,48 @@ import {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export interface MeResponse {
+  id: string;
+  name: string;
+  email: string;
+  is_admin: boolean;
+}
+
+/**
+ * Google ID トークンをバックエンドに渡して、こちらの JWT を受け取る
+ */
+export const googleLogin = async (
+  credential: string
+): Promise<AuthResponse> => {
+  const response = await fetch(`${API_URL}/auth/google`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ credential }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Google login failed: ${response.status} - ${errorText}`);
+  }
+
+  return response.json();
+};
+
+/**
+ * 現在のユーザー情報（管理者かどうかを含む）を取得
+ */
+export const getMe = async (token: string): Promise<MeResponse> => {
+  const response = await fetch(`${API_URL}/auth/me`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch current user: ${response.status}`);
+  }
+
+  return response.json();
+};
+
 export const register = async (
   credentials: RegisterCredentials
 ): Promise<User> => {
