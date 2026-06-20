@@ -28,6 +28,14 @@ export default function ViewingPage() {
           <p className="mt-5 max-w-2xl text-base md:text-lg text-washi-100/80">
             {p.tagline}
           </p>
+          <div className="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-2">
+            <span className="font-display text-4xl font-black tracking-tight text-gold-300 md:text-5xl">
+              {p.rent}
+            </span>
+            <span className="rounded-full border border-gold-300/40 bg-gold-300/10 px-3 py-1 text-xs font-medium text-gold-200">
+              光熱費・Wi-Fi込み
+            </span>
+          </div>
           <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2 text-sm text-washi-100/80">
             <span className="inline-flex items-start gap-1.5">
               <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold-300" />
