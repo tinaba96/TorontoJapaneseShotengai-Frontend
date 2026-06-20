@@ -8,6 +8,7 @@ import { useAuth } from "@/app/contexts/AuthContext";
 import { createPost } from "@/app/lib/api/board";
 import MarkdownEditor from "../_components/MarkdownEditor";
 import LoginInline from "../_components/LoginInline";
+import BoardNotice from "../_components/BoardNotice";
 
 export default function NewPostPage() {
   const router = useRouter();
@@ -55,6 +56,10 @@ export default function NewPostPage() {
       </Link>
 
       <h1 className="mt-4 font-display text-2xl font-bold text-sumi-800">新規投稿</h1>
+
+      <div className="mt-4">
+        <BoardNotice />
+      </div>
 
       {!isAuthenticated ? (
         <div className="mt-6">

@@ -12,6 +12,7 @@ import {
 import { listPosts } from "@/app/lib/api/board";
 import type { BoardPostSummary } from "@/app/types/board";
 import { ApiError } from "@/app/lib/api/client";
+import BoardNotice from "./_components/BoardNotice";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString("ja-JP", {
@@ -66,7 +67,11 @@ export default function BoardListPage() {
         </Link>
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div className="mt-6">
+        <BoardNotice />
+      </div>
+
+      <div className="mt-6 space-y-3">
         {loading && (
           <div className="flex items-center gap-2 py-10 text-sm text-sumi-400">
             <Loader2 className="h-4 w-4 animate-spin" /> 読み込み中…
