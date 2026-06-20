@@ -33,7 +33,7 @@ export interface ViewingProperty {
 export const viewingProperty: ViewingProperty = {
   name: "Yonge & Finch｜家具付きの半地下個室",
   tagline:
-    "North York の閑静な住宅街。日本人社会人が暮らす一軒家の、家具付き個室。スーツケースひとつで、トロント生活を始められます。",
+    "North York の閑静な住宅街。日本人が暮らす一軒家の、家具付き個室。スーツケースひとつで、トロント生活を始められます。",
   address: "North York, Toronto（Yonge & Finch エリア / 一軒家の半地下フロア）",
   rent: "$695 / 月",
   deposit: "デポジット: 1ヶ月分（最終月の家賃に充当）",
