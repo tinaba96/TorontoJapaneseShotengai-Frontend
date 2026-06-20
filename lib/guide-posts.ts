@@ -42,6 +42,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "open-bank-account",
+    thumbnail: "/images/guide/open-bank-account.jpg",
     title: "銀行口座の開き方",
     excerpt: "カナダ主要5大銀行のニューカマー向け無料口座を徹底比較。必要書類からSIN、来加前のオンライン申請まで初渡航者でも迷わない手順を解説。",
     category: "お金",
@@ -51,6 +52,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "sim-esim",
+    thumbnail: "/images/guide/sim-esim.jpg",
     title: "携帯・SIM/eSIM の選び方",
     excerpt: "カナダの携帯事情をわかりやすく解説。大手3社とサブブランド、格安プリペイド、到着前から使えるeSIMまで、2026年の料金相場と手続きをまとめました。",
     category: "通信",
@@ -80,6 +82,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "healthcare-insurance",
+    thumbnail: "/images/guide/healthcare-insurance.jpg",
     title: "医療・保険の基礎",
     excerpt: "OHIPの対象条件・申請手順から、民間保険の必要性、walk-in clinicの費用目安、緊急時の対応まで、トロントの医療制度を初めての方にわかりやすく解説します。",
     category: "医療",
