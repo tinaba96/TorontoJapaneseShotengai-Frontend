@@ -6,6 +6,7 @@ import { MapPin, Sparkles, Check, ChevronDown } from "lucide-react";
 import { viewingProperty as p } from "@/lib/viewing-property";
 import BookingWidget from "./_components/BookingWidget";
 import ContactDialog from "./_components/ContactDialog";
+import LineButton from "./_components/LineButton";
 
 export default function ViewingPage() {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -218,6 +219,7 @@ export default function ViewingPage() {
             <div className="lg:sticky lg:top-24">
               <BookingWidget />
               <ContactDialog />
+              <LineButton />
             </div>
           </div>
         </div>
