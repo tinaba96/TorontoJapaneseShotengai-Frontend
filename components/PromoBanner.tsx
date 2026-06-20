@@ -40,6 +40,7 @@ export default function PromoBanner() {
         width={1536}
         height={1024}
         className="h-auto w-full"
+        style={{ width: "100%", height: "auto" }}
         sizes="(max-width: 1024px) 100vw, 1024px"
       />
     </a>
