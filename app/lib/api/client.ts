@@ -32,6 +32,8 @@ const getAccessToken = (): string | null => {
  */
 interface RequestOptions extends RequestInit {
   requiresAuth?: boolean;
+  /** トークンがあれば付与する（無くてもエラーにしない）。公開＋ログイン時付加情報用。 */
+  optionalAuth?: boolean;
   params?: Record<string, string | number | boolean | undefined>;
 }
 
@@ -42,7 +44,7 @@ export async function apiClient<T>(
   endpoint: string,
   options: RequestOptions = {}
 ): Promise<T> {
-  const { requiresAuth = false, params, ...fetchOptions } = options;
+  const { requiresAuth = false, optionalAuth = false, params, ...fetchOptions } = options;
 
   // クエリパラメータの構築
   let url = `${API_URL}${endpoint}`;
@@ -74,6 +76,11 @@ export async function apiClient<T>(
       throw new ApiError(401, "Unauthorized", {
         message: "認証が必要です。ログインしてください。",
       });
+    }
+  } else if (optionalAuth) {
+    const token = getAccessToken();
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
     }
   }
 
