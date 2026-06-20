@@ -6,6 +6,7 @@ import { Clock, ArrowLeft } from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getGuidePost, guidePosts } from "@/lib/guide-posts";
+import ArticleReaction from "@/components/ArticleReaction";
 
 export function generateStaticParams() {
   return guidePosts.map((p) => ({ slug: p.slug }));
@@ -148,7 +149,11 @@ export default async function GuideArticlePage({
           </Markdown>
         </div>
 
-        <div className="mt-12 border-t border-sumi-100 pt-8">
+        <div className="mt-12">
+          <ArticleReaction slug={post.slug} />
+        </div>
+
+        <div className="mt-8 border-t border-sumi-100 pt-8">
           <Link
             href="/guide"
             className="inline-flex items-center gap-2 rounded-full border border-sumi-200 px-5 py-2.5 text-sm font-semibold text-sumi-700 hover:border-sakura-300 hover:text-sakura-600"
