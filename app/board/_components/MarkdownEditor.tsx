@@ -110,7 +110,7 @@ export default function MarkdownEditor({
   return (
     <div className="rounded-2xl border border-sumi-200 bg-white">
       {/* tabs */}
-      <div className="flex items-center gap-1 border-b border-sumi-100 px-2 py-1.5">
+      <div className="flex flex-wrap items-center gap-1 border-b border-sumi-100 px-2 py-1.5">
         <button
           type="button"
           onClick={() => setTab("write")}
@@ -131,7 +131,7 @@ export default function MarkdownEditor({
         </button>
 
         {tab === "write" && (
-          <div className="ml-1 flex items-center gap-0.5 border-l border-sumi-100 pl-1">
+          <div className="ml-1 flex flex-wrap items-center gap-0.5 border-l border-sumi-100 pl-1">
             <ToolBtn title="太字" onClick={() => surround("**")}>
               <Bold className="h-4 w-4" />
             </ToolBtn>
@@ -158,8 +158,9 @@ export default function MarkdownEditor({
                 <Smile className="h-4 w-4" />
               </ToolBtn>
               {showEmoji && (
-                <div className="absolute z-50 mt-1">
+                <div className="absolute right-0 z-50 mt-1 max-w-[calc(100vw-2rem)]">
                   <EmojiPicker
+                    width={300}
                     onEmojiClick={(e: { emoji: string }) => {
                       insertText(e.emoji);
                       setShowEmoji(false);
