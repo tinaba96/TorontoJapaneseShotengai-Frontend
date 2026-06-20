@@ -17,6 +17,7 @@ function isAllowed(pathname: string): boolean {
   if (pathname === "/") return true; // ルートは下で /viewing にrewrite
   if (pathname === "/viewing" || pathname.startsWith("/viewing/")) return true;
   if (pathname === "/board" || pathname.startsWith("/board/")) return true; // 掲示板
+  if (pathname === "/guide" || pathname.startsWith("/guide/")) return true; // ブログ（渡航ガイド）
   if (pathname === "/privacy") return true; // プライバシーポリシー（AdSense審査用）
   return false;
 }
@@ -43,6 +44,6 @@ export function middleware(req: NextRequest) {
 export const config = {
   // 静的アセット・画像・Next内部は対象外
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|images|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|txt|xml|json)).*)",
+    "/((?!_next/static|_next/image|favicon.ico|images|videos|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|txt|xml|json|mp4|webm|mov|m4v)).*)",
   ],
 };
