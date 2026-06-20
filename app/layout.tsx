@@ -32,9 +32,30 @@ const notoSerifJP = Noto_Serif_JP({
   weight: ["400", "500", "600", "700", "900"],
 });
 
+const SITE_NAME = "Toronto Japanese Shotengai Rentals";
+const SITE_DESC =
+  "日本からトロントに来る方へ。安心して住める家具付き賃貸を、到着前からオンライン内見・予約できます。";
+const OG_IMAGE = "/images/rental/room-1.jpg"; // SNSプレビュー画像（差し替え可）
+
 export const metadata: Metadata = {
-  title: "Toronto Japanese Shotengai",
-  description: "Toronto Japanese Shotengai — トロントの日本人コミュニティをつなぐ、オンライン商店街",
+  metadataBase: new URL("https://www.toronto-shotengai.com"),
+  title: SITE_NAME + " — トロントの信頼できる賃貸",
+  description: SITE_DESC,
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESC,
+    url: "https://www.toronto-shotengai.com",
+    siteName: SITE_NAME,
+    images: [{ url: OG_IMAGE, alt: SITE_NAME }],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESC,
+    images: [OG_IMAGE],
+  },
   other: {
     // AdSense 所有権確認用メタタグ
     "google-adsense-account": ADSENSE_CLIENT,
