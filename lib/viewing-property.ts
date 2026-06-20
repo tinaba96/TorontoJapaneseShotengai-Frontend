@@ -36,7 +36,7 @@ export const viewingProperty: ViewingProperty = {
     "North York の閑静な住宅街。日本人社会人が暮らす一軒家の、家具付き個室。スーツケースひとつで、トロント生活を始められます。",
   address: "North York, Toronto（Yonge & Finch エリア / 一軒家の半地下フロア）",
   rent: "$695 / 月",
-  deposit: "デポジット: 応相談（内見時にご案内）",
+  deposit: "デポジット: 1ヶ月分（最終月の家賃に充当）",
   available: "入居可能: 2026年7月1日〜",
   highlights: [
     "月 $695・家具付きで、スーツケースひとつですぐ入居",
@@ -57,7 +57,7 @@ export const viewingProperty: ViewingProperty = {
     { label: "間取り", value: "約8畳の個室（小窓あり・半地下）" },
     { label: "物件タイプ", value: "一軒家の地下フロア" },
     { label: "家賃", value: "$695 / 月" },
-    { label: "デポジット", value: "応相談（内見時にご案内）" },
+    { label: "デポジット", value: "1ヶ月分（最終月の家賃に充当）" },
     { label: "入居可能日", value: "2026年7月1日〜" },
     { label: "契約期間", value: "応相談（短期・長期）" },
     { label: "家具・家電", value: "ベッド / デスク / 椅子 / TV / クローゼット×2" },
@@ -94,6 +94,10 @@ export const viewingProperty: ViewingProperty = {
     {
       q: "門限や生活のルールはありますか？",
       a: "門限はありません。社会人の方が快適に暮らせる環境です。細かな生活ルールは内見時にご説明します。",
+    },
+    {
+      q: "デポジットはいくらですか？返ってきますか？",
+      a: "デポジットは家賃1ヶ月分です。退去時に返金するのではなく、最終月の家賃として充当される仕組みなので、最後の月の家賃は不要です。",
     },
     {
       q: "短期だけの滞在でも大丈夫ですか？",
