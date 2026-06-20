@@ -24,6 +24,7 @@ export interface ViewingBooking {
   phone?: string;
   status: string; // "active" | "cancelled"
   created_at: string;
+  address_sent?: boolean;
 }
 
 export interface CreateBookingRequest {

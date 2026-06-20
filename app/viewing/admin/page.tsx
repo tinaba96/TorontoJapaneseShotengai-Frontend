@@ -2,13 +2,24 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { CalendarPlus, Loader2, Trash2, Users, Lock, Clock, LogOut } from "lucide-react";
+import {
+  CalendarPlus,
+  Loader2,
+  Trash2,
+  Users,
+  Lock,
+  Clock,
+  LogOut,
+  MapPin,
+  Check,
+} from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import {
   getWindows,
   createWindow,
   deleteWindow,
   getBookings,
+  sendAddress,
 } from "@/app/lib/api/viewing";
 import type { AvailabilityWindow, ViewingBooking } from "@/app/types/viewing";
 import { ApiError } from "@/app/lib/api/client";
@@ -40,6 +51,7 @@ export default function AdminPage() {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [creating, setCreating] = useState(false);
+  const [sendingId, setSendingId] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
 
   const loadAll = useCallback(async () => {
@@ -101,6 +113,26 @@ export default function AdminPage() {
       } else {
         setError("期間の削除に失敗しました。");
       }
+    }
+  };
+
+  const handleSendAddress = async (b: ViewingBooking) => {
+    if (!confirm(`${b.name} さんに内見の住所をメール送信しますか？`)) return;
+    try {
+      setSendingId(b.id);
+      setError(null);
+      await sendAddress(b.id);
+      setBookings((prev) =>
+        prev.map((x) => (x.id === b.id ? { ...x, address_sent: true } : x))
+      );
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 500) {
+        setError("住所(PROPERTY_ADDRESS)が未設定です。環境変数を設定してください。");
+      } else {
+        setError("住所メールの送信に失敗しました。");
+      }
+    } finally {
+      setSendingId(null);
     }
   };
 
@@ -300,6 +332,7 @@ export default function AdminPage() {
                     <th className="px-4 py-2 font-medium">名前</th>
                     <th className="px-4 py-2 font-medium">連絡先</th>
                     <th className="px-4 py-2 font-medium">状態</th>
+                    <th className="px-4 py-2 font-medium">住所送信</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -327,6 +360,28 @@ export default function AdminPage() {
                         >
                           {b.status === "active" ? "予約中" : "キャンセル"}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        {b.address_sent ? (
+                          <span className="inline-flex items-center gap-1 text-xs text-emerald-600">
+                            <Check className="h-3.5 w-3.5" />
+                            送信済み
+                          </span>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleSendAddress(b)}
+                            disabled={sendingId === b.id || b.status !== "active"}
+                            className="inline-flex items-center gap-1.5 rounded-full border border-sakura-200 px-3 py-1.5 text-xs font-semibold text-sakura-600 transition-colors hover:bg-sakura-50 disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            {sendingId === b.id ? (
+                              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            ) : (
+                              <MapPin className="h-3.5 w-3.5" />
+                            )}
+                            住所を送る
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}

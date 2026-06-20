@@ -53,3 +53,12 @@ export async function deleteWindow(id: string): Promise<void> {
 export async function getBookings(): Promise<ViewingBooking[]> {
   return get<ViewingBooking[]>("/viewing/bookings", { requiresAuth: true });
 }
+
+/** admin: 予約者へ内見の住所をメール送信 */
+export async function sendAddress(bookingId: string): Promise<ViewingBooking> {
+  return post<ViewingBooking>(
+    `/viewing/bookings/${bookingId}/send-address`,
+    undefined,
+    { requiresAuth: true }
+  );
+}
