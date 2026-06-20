@@ -65,12 +65,20 @@ export default function ViewingLayout({
         <footer className="border-t border-sumi-100/50 bg-white/60">
           <div className="container mx-auto px-4 lg:px-8 py-8 text-center text-xs text-sumi-400">
             <div>© Toronto Japanese — トロントの日本人向け賃貸</div>
-            <Link
-              href="/privacy"
-              className="mt-2 inline-block text-sumi-400 underline hover:text-sakura-600"
-            >
-              プライバシーポリシー
-            </Link>
+            <div className="mt-2 flex items-center justify-center gap-4">
+              <Link
+                href="/guide"
+                className="text-sumi-400 underline hover:text-sakura-600"
+              >
+                ブログ
+              </Link>
+              <Link
+                href="/privacy"
+                className="text-sumi-400 underline hover:text-sakura-600"
+              >
+                プライバシーポリシー
+              </Link>
+            </div>
           </div>
         </footer>
       </div>
