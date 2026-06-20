@@ -5,7 +5,9 @@ import Image from "next/image";
  * 画像は public/images/shenzhen-buddies.png に配置してください。
  * リンク先・画像は必要に応じて差し替え可能。
  */
-const PROMO_URL = "https://www.shenzhen-buddies.com/welcome";
+// 遷移先GAで流入元が分かるよう UTM を付与
+const PROMO_URL =
+  "https://www.shenzhen-buddies.com/welcome?utm_source=toronto-shotengai.com&utm_medium=banner&utm_campaign=tjs_rental";
 const PROMO_IMAGE = "/images/shenzhen-buddies.png";
 
 export default function PromoBanner() {
