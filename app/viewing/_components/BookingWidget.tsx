@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
+import { sendGAEvent } from "@next/third-parties/google";
 import { CalendarCheck, Check, Loader2, LogOut, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { getSlots, createBooking } from "@/app/lib/api/viewing";
@@ -40,6 +41,7 @@ export default function BookingWidget() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const startedRef = useRef(false);
 
   useEffect(() => {
     if (user?.name) setName(user.name);
@@ -88,13 +90,16 @@ export default function BookingWidget() {
         phone: phone.trim() || undefined,
       });
       setDone(true);
+      sendGAEvent("event", "booking_complete", { starts_at: selectedSlot });
     } catch (err) {
       if (err instanceof ApiError && err.status === 400) {
         setSubmitError(
           "すでに有効な予約があります。先に既存の予約をキャンセルしてから、別の時間をご予約ください。"
         );
+        sendGAEvent("event", "booking_error", { reason: "duplicate" });
       } else {
         setSubmitError("予約に失敗しました。時間をおいて再度お試しください。");
+        sendGAEvent("event", "booking_error", { reason: "unknown" });
       }
     } finally {
       setSubmitting(false);
@@ -212,7 +217,13 @@ export default function BookingWidget() {
                     <button
                       key={s.starts_at}
                       type="button"
-                      onClick={() => setSelectedSlot(s.starts_at)}
+                      onClick={() => {
+                        setSelectedSlot(s.starts_at);
+                        if (!startedRef.current) {
+                          startedRef.current = true;
+                          sendGAEvent("event", "booking_start");
+                        }
+                      }}
                       className={`rounded-full border px-4 py-2 text-sm transition-all ${
                         active
                           ? "border-sakura-500 bg-sakura-50 text-sakura-700 font-semibold shadow-sm"

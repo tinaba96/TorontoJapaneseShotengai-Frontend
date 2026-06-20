@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { sendGAEvent } from "@next/third-parties/google";
 import { MapPin, Sparkles, Check, ChevronDown } from "lucide-react";
 import { viewingProperty as p } from "@/lib/viewing-property";
 import BookingWidget from "./_components/BookingWidget";
@@ -12,6 +13,7 @@ import PromoBanner from "@/components/PromoBanner";
 export default function ViewingPage() {
   const [activePhoto, setActivePhoto] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const playedVideos = useRef<Set<string>>(new Set());
 
   return (
     <div>
@@ -110,6 +112,12 @@ export default function ViewingPage() {
                         playsInline
                         preload="metadata"
                         className="aspect-[3/4] w-full bg-black object-contain"
+                        onPlay={() => {
+                          if (!playedVideos.current.has(v.src)) {
+                            playedVideos.current.add(v.src);
+                            sendGAEvent("event", "video_play", { label: v.label });
+                          }
+                        }}
                       >
                         <source src={v.src} type="video/mp4" />
                         お使いのブラウザは動画再生に対応していません。

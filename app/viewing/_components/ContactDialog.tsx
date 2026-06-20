@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MessageSquarePlus, X, Check, Loader2 } from "lucide-react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { sendContact } from "@/app/lib/api/contact";
 
@@ -52,6 +53,7 @@ export default function ContactDialog() {
         message: message.trim(),
       });
       setDone(true);
+      sendGAEvent("event", "contact_submit");
     } catch {
       setError("送信に失敗しました。時間をおいて再度お試しください。");
     } finally {
@@ -67,6 +69,7 @@ export default function ContactDialog() {
         onClick={() => {
           reset();
           setOpen(true);
+          sendGAEvent("event", "contact_open");
         }}
         className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-sumi-200 bg-white px-5 py-3 text-sm font-semibold text-sumi-700 transition-all hover:border-sakura-300 hover:text-sakura-600"
       >
