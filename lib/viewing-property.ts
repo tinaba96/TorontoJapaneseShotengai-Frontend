@@ -45,6 +45,7 @@ export const viewingProperty: ViewingProperty = {
     "リノベーション済みのキッチン＆バスルームで清潔",
     "閑静で治安の良い住宅街。日本人が暮らす安心の環境（学生・社会人問わず歓迎）",
     "オーナーと日本語で相談OK・門限なしの自由な暮らし",
+    "緑あふれる共用の庭＆屋根付きラウンジでリフレッシュ",
   ],
   description:
     "North York・Yonge & Finch エリアにある一軒家の半地下フロア、約8畳の家具付き個室です。" +
@@ -78,6 +79,9 @@ export const viewingProperty: ViewingProperty = {
     { src: "/images/rental/kitchen.jpg", alt: "リノベーション済みのキッチン" },
     { src: "/images/rental/bathroom.jpg", alt: "リノベーション済みのバスルーム" },
     { src: "/images/rental/hallway.jpg", alt: "共用スペース・廊下" },
+    { src: "/images/rental/garden-1.jpg", alt: "緑あふれる共用の庭" },
+    { src: "/images/rental/garden-2.jpg", alt: "屋根付きのサンルーム・ラウンジ" },
+    { src: "/images/rental/garden-3.jpg", alt: "ホットタブ付きのテラス" },
   ],
   faq: [
     {
