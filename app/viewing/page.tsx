@@ -7,6 +7,7 @@ import { viewingProperty as p } from "@/lib/viewing-property";
 import BookingWidget from "./_components/BookingWidget";
 import ContactDialog from "./_components/ContactDialog";
 import LineButton from "./_components/LineButton";
+import PromoBanner from "@/components/PromoBanner";
 
 export default function ViewingPage() {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -222,6 +223,14 @@ export default function ViewingPage() {
               <LineButton />
             </div>
           </div>
+        </div>
+
+        {/* PR: 他アプリ宣伝バナー */}
+        <div className="mt-14">
+          <p className="mb-2 text-[10px] uppercase tracking-[0.3em] text-sumi-300">
+            PR
+          </p>
+          <PromoBanner />
         </div>
       </div>
     </div>
