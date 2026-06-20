@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { MessagesSquare } from "lucide-react";
+import { MessagesSquare, BookOpen } from "lucide-react";
 
 /**
  * 内見予約セクション専用レイアウト。
@@ -49,13 +49,22 @@ export default function ViewingLayout({
                 </div>
               </Link>
 
-              <Link
-                href="/board"
-                className="inline-flex items-center gap-1.5 rounded-full bg-gradient-sakura px-4 py-2 text-sm font-bold text-white shadow-glow transition-all hover:-translate-y-0.5"
-              >
-                <MessagesSquare className="h-4 w-4" />
-                掲示板
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/guide"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gold-300/70 bg-white/70 px-4 py-2 text-sm font-bold text-sumi-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-gold-400 hover:text-gold-600"
+                >
+                  <BookOpen className="h-4 w-4 text-gold-500" />
+                  ブログ
+                </Link>
+                <Link
+                  href="/board"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gradient-sakura px-4 py-2 text-sm font-bold text-white shadow-glow transition-all hover:-translate-y-0.5"
+                >
+                  <MessagesSquare className="h-4 w-4" />
+                  掲示板
+                </Link>
+              </div>
             </div>
           </div>
         </header>
