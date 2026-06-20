@@ -56,7 +56,7 @@ export default function ViewingPage() {
       <div className="container mx-auto px-4 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-10 lg:gap-14">
           {/* LEFT: content */}
-          <div>
+          <div className="min-w-0">
             {/* Gallery */}
             <div className="overflow-hidden rounded-3xl border border-sumi-100 bg-white shadow-glow-soft">
               <div className="relative aspect-[16/10] bg-sumi-50">
@@ -216,7 +216,7 @@ export default function ViewingPage() {
           </div>
 
           {/* RIGHT: booking (sticky) */}
-          <div>
+          <div className="min-w-0">
             <div className="lg:sticky lg:top-24">
               <BookingWidget />
               <ContactDialog />
