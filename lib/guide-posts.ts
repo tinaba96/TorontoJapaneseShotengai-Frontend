@@ -62,7 +62,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "presto-ttc",
-    thumbnail: "/images/guide/presto-ttc.jpg",
+    thumbnail: "/images/guide/presto-ttc-v2.jpg",
     title: "交通：PRESTO と TTC の使い方",
     excerpt: "ワーホリ・留学生必読！トロントの地下鉄・バス・ストリートカーを運営するTTCとPRESTOカードの入手・チャージ・乗り方を、2026年の最新運賃とともに分かりやすく解説します。",
     category: "交通",
@@ -72,7 +72,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "find-job-working-holiday",
-    thumbnail: "/images/guide/find-job-working-holiday.jpg",
+    thumbnail: "/images/guide/find-job-working-holiday-v2.jpg",
     title: "ワーホリの仕事の探し方",
     excerpt: "IECオープンワークパーミットの申請からSIN取得、Indeed・日系掲示板での求人探し、レジュメの書き方、オンタリオ州最低賃金（2026年）、チップ・税金まで、トロントで働くための実践ガイド。",
     category: "仕事",
@@ -92,7 +92,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "japanese-groceries",
-    thumbnail: "/images/guide/japanese-groceries.jpg",
+    thumbnail: "/images/guide/japanese-groceries-v2.jpg",
     title: "日本食材が買えるスーパー",
     excerpt: "ワーホリ・留学生必見！トロントで醤油・みそ・だしなどの日本食材が買えるスーパーをエリア別に紹介。Sanko Trading、J-Town、H Mart、T&Tなど実店舗＋オンラインも解説。",
     category: "暮らし",
