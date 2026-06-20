@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Home, MessagesSquare } from "lucide-react";
 
 /**
  * ブログ（渡航ガイド）専用レイアウト。
@@ -40,12 +41,28 @@ export default function GuideLayout({
               </div>
             </Link>
 
-            <Link
-              href="/guide"
-              className="text-sm font-medium text-sumi-600 hover:text-sakura-600"
-            >
-              記事一覧
-            </Link>
+            <nav className="flex items-center gap-1">
+              <Link
+                href="/guide"
+                className="hidden sm:inline-flex items-center rounded-full px-3 py-2 text-sm font-medium text-sumi-600 transition-colors hover:bg-sakura-50 hover:text-sakura-600"
+              >
+                記事一覧
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-sumi-600 transition-colors hover:bg-sakura-50 hover:text-sakura-600"
+              >
+                <Home className="h-4 w-4" />
+                <span className="hidden sm:inline">物件</span>
+              </Link>
+              <Link
+                href="/board"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gradient-sakura px-4 py-2 text-sm font-bold text-white shadow-glow"
+              >
+                <MessagesSquare className="h-4 w-4" />
+                掲示板
+              </Link>
+            </nav>
           </div>
         </div>
       </header>

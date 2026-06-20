@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { Home, MessagesSquare } from "lucide-react";
+import { Home, MessagesSquare, BookOpen } from "lucide-react";
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 
@@ -42,10 +42,17 @@ export default function BoardLayout({
               <nav className="flex items-center gap-1">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium text-sumi-600 transition-colors hover:bg-sakura-50 hover:text-sakura-600"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-sumi-600 transition-colors hover:bg-sakura-50 hover:text-sakura-600"
                 >
                   <Home className="h-4 w-4" />
                   <span className="hidden sm:inline">物件</span>
+                </Link>
+                <Link
+                  href="/guide"
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-sumi-600 transition-colors hover:bg-sakura-50 hover:text-sakura-600"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  <span className="hidden sm:inline">ブログ</span>
                 </Link>
                 <Link
                   href="/board"
