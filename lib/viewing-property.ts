@@ -11,6 +11,11 @@ export interface PropertyPhoto {
   alt: string;
 }
 
+export interface PropertyVideo {
+  src: string;
+  label: string;
+}
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -27,6 +32,7 @@ export interface ViewingProperty {
   description: string;
   details: { label: string; value: string }[];
   photos: PropertyPhoto[];
+  videos: PropertyVideo[];
   faq: FaqItem[];
 }
 
@@ -82,6 +88,10 @@ export const viewingProperty: ViewingProperty = {
     { src: "/images/rental/garden-1.jpg", alt: "緑あふれる共用の庭" },
     { src: "/images/rental/garden-2.jpg", alt: "屋根付きのサンルーム・ラウンジ" },
     { src: "/images/rental/garden-3.jpg", alt: "ホットタブ付きのテラス" },
+  ],
+  videos: [
+    { src: "/videos/rental/room-tour-1.mp4", label: "お部屋のツアー動画" },
+    { src: "/videos/rental/room-tour-2.mp4", label: "室内の様子" },
   ],
   faq: [
     {

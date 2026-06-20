@@ -82,6 +82,36 @@ export default function ViewingPage() {
               </div>
             </div>
 
+            {/* Videos */}
+            {p.videos?.length > 0 && (
+              <div className="mt-10">
+                <h2 className="font-display text-2xl font-bold text-sumi-800">
+                  動画で見る
+                </h2>
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {p.videos.map((v) => (
+                    <figure
+                      key={v.src}
+                      className="overflow-hidden rounded-3xl border border-sumi-100 bg-sumi-900 shadow-glow-soft"
+                    >
+                      <video
+                        controls
+                        playsInline
+                        preload="metadata"
+                        className="aspect-[3/4] w-full bg-black object-contain"
+                      >
+                        <source src={v.src} type="video/mp4" />
+                        お使いのブラウザは動画再生に対応していません。
+                      </video>
+                      <figcaption className="px-4 py-3 text-sm text-washi-100/80">
+                        {v.label}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Highlights */}
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
               {p.highlights.map((h) => (
