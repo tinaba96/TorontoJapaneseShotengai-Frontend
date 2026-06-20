@@ -70,6 +70,7 @@ export const viewingProperty: ViewingProperty = {
   photos: [
     { src: "/images/rental/room-1.jpg", alt: "約8畳の家具付き個室" },
     { src: "/images/rental/room-2.jpg", alt: "ベッド・デスク・ソファのある居室" },
+    { src: "/images/rental/room-3.jpg", alt: "リクライニングソファとデスクのあるくつろぎスペース" },
     { src: "/images/rental/closet-1.jpg", alt: "ハンガーポール付きのクローゼット" },
     { src: "/images/rental/closet-2.jpg", alt: "棚付きクローゼット＋姿見" },
     { src: "/images/rental/kitchen.jpg", alt: "リノベーション済みのキッチン" },
