@@ -119,6 +119,8 @@ export default function BookingWidget() {
         <p className="mt-2 text-sm text-sumi-600">
           確認メールを <span className="font-semibold">{user?.email}</span> に送信しました。
           <br />
+          内見の正確な住所は、オーナーが内容を確認したうえで、改めてメールでお送りします。続けて届くご案内メールをお待ちください。
+          <br />
           キャンセルはメール内のリンクからいつでも可能です。
         </p>
       </div>
@@ -303,6 +305,8 @@ export default function BookingWidget() {
       </button>
       <p className="mt-3 text-center text-xs text-sumi-400">
         ご予約はお一人さま1件まで。変更したい場合は確認メールからキャンセルできます。
+        <br />
+        内見の住所は、オーナー確認後にメールでお送りします。
       </p>
     </div>
   );
