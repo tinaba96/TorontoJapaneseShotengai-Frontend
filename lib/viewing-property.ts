@@ -93,6 +93,7 @@ export const viewingProperty: ViewingProperty = {
     { src: "/videos/rental/room-tour-1.mp4", label: "お部屋のツアー動画" },
     { src: "/videos/rental/room-tour-2.mp4", label: "室内の様子" },
     { src: "/videos/rental/garden-tour.mp4", label: "庭・テラス（スポーツ観戦・ジャグジー）" },
+    { src: "/videos/rental/dog.mp4", label: "看板犬のいる暮らし🐶" },
   ],
   faq: [
     {
