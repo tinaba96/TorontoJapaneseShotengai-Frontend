@@ -22,6 +22,7 @@ export interface GuidePost {
 export const guidePosts: GuidePost[] = [
   {
     slug: "first-week-toronto",
+    thumbnail: "/images/guide/first-week-toronto.jpg",
     title: "到着後7日でやることチェックリスト",
     excerpt: "ワーホリ・留学でトロントに到着したら、最初の1週間が勝負。SIN取得・銀行口座開設・携帯SIM・PRESTOカードまで、時系列で手順を徹底解説。",
     category: "到着後",
@@ -31,6 +32,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "apartment-hunting",
+    thumbnail: "/images/guide/apartment-hunting.jpg",
     title: "トロントの家探しガイド",
     excerpt: "ワーホリ・留学・新規渡航者向けに、2026年のトロント賃貸相場からデポジットの法的ルール、物件探しのコツまで実用情報をまとめました。",
     category: "住まい",
@@ -58,6 +60,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "presto-ttc",
+    thumbnail: "/images/guide/presto-ttc.jpg",
     title: "交通：PRESTO と TTC の使い方",
     excerpt: "ワーホリ・留学生必読！トロントの地下鉄・バス・ストリートカーを運営するTTCとPRESTOカードの入手・チャージ・乗り方を、2026年の最新運賃とともに分かりやすく解説します。",
     category: "交通",
@@ -67,6 +70,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "find-job-working-holiday",
+    thumbnail: "/images/guide/find-job-working-holiday.jpg",
     title: "ワーホリの仕事の探し方",
     excerpt: "IECオープンワークパーミットの申請からSIN取得、Indeed・日系掲示板での求人探し、レジュメの書き方、オンタリオ州最低賃金（2026年）、チップ・税金まで、トロントで働くための実践ガイド。",
     category: "仕事",
@@ -85,6 +89,7 @@ export const guidePosts: GuidePost[] = [
   },
   {
     slug: "japanese-groceries",
+    thumbnail: "/images/guide/japanese-groceries.jpg",
     title: "日本食材が買えるスーパー",
     excerpt: "ワーホリ・留学生必見！トロントで醤油・みそ・だしなどの日本食材が買えるスーパーをエリア別に紹介。Sanko Trading、J-Town、H Mart、T&Tなど実店舗＋オンラインも解説。",
     category: "暮らし",
