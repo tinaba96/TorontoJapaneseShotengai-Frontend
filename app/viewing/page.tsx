@@ -41,6 +41,12 @@ export default function ViewingPage() {
               光熱費・Wi-Fi込み
             </span>
           </div>
+          {p.notice && (
+            <div className="mt-6 inline-flex items-start gap-2 rounded-2xl border border-sakura-400/40 bg-sakura-500/15 px-4 py-2.5 text-sm text-washi-50">
+              <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-sakura-400 animate-pulse" />
+              <span className="min-w-0 font-medium">{p.notice}</span>
+            </div>
+          )}
           <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2 text-sm text-washi-100/80">
             <span className="inline-flex items-start gap-1.5">
               <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold-300" />

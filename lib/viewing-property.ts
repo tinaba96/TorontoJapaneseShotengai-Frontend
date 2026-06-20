@@ -28,6 +28,7 @@ export interface ViewingProperty {
   rent: string;
   deposit: string;
   available: string;
+  notice?: string;
   highlights: string[];
   description: string;
   details: { label: string; value: string }[];
@@ -43,7 +44,9 @@ export const viewingProperty: ViewingProperty = {
   address: "North York, Toronto（Finch駅からバス8〜10分 / 一軒家の半地下フロア）",
   rent: "$695 / 月",
   deposit: "デポジット: 1ヶ月分（最終月の家賃に充当）",
-  available: "入居可能: 2026年7月1日〜",
+  available: "入居可能: 2026年7月1日〜（7/1から入居できる方を優先）",
+  notice:
+    "現在お問い合わせを多くいただいています。気になる方はお早めにご予約・ご相談ください。",
   highlights: [
     "月 $695・家具付きで、スーツケースひとつですぐ入居",
     "ベッド・デスク・椅子・TV完備＋クローゼット2つで収納たっぷり",
@@ -54,6 +57,7 @@ export const viewingProperty: ViewingProperty = {
     "緑あふれる共用の庭＆屋根付きラウンジでリフレッシュ",
     "とても親切な大家さん。キャンプ・釣り・スノボ・自転車・BBQ用品まで借りられる",
     "日本の居酒屋・韓国料理店・日系スーパーが近く、日本人に暮らしやすい街",
+    "おひとり様もカップルもOK・7/1から入居できる方を優先",
   ],
   description:
     "North York・Yonge & Finch エリアにある一軒家の半地下フロア、約8畳の家具付き個室です。" +
@@ -76,7 +80,7 @@ export const viewingProperty: ViewingProperty = {
     { label: "家具・家電", value: "ベッド / デスク / 椅子 / TV / クローゼット×2" },
     { label: "設備", value: "光熱費・Wi-Fi込み／洗濯乾燥無料／エアコン・暖房" },
     { label: "共用部", value: "キッチン・バス・トイレ（3名でシェア）" },
-    { label: "募集対象", value: "学生・ワーホリ・社会人など歓迎（日本語が話せる方に人気）" },
+    { label: "募集対象", value: "おひとり様・カップルOK／学生・ワーホリ・社会人など歓迎（日本語が話せる方に人気）" },
     { label: "現在の入居者", value: "日本人の社会人" },
     { label: "貸出品", value: "キャンプ・釣具・スノボ・冬用ジャケット・自転車・BBQコンロ等" },
     { label: "周辺", value: "スーパーまで自転車で約10分" },
@@ -110,6 +114,14 @@ export const viewingProperty: ViewingProperty = {
     {
       q: "到着前に契約できますか？",
       a: "可能です。日本にいる間にビデオ内見 → 仮押さえ → 到着日入居、という流れに対応しています。",
+    },
+    {
+      q: "7月15日など、7月1日以外からの入居はできますか？",
+      a: "入居日はご相談いただけますが、できるだけ2026年7月1日から入居できる方を優先してご案内しています。7月中旬以降のご入居をご希望の場合も、まずはお気軽にご相談ください。",
+    },
+    {
+      q: "カップル・二人での入居は可能ですか？",
+      a: "はい、可能です。おひとり様はもちろん、カップルでのご入居も歓迎しています。詳しい条件は内見時・お問い合わせ時にご案内します。",
     },
     {
       q: "内見の住所はいつ・どうやってわかりますか？",
