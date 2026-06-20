@@ -40,7 +40,7 @@ export const viewingProperty: ViewingProperty = {
   name: "Yonge & Finch｜家具付きの半地下個室",
   tagline:
     "North York の閑静な住宅街。日本人が暮らす一軒家の、家具付き個室。スーツケースひとつで、トロント生活を始められます。",
-  address: "North York, Toronto（Yonge & Finch エリア / 一軒家の半地下フロア）",
+  address: "North York, Toronto（Finch駅からバス8〜10分 / 一軒家の半地下フロア）",
   rent: "$695 / 月",
   deposit: "デポジット: 1ヶ月分（最終月の家賃に充当）",
   available: "入居可能: 2026年7月1日〜",
@@ -71,7 +71,8 @@ export const viewingProperty: ViewingProperty = {
     { label: "家賃", value: "$695 / 月（光熱費・Wi-Fi込み）" },
     { label: "デポジット", value: "1ヶ月分（最終月の家賃に充当）" },
     { label: "入居可能日", value: "2026年7月1日〜" },
-    { label: "契約期間", value: "応相談（短期・長期）" },
+    { label: "契約期間", value: "応相談（短期・長期／冬期の退去はできるだけ避けてご相談）" },
+    { label: "アクセス", value: "Finch駅（地下鉄Line 1）からバスで8〜10分" },
     { label: "家具・家電", value: "ベッド / デスク / 椅子 / TV / クローゼット×2" },
     { label: "設備", value: "光熱費・Wi-Fi込み／洗濯乾燥無料／エアコン・暖房" },
     { label: "共用部", value: "キッチン・バス・トイレ（3名でシェア）" },
@@ -140,7 +141,7 @@ export const viewingProperty: ViewingProperty = {
     },
     {
       q: "短期だけの滞在でも大丈夫ですか？",
-      a: "短期・長期どちらもご相談ください。ワーホリ・留学・単身赴任など、滞在予定に合わせて調整します。",
+      a: "短期・長期どちらもご相談ください。ワーホリ・留学・単身赴任など、滞在予定に合わせて調整します。なお、冬の期間（厳冬期）の退去はできるだけ避けていただけると助かります。退去のタイミングはお気軽にご相談ください。",
     },
     {
       q: "保証人やクレジットヒストリーは必要ですか？",
