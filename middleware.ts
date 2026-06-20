@@ -16,6 +16,7 @@ const RENTAL_ONLY = true;
 function isAllowed(pathname: string): boolean {
   if (pathname === "/") return true; // ルートは下で /viewing にrewrite
   if (pathname === "/viewing" || pathname.startsWith("/viewing/")) return true;
+  if (pathname === "/privacy") return true; // プライバシーポリシー（AdSense審査用）
   return false;
 }
 
