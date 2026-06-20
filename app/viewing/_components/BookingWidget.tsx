@@ -104,7 +104,7 @@ export default function BookingWidget() {
   // --- 完了 ---------------------------------------------------------------
   if (done) {
     return (
-      <div className="rounded-3xl border border-emerald-200 bg-emerald-50/70 p-8 text-center">
+      <div className="rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6 text-center sm:p-8">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-500 text-white shadow">
           <Check className="h-7 w-7" />
         </div>
@@ -123,7 +123,7 @@ export default function BookingWidget() {
   // --- 未ログイン ---------------------------------------------------------
   if (!isAuthenticated) {
     return (
-      <div className="rounded-3xl border border-sumi-100 bg-white p-8 shadow-glow-soft">
+      <div className="rounded-3xl border border-sumi-100 bg-white p-6 shadow-glow-soft sm:p-8">
         <div className="flex items-center gap-2 text-sm font-semibold text-sumi-700">
           <CalendarCheck className="h-5 w-5 text-sakura-500" />
           内見を予約する
@@ -162,7 +162,7 @@ export default function BookingWidget() {
 
   // --- ログイン済み：枠選択＋フォーム ------------------------------------
   return (
-    <div className="rounded-3xl border border-sumi-100 bg-white p-8 shadow-glow-soft">
+    <div className="rounded-3xl border border-sumi-100 bg-white p-6 shadow-glow-soft sm:p-8">
       <div className="flex items-center gap-2 text-sm font-semibold text-sumi-700">
         <CalendarCheck className="h-5 w-5 text-sakura-500" />
         内見を予約する

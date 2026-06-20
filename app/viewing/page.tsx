@@ -22,20 +22,20 @@ export default function ViewingPage() {
             <span className="h-1.5 w-1.5 rounded-full bg-sakura-400 animate-pulse" />
             Trusted Rentals · 信頼できる賃貸
           </div>
-          <h1 className="mt-6 font-display font-black leading-[0.98] tracking-tight text-balance text-4xl md:text-6xl">
+          <h1 className="mt-6 font-display font-black leading-[1.05] md:leading-[0.98] tracking-tight text-balance break-words text-3xl sm:text-4xl md:text-6xl">
             {p.name}
           </h1>
           <p className="mt-5 max-w-2xl text-base md:text-lg text-washi-100/80">
             {p.tagline}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-washi-100/80">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-gold-300" />
-              {p.address}
+          <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2 text-sm text-washi-100/80">
+            <span className="inline-flex items-start gap-1.5">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold-300" />
+              <span className="min-w-0">{p.address}</span>
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Sparkles className="h-4 w-4 text-gold-300" />
-              {p.available}
+            <span className="inline-flex items-start gap-1.5">
+              <Sparkles className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold-300" />
+              <span className="min-w-0">{p.available}</span>
             </span>
           </div>
         </div>
@@ -144,10 +144,12 @@ export default function ViewingPage() {
                 {p.details.map((d) => (
                   <div
                     key={d.label}
-                    className="flex items-center justify-between border-b border-sumi-100 py-2"
+                    className="flex flex-col gap-0.5 border-b border-sumi-100 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
                   >
-                    <dt className="text-sm text-sumi-500">{d.label}</dt>
-                    <dd className="text-sm font-medium text-sumi-800 text-right">
+                    <dt className="flex-shrink-0 text-xs text-sumi-500 sm:text-sm">
+                      {d.label}
+                    </dt>
+                    <dd className="min-w-0 break-words text-sm font-medium text-sumi-800 sm:text-right">
                       {d.value}
                     </dd>
                   </div>
