@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Send } from "lucide-react";
@@ -15,15 +15,28 @@ export default function NewPostPage() {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [nickname, setNickname] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // 前回使ったニックネームを復元
+  useEffect(() => {
+    const saved = localStorage.getItem("board_nickname");
+    if (saved) setNickname(saved);
+  }, []);
 
   const handleSubmit = async () => {
     if (!title.trim() || !body.trim()) return;
     try {
       setSubmitting(true);
       setError(null);
-      const created = await createPost({ title: title.trim(), body: body.trim() });
+      const nick = nickname.trim();
+      if (nick) localStorage.setItem("board_nickname", nick);
+      const created = await createPost({
+        title: title.trim(),
+        body: body.trim(),
+        display_name: nick || undefined,
+      });
       router.push(`/board/${created.id}`);
     } catch {
       setError("投稿に失敗しました。時間をおいて再度お試しください。");
@@ -49,6 +62,22 @@ export default function NewPostPage() {
         </div>
       ) : (
         <div className="mt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-sumi-700 mb-1">
+              表示名（ニックネーム）
+            </label>
+            <input
+              type="text"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="匿名（空欄なら「匿名」で投稿されます）"
+              className="w-full rounded-xl border border-sumi-200 px-4 py-2.5 text-sm focus:border-sakura-400 focus:outline-none focus:ring-2 focus:ring-sakura-100"
+            />
+            <p className="mt-1 text-xs text-sumi-400">
+              本名は表示されません。好きなニックネームでどうぞ。
+            </p>
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-sumi-700 mb-1">
               タイトル <span className="text-sakura-500">*</span>

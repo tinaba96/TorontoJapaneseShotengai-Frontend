@@ -48,4 +48,5 @@ export interface BoardPostDetail {
 export interface CreatePostRequest {
   title: string;
   body: string;
+  display_name?: string;
 }

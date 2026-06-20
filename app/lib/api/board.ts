@@ -36,11 +36,12 @@ export async function deletePost(id: string): Promise<void> {
 /** コメント作成（ログイン必須） */
 export async function addComment(
   postId: string,
-  body: string
+  body: string,
+  displayName?: string
 ): Promise<CommentOut> {
   return post<CommentOut>(
     `/board/posts/${postId}/comments`,
-    { body },
+    { body, display_name: displayName },
     { requiresAuth: true }
   );
 }

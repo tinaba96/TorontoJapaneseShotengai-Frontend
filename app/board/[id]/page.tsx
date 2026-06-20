@@ -41,7 +41,13 @@ export default function BoardPostPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [comment, setComment] = useState("");
+  const [commentNick, setCommentNick] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("board_nickname");
+    if (saved) setCommentNick(saved);
+  }, []);
 
   const load = async () => {
     try {
@@ -101,7 +107,9 @@ export default function BoardPostPage() {
     if (!post || !comment.trim()) return;
     try {
       setSubmitting(true);
-      const created = await addComment(post.id, comment.trim());
+      const nick = commentNick.trim();
+      if (nick) localStorage.setItem("board_nickname", nick);
+      const created = await addComment(post.id, comment.trim(), nick || undefined);
       setPost({ ...post, comments: [...post.comments, created] });
       setComment("");
     } catch {
@@ -248,6 +256,13 @@ export default function BoardPostPage() {
         <div className="mt-6">
           {isAuthenticated ? (
             <div className="space-y-3">
+              <input
+                type="text"
+                value={commentNick}
+                onChange={(e) => setCommentNick(e.target.value)}
+                placeholder="表示名（空欄なら「匿名」）"
+                className="w-full rounded-xl border border-sumi-200 px-4 py-2.5 text-sm focus:border-sakura-400 focus:outline-none focus:ring-2 focus:ring-sakura-100"
+              />
               <MarkdownEditor
                 value={comment}
                 onChange={setComment}
