@@ -35,7 +35,7 @@ const notoSerifJP = Noto_Serif_JP({
 const SITE_NAME = "Toronto Japanese Shotengai Rentals";
 const SITE_DESC =
   "日本からトロントに来る方へ。安心して住める家具付き賃貸を、到着前からオンライン内見・予約できます。";
-const OG_IMAGE = "/images/rental/room-1.jpg"; // SNSプレビュー画像（差し替え可）
+const OG_IMAGE = "/images/rental/garden-1.jpg"; // SNSプレビュー画像（横長・差し替え可）
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.toronto-shotengai.com"),
