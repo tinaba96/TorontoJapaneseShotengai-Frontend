@@ -7,7 +7,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "@/components/ui/toaster";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA4 測定ID（公開情報）。env で上書き可、未設定時は直値をフォールバック。
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-CYTBMMRJHW";
 // AdSense パブリッシャーID（公開情報）。env で上書き可、未設定時は直値をフォールバック。
 const ADSENSE_CLIENT =
   process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-8140225190723823";
