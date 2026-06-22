@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { sendGAEvent } from "@next/third-parties/google";
-import { MapPin, Sparkles, Check, ChevronDown } from "lucide-react";
+import { MapPin, Sparkles, Check, ChevronDown, Mail } from "lucide-react";
 import { viewingProperty as p } from "@/lib/viewing-property";
 import BookingWidget from "./_components/BookingWidget";
 import ContactDialog from "./_components/ContactDialog";
@@ -235,6 +235,17 @@ export default function ViewingPage() {
               <BookingWidget />
               <ContactDialog />
               <LineButton />
+              <a
+                href="mailto:torontoshotengai@gmail.com"
+                onClick={() => sendGAEvent("event", "email_click")}
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-sumi-200 bg-white px-5 py-3 text-sm font-semibold text-sumi-700 transition-all hover:border-sakura-300 hover:text-sakura-600"
+              >
+                <Mail className="h-4 w-4" />
+                直接お問い合わせ（メール）
+              </a>
+              <p className="mt-2 text-center text-xs text-sumi-400">
+                torontoshotengai@gmail.com
+              </p>
             </div>
           </div>
         </div>
