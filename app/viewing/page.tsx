@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { sendGAEvent } from "@next/third-parties/google";
 import { MapPin, Sparkles, Check, ChevronDown, Mail } from "lucide-react";
-import { viewingProperty as p } from "@/lib/viewing-property";
+import { viewingProperty as p, VIEWING_FULL } from "@/lib/viewing-property";
 import BookingWidget from "./_components/BookingWidget";
 import ContactDialog from "./_components/ContactDialog";
 import LineButton from "./_components/LineButton";
@@ -41,11 +41,18 @@ export default function ViewingPage() {
               光熱費・Wi-Fi込み
             </span>
           </div>
-          {p.notice && (
-            <div className="mt-6 inline-flex items-start gap-2 rounded-2xl border border-sakura-400/40 bg-sakura-500/15 px-4 py-2.5 text-sm text-washi-50">
-              <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-sakura-400 animate-pulse" />
-              <span className="min-w-0 font-medium">{p.notice}</span>
+          {VIEWING_FULL ? (
+            <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-rose-400/50 bg-rose-500/20 px-4 py-2.5 text-sm font-semibold text-washi-50">
+              <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rose-400" />
+              現在この物件は満室です。内見予約は一時停止中です（次の空き状況はお問い合わせください）。
             </div>
+          ) : (
+            p.notice && (
+              <div className="mt-6 inline-flex items-start gap-2 rounded-2xl border border-sakura-400/40 bg-sakura-500/15 px-4 py-2.5 text-sm text-washi-50">
+                <span className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-sakura-400 animate-pulse" />
+                <span className="min-w-0 font-medium">{p.notice}</span>
+              </div>
+            )
           )}
           <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2 text-sm text-washi-100/80">
             <span className="inline-flex items-start gap-1.5">

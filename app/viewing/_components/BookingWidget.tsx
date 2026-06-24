@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { sendGAEvent } from "@next/third-parties/google";
 import { CalendarCheck, Check, Loader2, LogOut, ShieldCheck } from "lucide-react";
+import { VIEWING_FULL } from "@/lib/viewing-property";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { getSlots, createBooking } from "@/app/lib/api/viewing";
 import type { AvailabilitySlot } from "@/app/types/viewing";
@@ -105,6 +106,25 @@ export default function BookingWidget() {
       setSubmitting(false);
     }
   };
+
+  // --- 満室（フィーチャーフラグ） ----------------------------------------
+  if (VIEWING_FULL) {
+    return (
+      <div className="rounded-3xl border border-sumi-100 bg-white p-6 text-center shadow-glow-soft sm:p-8">
+        <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-sumi-100 text-sumi-500">
+          <CalendarCheck className="h-7 w-7" />
+        </div>
+        <h3 className="mt-5 font-display text-2xl font-bold text-sumi-800">
+          現在満室です
+        </h3>
+        <p className="mt-2 text-sm text-sumi-600">
+          ただいま内見のご予約受付を一時停止しています。
+          <br />
+          次の空き状況が気になる方は、下のお問い合わせからお気軽にご連絡ください。
+        </p>
+      </div>
+    );
+  }
 
   // --- 完了 ---------------------------------------------------------------
   if (done) {

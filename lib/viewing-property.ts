@@ -37,6 +37,19 @@ export interface ViewingProperty {
   faq: FaqItem[];
 }
 
+/**
+ * 満室フラグ（フィーチャーフラグ）。
+ * - 本番では環境変数 NEXT_PUBLIC_VIEWING_FULL で出し入れ（"true"=満室表示）。
+ *   例: Vercel の環境変数に NEXT_PUBLIC_VIEWING_FULL=true を設定 → 再デプロイ。
+ * - 環境変数が無いときは下の FULL_DEFAULT を使用（コードでの切替も可）。
+ * ON のとき: 「満室」バナー表示＋内見予約の受付を停止（問い合わせ導線は維持）。
+ */
+const FULL_DEFAULT = false;
+export const VIEWING_FULL: boolean =
+  process.env.NEXT_PUBLIC_VIEWING_FULL != null
+    ? process.env.NEXT_PUBLIC_VIEWING_FULL.toLowerCase() === "true"
+    : FULL_DEFAULT;
+
 export const viewingProperty: ViewingProperty = {
   name: "Yonge & Finch｜家具付きの半地下個室",
   tagline:
