@@ -10,6 +10,10 @@ import ContactDialog from "./_components/ContactDialog";
 import LineButton from "./_components/LineButton";
 import PromoBanner from "@/components/PromoBanner";
 
+// 満室のときだけ、ぼかし版メディア(/rental/blur/)を表示して場所特定を防ぐ。
+const mediaSrc = (src: string): string =>
+  VIEWING_FULL ? src.replace("/rental/", "/rental/blur/") : src;
+
 export default function ViewingPage() {
   const [activePhoto, setActivePhoto] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -76,7 +80,7 @@ export default function ViewingPage() {
             <div className="overflow-hidden rounded-3xl border border-sumi-100 bg-white shadow-glow-soft">
               <div className="relative aspect-[16/10] bg-sumi-50">
                 <Image
-                  src={p.photos[activePhoto]?.src ?? "/images/default.png"}
+                  src={mediaSrc(p.photos[activePhoto]?.src ?? "/images/default.png")}
                   alt={p.photos[activePhoto]?.alt ?? p.name}
                   fill
                   className="object-cover"
@@ -97,7 +101,7 @@ export default function ViewingPage() {
                     }`}
                   >
                     <Image
-                      src={photo.src}
+                      src={mediaSrc(photo.src)}
                       alt={photo.alt}
                       fill
                       className="object-cover"
@@ -132,7 +136,7 @@ export default function ViewingPage() {
                           }
                         }}
                       >
-                        <source src={v.src} type="video/mp4" />
+                        <source src={mediaSrc(v.src)} type="video/mp4" />
                         お使いのブラウザは動画再生に対応していません。
                       </video>
                       <figcaption className="px-4 py-3 text-sm text-washi-100/80">
