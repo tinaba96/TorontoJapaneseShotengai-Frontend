@@ -54,6 +54,7 @@ export const articleServices: Record<string, string[]> = {
   "first-week-toronto": ["airalo"],
   "sim-esim": ["airalo"],
   "healthcare-insurance": ["insurance"],
+  "working-holiday-insurance": ["insurance"],
 };
 
 /** 記事で表示すべき「url設定済み」サービスを返す（全記事共通＋記事別、重複除去） */
