@@ -8,6 +8,7 @@ import remarkGfm from "remark-gfm";
 import { getGuidePost, guidePosts } from "@/lib/guide-posts";
 import ArticleReaction from "@/components/ArticleReaction";
 import AdUnit from "@/components/AdUnit";
+import RecommendedServices from "@/components/RecommendedServices";
 
 export function generateStaticParams() {
   return guidePosts.map((p) => ({ slug: p.slug }));
@@ -149,6 +150,8 @@ export default async function GuideArticlePage({
             {post.content}
           </Markdown>
         </div>
+
+        <RecommendedServices slug={post.slug} className="mt-10" />
 
         <AdUnit className="mt-10" />
 
