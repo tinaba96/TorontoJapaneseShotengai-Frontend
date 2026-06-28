@@ -29,10 +29,10 @@ export default function MiniPromo({ className = "" }: { className?: string }) {
       </span>
       <span className="min-w-0 flex-1">
         <span className="block font-semibold text-sumi-800">
-          割り勘・送金をかんたんに — SplitWhom
+          みんなで立て替え、もう精算でモメない — SplitWhom
         </span>
         <span className="block text-xs text-sumi-400">
-          友達やルームメイトとの精算をスマートに（PR）
+          旅行・ルームシェア・飲み会など、誰が何を払ったかを記録して自動でワリカン計算（PR）
         </span>
       </span>
       <ArrowRight className="h-4 w-4 flex-shrink-0 text-sumi-300 transition-transform group-hover:translate-x-0.5 group-hover:text-sakura-500" />
