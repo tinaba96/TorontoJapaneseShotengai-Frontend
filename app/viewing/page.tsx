@@ -9,6 +9,7 @@ import BookingWidget from "./_components/BookingWidget";
 import ContactDialog from "./_components/ContactDialog";
 import LineButton from "./_components/LineButton";
 import PromoBanner from "@/components/PromoBanner";
+import MiniPromo from "@/components/MiniPromo";
 
 // 満室のときだけ、ぼかし版メディア(/rental/blur/)を表示して場所特定を防ぐ。
 const mediaSrc = (src: string): string =>
@@ -73,6 +74,8 @@ export default function ViewingPage() {
       </section>
 
       <div className="container mx-auto px-4 lg:px-8 py-12 lg:py-16">
+        <MiniPromo className="mb-8" />
+
         <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-10 lg:gap-14">
           {/* LEFT: content */}
           <div className="min-w-0">
