@@ -43,19 +43,25 @@ export const affiliateServices: Record<string, AffiliateService> = {
 };
 
 /**
- * 記事(slug)ごとに出すサービス。記事内容に合うものだけ。
+ * 全記事に共通で表示するサービス（汎用的に関連するもの）。
+ */
+export const globalServices: string[] = ["wise"];
+
+/**
+ * 記事(slug)ごとに追加で出すサービス。記事内容に合うものだけ。
  */
 export const articleServices: Record<string, string[]> = {
-  "first-week-toronto": ["wise", "airalo"],
-  "open-bank-account": ["wise"],
+  "first-week-toronto": ["airalo"],
   "sim-esim": ["airalo"],
   "healthcare-insurance": ["insurance"],
 };
 
-/** 記事で表示すべき「url設定済み」サービスを返す */
+/** 記事で表示すべき「url設定済み」サービスを返す（全記事共通＋記事別、重複除去） */
 export function getServicesForArticle(slug: string): AffiliateService[] {
-  const keys = articleServices[slug] || [];
+  const keys = [...globalServices, ...(articleServices[slug] || [])];
+  const seen = new Set<string>();
   return keys
+    .filter((k) => (seen.has(k) ? false : (seen.add(k), true)))
     .map((k) => affiliateServices[k])
     .filter((s): s is AffiliateService => !!s && s.url.trim() !== "");
 }
