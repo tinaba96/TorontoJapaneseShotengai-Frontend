@@ -1,0 +1,14 @@
+# robots.txt — Toronto Japanese Shotengai Rentals
+
+User-agent: *
+Allow: /
+
+# Google AdSense クローラー（広告配信のため全許可）
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google 画像/AdsBot
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://www.toronto-shotengai.com/sitemap.xml
