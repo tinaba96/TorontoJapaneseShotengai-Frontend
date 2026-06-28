@@ -9,6 +9,7 @@ import { getGuidePost, guidePosts } from "@/lib/guide-posts";
 import ArticleReaction from "@/components/ArticleReaction";
 import AdUnit from "@/components/AdUnit";
 import RecommendedServices from "@/components/RecommendedServices";
+import ArrivalEssentials from "@/components/ArrivalEssentials";
 import MiniPromo from "@/components/MiniPromo";
 
 export function generateStaticParams() {
@@ -151,6 +152,8 @@ export default async function GuideArticlePage({
             {post.content}
           </Markdown>
         </div>
+
+        <ArrivalEssentials slug={post.slug} className="mt-10" />
 
         <RecommendedServices slug={post.slug} className="mt-10" />
 
