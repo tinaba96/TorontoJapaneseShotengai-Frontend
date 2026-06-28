@@ -18,6 +18,7 @@ import { ApiError } from "@/app/lib/api/client";
 import MarkdownView from "../_components/MarkdownView";
 import MarkdownEditor from "../_components/MarkdownEditor";
 import ReactionBar from "../_components/ReactionBar";
+import MiniPromo from "@/components/MiniPromo";
 import LoginInline from "../_components/LoginInline";
 
 function formatDate(iso: string): string {
@@ -208,6 +209,8 @@ export default function BoardPostPage() {
           )}
         </div>
       </article>
+
+      <MiniPromo className="mt-6" />
 
       {/* Comments */}
       <section className="mt-8">

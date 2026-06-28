@@ -14,6 +14,7 @@ import type { BoardPostSummary } from "@/app/types/board";
 import { ApiError } from "@/app/lib/api/client";
 import BoardNotice from "./_components/BoardNotice";
 import AdUnit from "@/components/AdUnit";
+import MiniPromo from "@/components/MiniPromo";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString("ja-JP", {
@@ -121,7 +122,9 @@ export default function BoardListPage() {
         ))}
       </div>
 
-      <AdUnit className="mt-8" />
+      <MiniPromo className="mt-6" />
+
+      <AdUnit className="mt-6" />
     </div>
   );
 }
