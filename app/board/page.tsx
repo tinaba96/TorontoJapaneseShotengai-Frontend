@@ -13,6 +13,7 @@ import { listPosts } from "@/app/lib/api/board";
 import type { BoardPostSummary } from "@/app/types/board";
 import { ApiError } from "@/app/lib/api/client";
 import BoardNotice from "./_components/BoardNotice";
+import AdUnit from "@/components/AdUnit";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString("ja-JP", {
@@ -119,6 +120,8 @@ export default function BoardListPage() {
           </Link>
         ))}
       </div>
+
+      <AdUnit className="mt-8" />
     </div>
   );
 }
