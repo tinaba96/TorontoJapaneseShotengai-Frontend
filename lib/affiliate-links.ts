@@ -34,10 +34,10 @@ export const affiliateServices: Record<string, AffiliateService> = {
   },
   insurance: {
     key: "insurance",
-    name: "海外保険（SafetyWing 等）",
-    tagline: "ワーホリ(IEC)は保険が必須。到着前から入れる旅行/医療保険。",
+    name: "SafetyWing（海外保険）",
+    tagline: "ワーホリ(IEC)は保険が必須。到着前から入れる旅行/医療保険。月額制で続けやすい。",
     note: "医療・保険",
-    url: "", // ← 保険アフィリリンク取得後に貼る
+    url: "https://safetywing.com/?referenceID=26434559&utm_source=26434559&utm_medium=Ambassador",
     cta: "保険を見る",
   },
 };
