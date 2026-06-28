@@ -72,8 +72,17 @@ export default function ArrivalEssentials({
         </div>
       </div>
 
+      {/* イントロ：現地調達(=Amazon.ca)を推奨 */}
+      <p className="px-5 pt-4 text-xs leading-relaxed text-sumi-500">
+        <span className="font-semibold text-sumi-700">
+          北米仕様（プラグ・電圧）やかさばる物は、日本から持参するより現地で買う方が安くて確実
+        </span>
+        。下記はすべて <span className="font-semibold text-gold-600">Amazon.ca</span>{" "}
+        で手に入り、早ければ翌日に届きます。スーツケースの容量も節約できます。
+      </p>
+
       {/* グリッド */}
-      <div className="grid grid-cols-1 gap-3 p-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 px-5 pb-5 pt-3 sm:grid-cols-2">
         {items.map((item) => {
           const Icon = CATEGORY_ICON[item.category] ?? ShoppingBag;
           const tone = CATEGORY_TONE[item.category] ?? CATEGORY_TONE["生活"];
