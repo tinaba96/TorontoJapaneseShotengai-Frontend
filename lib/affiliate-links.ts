@@ -20,7 +20,8 @@ export const affiliateServices: Record<string, AffiliateService> = {
     name: "Wise（ワイズ）",
     tagline: "日本⇄カナダの送金を、銀行より安く・速く。多通貨口座も無料。",
     note: "海外送金・両替",
-    url: "", // ← ここに Wise の紹介リンクを貼る
+    // 個人招待リンク（取り急ぎ）。公開サイト向けは将来パートナー/アフィリリンクに差し替え推奨。
+    url: "https://wise.com/invite/dic/takahiroi45",
     cta: "Wiseを見る",
   },
   airalo: {
