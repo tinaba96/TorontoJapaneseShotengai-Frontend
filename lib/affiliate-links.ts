@@ -45,7 +45,7 @@ export const affiliateServices: Record<string, AffiliateService> = {
 /**
  * 全記事に共通で表示するサービス（汎用的に関連するもの）。
  */
-export const globalServices: string[] = ["wise"];
+export const globalServices: string[] = ["wise", "insurance"];
 
 /**
  * 記事(slug)ごとに追加で出すサービス。記事内容に合うものだけ。
