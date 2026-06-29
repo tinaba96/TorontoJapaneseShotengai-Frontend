@@ -1,17 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowRight, Sparkles, X } from "lucide-react";
 
 /**
  * ページ表示のたびに毎回表示するウェルカムモーダル（SplitWhom）。
+ * SplitWhom は同一運営者による自社サービスのため、自前プロモーションとして表示。
  * 広告バナー然とした見た目を避け、「トロント新生活のヒント」として
  * 役立つ案内のトーンで自然に差し込む。
- * ステマ規制対応として極小の「PR」表記のみ残す。
  */
 
 const URL =
   "https://splitwhom.com/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=welcome_modal";
+
+// 表示しないページ（ブログ・掲示板）。物件ページ等は遷移/リロードのたびに毎回表示する。
+const BLOCKED_PREFIXES = ["/blogs", "/board"];
 
 function track(event: string) {
   if (typeof window === "undefined") return;
@@ -20,17 +24,30 @@ function track(event: string) {
 }
 
 export default function WelcomeModal() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  const blocked = pathname
+    ? BLOCKED_PREFIXES.some(
+        (p) => pathname === p || pathname.startsWith(p + "/")
+      )
+    : false;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // 表示のたびに毎回出す（少し遅らせて自然に立ち上げる）
+    // ブログ・掲示板では出さない
+    if (blocked) {
+      setOpen(false);
+      return;
+    }
+    // それ以外（物件ページ等）はパスが変わる/リロードするたびに毎回出す
+    setOpen(false);
     const t = window.setTimeout(() => {
       setOpen(true);
       track("welcome_modal_view");
     }, 1200);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [pathname, blocked]);
 
   const dismiss = () => {
     setOpen(false);
@@ -89,18 +106,16 @@ export default function WelcomeModal() {
             id="welcome-title"
             className="mt-4 font-serif text-2xl font-bold leading-snug text-sumi-900"
           >
-            ルームシェアの
-            <br className="sm:hidden" />
-            「立て替え精算」、
+            みんなで立て替え、
             <br />
-            もうモヤモヤしない。
+            もう精算でモメない。
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-sumi-500">
-            家賃・光熱費・日用品にBBQまで——海外生活は誰かが立て替える場面の連続。
+            BBQ・パーティ・旅行——みんなで買い込んで立て替えがバラバラでも、
             <span className="font-semibold text-sumi-700">
-              誰が何を払ったかを記録して、自動でかんたん精算。
+              誰が何を払ったかを記録すれば自動で精算。
             </span>
-            渡航前後の出費が多い時期こそ、最初に入れておくと安心です。
+            「結局、誰が誰にいくら払えばいい？」を、いちばんシンプルで支払い回数が最小のかたちで提案してくれるサイトです。
           </p>
         </div>
 
@@ -122,11 +137,6 @@ export default function WelcomeModal() {
           >
             あとで
           </button>
-
-          {/* ステマ規制対応の極小表記 */}
-          <p className="mt-1 text-center text-[10px] text-sumi-300">
-            SplitWhom 提供（PR）
-          </p>
         </div>
       </div>
     </div>
