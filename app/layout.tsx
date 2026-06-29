@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "@/components/ui/toaster";
+import WelcomeModal from "@/components/WelcomeModal";
 
 // GA4 測定ID（公開情報）。env で上書き可、未設定時は直値をフォールバック。
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-CYTBMMRJHW";
@@ -77,6 +78,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             {children}
+            <WelcomeModal />
             <Toaster />
           </CartProvider>
         </AuthProvider>
