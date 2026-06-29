@@ -21,7 +21,7 @@ type Banner = {
 const BANNERS: Banner[] = [
   {
     id: "splitwhom",
-    url: "https://splitwhom.com/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=og_banner",
+    url: "https://splitwhom.com/ja/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=og_banner",
     image: "/images/splitwhom-ja.png",
     alt: "SplitWhom — 割り勘・送金をかんたんに",
     width: 1200,
@@ -29,7 +29,7 @@ const BANNERS: Banner[] = [
   },
   {
     id: "shenzhen_buddies",
-    url: "https://www.shenzhen-buddies.com/welcome?utm_source=toronto-shotengai.com&utm_medium=banner&utm_campaign=tjs_rental",
+    url: "https://www.shenzhen-buddies.com/welcome?utm_source=toronto-shotengai&utm_medium=banner&utm_campaign=tjs_rental",
     image: "/images/shenzhen-buddies.png",
     alt: "ぜひ深圳市に遊びに来てください — Buddyが安く・楽しく・安全にご案内します",
     width: 1536,

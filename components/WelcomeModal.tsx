@@ -12,7 +12,7 @@ import { ArrowRight, Check, Receipt, Sparkles, Users, X } from "lucide-react";
  */
 
 const URL =
-  "https://splitwhom.com/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=welcome_modal";
+  "https://splitwhom.com/ja/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=welcome_modal";
 
 // 表示しないページ（ブログ・掲示板）。物件ページ等は遷移/リロードのたびに毎回表示する。
 const BLOCKED_PREFIXES = ["/blogs", "/board"];

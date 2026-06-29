@@ -7,7 +7,7 @@ import { ArrowRight, Wallet } from "lucide-react";
  * ブログ・掲示板など各所に軽く差し込む用。画像広告(AdSense)とは見た目を変えて干渉を避ける。
  */
 const URL =
-  "https://splitwhom.com/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=mini_banner";
+  "https://splitwhom.com/ja/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=mini_banner";
 
 function trackClick() {
   if (typeof window === "undefined") return;
