@@ -111,7 +111,7 @@ export default function WelcomeModal() {
           <X className="h-4 w-4" />
         </button>
 
-        <div className="relative max-h-[90vh] overflow-y-auto px-5 pb-7 pt-8 sm:px-7">
+        <div className="relative max-h-[88dvh] overflow-y-auto px-5 pb-6 pt-7 sm:px-7">
           {/* キッカー */}
           <span className="inline-flex items-center gap-1.5 rounded-full border border-gold-300/30 bg-gold-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-200">
             <Sparkles className="h-3.5 w-3.5" />
@@ -121,21 +121,21 @@ export default function WelcomeModal() {
           {/* 見出し */}
           <h2
             id="welcome-title"
-            className="mt-5 font-jp text-2xl font-bold leading-tight text-white sm:text-[1.7rem]"
+            className="mt-4 font-jp text-[1.4rem] font-bold leading-tight text-white sm:text-[1.7rem]"
           >
             「誰が誰に払う？」を
             <br />
             <span className="text-gradient-gold">一瞬で、最小回数に。</span>
           </h2>
 
-          <p className="mt-4 text-sm leading-relaxed text-white/65">
+          <p className="mt-3.5 text-sm leading-relaxed text-white/65">
             BBQ・パーティ・旅行——みんなで買い込んで立て替えがバラバラでも、
             <span className="font-medium text-white/90">記録するだけ。</span>
             あとは自動で精算し、いちばん支払い回数が少ない送金方法まで教えてくれます。
           </p>
 
           {/* 強みのビジュアル帯 */}
-          <div className="mt-6 flex flex-wrap items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-3.5 sm:gap-3 sm:px-4">
+          <div className="mt-5 flex flex-wrap items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-3 sm:gap-3 sm:px-4">
             <span className="flex -space-x-2">
               {["A", "B", "C"].map((n, i) => (
                 <span
@@ -176,7 +176,7 @@ export default function WelcomeModal() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleCta}
-            className="group relative mt-7 flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-gold px-5 py-4 text-sm font-bold text-sumi-900 shadow-glow-gold transition-transform hover:-translate-y-0.5"
+            className="group relative mt-6 flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-gold px-5 py-3.5 text-sm font-bold text-sumi-900 shadow-glow-gold transition-transform hover:-translate-y-0.5"
           >
             {/* シマー */}
             <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
