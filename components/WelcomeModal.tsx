@@ -111,7 +111,7 @@ export default function WelcomeModal() {
           <X className="h-4 w-4" />
         </button>
 
-        <div className="relative px-7 pb-7 pt-8">
+        <div className="relative max-h-[90vh] overflow-y-auto px-5 pb-7 pt-8 sm:px-7">
           {/* キッカー */}
           <span className="inline-flex items-center gap-1.5 rounded-full border border-gold-300/30 bg-gold-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-200">
             <Sparkles className="h-3.5 w-3.5" />
@@ -121,7 +121,7 @@ export default function WelcomeModal() {
           {/* 見出し */}
           <h2
             id="welcome-title"
-            className="mt-5 font-jp text-[1.7rem] font-bold leading-tight text-white"
+            className="mt-5 font-jp text-2xl font-bold leading-tight text-white sm:text-[1.7rem]"
           >
             「誰が誰に払う？」を
             <br />
@@ -135,7 +135,7 @@ export default function WelcomeModal() {
           </p>
 
           {/* 強みのビジュアル帯 */}
-          <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+          <div className="mt-6 flex flex-wrap items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-3.5 sm:gap-3 sm:px-4">
             <span className="flex -space-x-2">
               {["A", "B", "C"].map((n, i) => (
                 <span
