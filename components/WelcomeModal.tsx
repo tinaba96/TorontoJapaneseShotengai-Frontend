@@ -15,7 +15,8 @@ const URL =
   "https://splitwhom.com/ja/?utm_source=toronto-shotengai&utm_medium=referral&utm_campaign=welcome_modal";
 
 // 表示しないページ（ブログ・掲示板）。物件ページ等は遷移/リロードのたびに毎回表示する。
-const BLOCKED_PREFIXES = ["/blogs", "/board"];
+// /guide はユーザー向けには「ブログ」セクション（記事は /guide/[slug]）。
+const BLOCKED_PREFIXES = ["/blogs", "/board", "/guide"];
 
 function track(event: string) {
   if (typeof window === "undefined") return;
