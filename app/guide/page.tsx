@@ -4,10 +4,27 @@ import Image from "next/image";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { getSortedGuidePosts } from "@/lib/guide-posts";
 
+const GUIDE_TITLE = "ブログ｜はじめてのトロント";
+const GUIDE_DESC =
+  "ワーホリ・留学・初めてトロントに来る方向けの実用ガイド。SIN・銀行口座・携帯・交通・家探し・仕事・医療・日本食材まで、現地生活の最初の一歩をまとめています。";
+
 export const metadata: Metadata = {
-  title: "ブログ｜はじめてのトロント | Toronto Japanese",
-  description:
-    "ワーホリ・留学・初めてトロントに来る方向けの実用ガイド。SIN・銀行口座・携帯・交通・家探し・仕事・医療・日本食材まで、現地生活の最初の一歩をまとめています。",
+  title: `${GUIDE_TITLE} | Toronto Japanese`,
+  description: GUIDE_DESC,
+  alternates: { canonical: "/guide" },
+  openGraph: {
+    title: GUIDE_TITLE,
+    description: GUIDE_DESC,
+    // og:url をトップ(ルート既定)から /guide に上書き。
+    // Xはog:urlをカードのキャッシュキーに使うため、これが無いとトップ扱いで古いカードを使い回す。
+    url: "/guide",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: GUIDE_TITLE,
+    description: GUIDE_DESC,
+  },
 };
 
 function formatDate(date: string): string {
