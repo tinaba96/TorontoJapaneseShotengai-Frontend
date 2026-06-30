@@ -24,9 +24,24 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getGuidePost(slug);
   if (!post) return { title: "記事が見つかりません | Toronto Japanese" };
+  // 記事ごとのOG画像は既存サムネを流用（未設定時は共通のデフォルト）
+  const ogImage = post.thumbnail ?? "/images/default.png";
   return {
     title: `${post.title} | Toronto Japanese`,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      url: `/guide/${slug}`,
+      images: [{ url: ogImage, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImage],
+    },
   };
 }
 
